@@ -1,7 +1,10 @@
-;; package --- summary
+;; init.el --- entry
 
 ;;; Commentary:
+
 ;; Entry of Emacs config.
+;; add load path for this way beacuse I don't want
+;; make it's too long pre line.
 
 ;;; Code:
 ;; (package-initialize)

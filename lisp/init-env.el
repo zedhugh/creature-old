@@ -1,6 +1,7 @@
-;;; package --- Summary
+;;; init-env.el --- environment
 
 ;;; Commentary:
+
 ;; get and set environment Emacs running with.
 
 ;;; Code:

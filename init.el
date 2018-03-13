@@ -22,6 +22,7 @@
 
 (require 'init-env)
 (require 'init-elpa)
+(require 'init-basic)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

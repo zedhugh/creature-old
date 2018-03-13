@@ -24,6 +24,7 @@
 (require 'init-elpa)
 (require 'init-basic)
 (require 'init-utils)
+(require 'init-defuns)
 (require 'init-evil)
 
 ;; load custom file

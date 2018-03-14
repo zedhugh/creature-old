@@ -1,0 +1,8 @@
+.cache/
+elpa/
+auto-save-list/
+history
+places
+recentf
+server/
+custom.el

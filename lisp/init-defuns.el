@@ -19,5 +19,10 @@ BIND is rest sets of KEY and DOC."
     (setq key (pop bind)
           doc (pop bind))))
 
+(defun kill-current-buffer ()
+  "Define this function for version before 26."
+  (interactive)
+  (kill-buffer (buffer-name)))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

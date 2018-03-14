@@ -20,6 +20,10 @@
 (evil-leader/set-leader "SPC")
 (setq evil-leader/in-all-states t)
 (setq evil-leader/non-normal-prefix "S-")
+(when sys/win32p
+  (global-set-key (kbd "M-SPC") nil)
+  (setq evil-leader/non-normal-prefix "M-"))
+
 (evil-leader/set-key
   "bb"  'switch-to-buffer
   "bd"  'kill-current-buffer

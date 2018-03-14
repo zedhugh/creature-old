@@ -28,6 +28,7 @@
 (require 'init-defuns)
 (require 'init-ivy)
 (require 'init-git)
+(require 'init-keybindings)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

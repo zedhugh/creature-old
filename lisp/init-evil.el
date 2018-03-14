@@ -20,6 +20,7 @@
 (evil-leader/set-leader "SPC")
 (setq evil-leader/in-all-states t)
 (setq evil-leader/non-normal-prefix "S-")
+(require 'init-env)
 (when sys/win32p
   (global-set-key (kbd "M-SPC") nil)
   (setq evil-leader/non-normal-prefix "M-"))
@@ -27,6 +28,7 @@
 (evil-leader/set-key
   "bb"  'switch-to-buffer
   "bd"  'kill-current-buffer
+  "be"  'eval-buffer
   "fj"  'dired-jump
   "ff"  'find-file
   "fr"  'recentf-open-files
@@ -67,7 +69,12 @@
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'messages-buffer-mode 'motion)
 (evil-set-initial-state 'youdao-dictionary-mode 'motion)
+(evil-set-initial-state 'flycheck-error-list-mode 'motion)
 (evil-change-to-initial-state "*Messages*")
+
+(define-advice about-emacs (:after nil)
+  (with-current-buffer "*About GNU Emacs*"
+    (evil-motion-state)))
 
 ;; mwim
 (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
@@ -75,8 +82,8 @@
 
 ;; evil-nerd-commenter
 (evil-leader/set-key
-	"cl" 'evilnc-comment-or-uncomment-lines
-	"cp" 'evilnc-comment-or-uncomment-paragraphs)
+  "cl" 'evilnc-comment-or-uncomment-lines
+  "cp" 'evilnc-comment-or-uncomment-paragraphs)
 
 ;; evil-surround
 (global-evil-surround-mode)

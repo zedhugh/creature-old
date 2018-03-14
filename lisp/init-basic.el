@@ -14,8 +14,8 @@
 (require 'init-env)
 (let ((offset (if sys/win32p 4 2)))
   (setq-default c-basic-offset offset)
-  (setq-default tab-width offset))
-(setq-default indent-tabs-mode nil)
+  (setq tab-width offset))
+(setq indent-tabs-mode nil)
 
 ;; dired mode
 (setq-default dired-dwim-target t)
@@ -52,12 +52,77 @@
 (setq enable-recursive-minibuffers t)
 (setq history-length 1000)
 (setq-default savehist-additional-variables
-              '(mark-ring
-                global-mark-ring
-                search-ring
-                regexp-search-ring
-                extended-command-history))
+	      '(mark-ring
+		global-mark-ring
+		search-ring
+		regexp-search-ring
+		extended-command-history))
 (setq-default savehist-autosave-interval 60)
+
+;; hightlight line
+(unless sys/graphicp
+  (global-hl-line-mode -1))
+
+;; disable menu bar, tool bar and scroll bar
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+
+;; maximized frame
+(setq initial-frame-alist '((fullscreen . maximized)))
+
+;; click(C-c RET) to browse URL
+(goto-address-mode)
+(goto-address-prog-mode)
+
+;; delete with key "C-w"
+(delete-selection-mode)
+
+;; automatically reload files which modified by external program
+(global-auto-revert-mode)
+
+(require 'paren)
+(show-paren-mode)
+(setq show-paren-when-point-in-periphery t)
+(setq show-paren-when-point-inside-paren t)
+(define-advice show-paren-function (:around (fn) fix-show-paren-function)
+  "Highlight enclosing parens."
+  (advice-remove 'show-paren-function 'ad-Advice-show-paren-function)
+  (cond ((looking-at-p "\\s(") (funcall fn))
+	(t (save-excursion
+	     (ignore-errors (backward-up-list))
+	     (funcall fn)))))
+
+;; line and colum
+(column-number-mode)
+(if (fboundp 'display-line-numbers-mode)
+    (display-line-numbers-mode)
+  (linum-mode))
+
+(require 'time)
+(if sys/graphicp
+    nil
+  (setq display-time-24hr-format t)
+  (setq display-time-day-and-date t)
+  (display-time-mode))
+
+;; disable startup screen
+(setq inhibit-splash-screen t)
+
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq visible-bell nil)
+(size-indication-mode)
+(blink-cursor-mode -1)
+;; Keep cursor at end of lines when prev
+;; position of cursor is at the end.
+;; Require line-move-visual is nil.
+(setq track-eol t)
+(setq line-move-visual nil)
+
+(set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+
+(setq x-gtk-use-system-tooltips nil)
 
 (put 'erase-buffer 'disabled nil)
 

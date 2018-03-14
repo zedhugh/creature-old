@@ -26,6 +26,7 @@
 (require 'init-utils)
 (require 'init-evil)
 (require 'init-defuns)
+(require 'init-ivy)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

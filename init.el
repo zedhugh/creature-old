@@ -24,8 +24,8 @@
 (require 'init-elpa)
 (require 'init-basic)
 (require 'init-utils)
-(require 'init-defuns)
 (require 'init-evil)
+(require 'init-defuns)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

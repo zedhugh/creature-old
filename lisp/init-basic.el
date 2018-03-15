@@ -14,8 +14,8 @@
 (require 'init-env)
 (let ((offset (if sys/win32p 4 2)))
   (setq-default c-basic-offset offset)
-  (setq tab-width offset))
-(setq indent-tabs-mode nil)
+  (setq-default tab-width offset))
+(setq-default indent-tabs-mode nil)
 
 ;; dired mode
 (setq-default dired-dwim-target t)

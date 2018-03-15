@@ -28,6 +28,7 @@
 (require 'init-defuns)
 (require 'init-ivy)
 (require 'init-git)
+(require 'init-webdev)
 (require 'init-keybindings)
 
 ;; load custom file

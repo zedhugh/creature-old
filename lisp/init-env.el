@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; get and set environment Emacs running with.
+;; get and set environment variables Emacs running with.
 
 ;;; Code:
 
@@ -36,6 +36,14 @@
 (defvar creature/chinese-font
   '("Emacs SimSum" . 16)
   "Default font for multi-byte code.")
+
+(defconst creature-dir
+  (file-name-directory (or load-file-name buffer-file-name))
+  "Directory creature in.")
+
+(defconst creature-cache
+  (expand-file-name ".cache" creature-dir)
+  "Cache directory.")
 
 (provide 'init-env)
 ;;; init-env.el ends here

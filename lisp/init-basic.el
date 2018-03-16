@@ -52,15 +52,16 @@
 (setq enable-recursive-minibuffers t)
 (setq history-length 1000)
 (setq-default savehist-additional-variables
-	      '(mark-ring
-		global-mark-ring
-		search-ring
-		regexp-search-ring
-		extended-command-history))
+              '(mark-ring
+                global-mark-ring
+                search-ring
+                regexp-search-ring
+                extended-command-history))
 (setq-default savehist-autosave-interval 60)
 
 ;; hightlight line
-(unless sys/graphicp
+(if sys/graphicp
+    (global-hl-line-mode 1)
   (global-hl-line-mode -1))
 
 ;; disable menu bar, tool bar and scroll bar
@@ -89,9 +90,9 @@
   "Highlight enclosing parens."
   (advice-remove 'show-paren-function 'ad-Advice-show-paren-function)
   (cond ((looking-at-p "\\s(") (funcall fn))
-	(t (save-excursion
-	     (ignore-errors (backward-up-list))
-	     (funcall fn)))))
+        (t (save-excursion
+             (ignore-errors (backward-up-list))
+             (funcall fn)))))
 
 ;; line and colum
 (column-number-mode)
@@ -123,6 +124,20 @@
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 
 (setq x-gtk-use-system-tooltips nil)
+
+;; fontset
+;; single-byte code
+(let ((family (car creature/default-font))
+      (size (cdr creature/default-font)))
+  (set-face-attribute 'default nil
+                      :font (font-spec :family family :size size)))
+;; multi-byte code
+(let ((family (car creature/chinese-font))
+      (size (cdr creature/chinese-font)))
+  (dolist (charset '(kana han cjk-misc bopomofo))
+    (set-fontset-font (frame-parameter nil 'font) charset
+                      (font-spec :family family :size size))))
+
 
 (put 'erase-buffer 'disabled nil)
 

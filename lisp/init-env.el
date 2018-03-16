@@ -14,7 +14,7 @@
   (display-graphic-p)
   "Is Emacs run with graphic?")
 
-(defvar creature/indent-sensitive-modes
+(defconst creature/indent-sensitive-modes
   '(asm-mode
     coffee-mode
     elm-mode
@@ -29,17 +29,15 @@
     yaml-mode)
   "Modes which disable auto-indenting.")
 
-(defvar creature/default-font
+(defconst creature/default-font
   '("Operator Mono Book" . 16)
   "Default font for single-byte code.")
 
-(defvar creature/chinese-font
-  '("Emacs SimSum" . 16)
+(defconst creature/chinese-font
+  (if sys/win32p
+      '("SimSun" . 16)
+    '("Emacs SimSum" . 16))
   "Default font for multi-byte code.")
-
-(defconst creature-dir
-  (file-name-directory (or load-file-name buffer-file-name))
-  "Directory creature in.")
 
 (defconst creature-cache
   (expand-file-name ".cache" creature-dir)

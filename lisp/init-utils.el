@@ -17,6 +17,7 @@
 (require-package 'expand-region)
 (require-package 'popwin)
 (require-package 'rainbow-identifiers)
+(require-package 'solarized-theme)
 
 ;; which-key
 (require 'which-key)
@@ -81,6 +82,10 @@
 
 ;; colorful GUI
 (rainbow-identifiers-mode)
+
+;; load theme
+(require 'solarized)
+(load-theme 'solarized-dark t)
 
 ;; popwin
 (require 'popwin)

@@ -38,7 +38,7 @@
 ;; smex
 (require 'init-env)
 (require 'smex)
-(when (file-exists-p creature-cache)
+(unless (file-exists-p creature-cache)
   (make-directory creature-cache))
 (setq smex-save-file
       (expand-file-name ".smex-items" creature-cache))

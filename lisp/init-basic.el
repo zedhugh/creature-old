@@ -103,8 +103,8 @@
 ;; line and colum
 (column-number-mode)
 (if (fboundp 'display-line-numbers-mode)
-    (display-line-numbers-mode)
-  (linum-mode))
+    (global-display-line-numbers-mode)
+  (global-linum-mode))
 
 (require 'time)
 (if sys/graphicp

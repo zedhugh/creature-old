@@ -82,7 +82,7 @@
 (evil-leader/set-key "v" 'er/expand-region)
 
 ;; colorful GUI
-(rainbow-identifiers-mode)
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
 ;; load theme
 (require 'solarized)

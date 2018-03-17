@@ -73,8 +73,10 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
-;; maximized frame
-(setq initial-frame-alist '((fullscreen . maximized)))
+;; maximized frame except in tiled window manager.
+;; there is "awesome".
+(unless (string-equal "awesome" (getenv "DESKTOP_SESSION"))
+  (setq initial-frame-alist '((fullscreen . maximized))))
 
 ;; click(C-c RET) to browse URL
 (goto-address-mode)

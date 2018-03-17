@@ -9,6 +9,11 @@
 (setq delete-by-moving-to-trash t)
 (setq make-backup-files nil)
 (setq auto-save-default t)
+;; don't create lockfiles named ".#file-name"
+(require 'init-env)
+(if sys/win32p
+    (setq create-lockfiles nil)
+  (setq create-lockfiles t))
 
 ;; indent
 (require 'init-env)

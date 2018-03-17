@@ -62,6 +62,7 @@
 (dolist (mode creature/indent-sensitive-modes)
   (push mode aggressive-indent-excluded-modes))
 
+(require 'smartparens)
 (smartparens-global-strict-mode)
 (show-smartparens-global-mode)
 (require 'smartparens-config)

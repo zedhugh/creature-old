@@ -12,12 +12,12 @@
 BIND is rest sets of KEY and DOC."
   (while key
     (let ((key1 (concat evil-leader/leader key))
-	  (key2 (concat evil-leader/non-normal-prefix
-			evil-leader/leader " " key)))
+          (key2 (concat evil-leader/non-normal-prefix
+                        evil-leader/leader " " key)))
       (which-key-add-key-based-replacements key1 doc)
       (which-key-add-key-based-replacements key2 doc))
     (setq key (pop bind)
-	  doc (pop bind))))
+          doc (pop bind))))
 
 (require 'init-env)
 (defun creature/indent-region-or-buffer ()
@@ -26,12 +26,12 @@ BIND is rest sets of KEY and DOC."
   (unless (member major-mode creature/indent-sensitive-modes)
     (save-excursion
       (if (region-active-p)
-	  (progn
-	    (indent-region (region-beginning) (region-end))
-	    (message "Indented selected region."))
-	(progn
-	  (evil-indent (point-min) (point-max))
-	  (message "Indented buffer.")))
+          (progn
+            (indent-region (region-beginning) (region-end))
+            (message "Indented selected region."))
+        (progn
+          (evil-indent (point-min) (point-max))
+          (message "Indented buffer.")))
       (whitespace-cleanup))))
 
 (unless (fboundp 'kill-current-buffer)
@@ -48,10 +48,10 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (interactive "p")
   (if (featurep 'smartparens)
       (if (region-active-p)
-	  (call-interactively #'sp-kill-region)
-	(sp-backward-kill-word arg))
+          (call-interactively #'sp-kill-region)
+        (sp-backward-kill-word arg))
     (if (region-active-p)
-	(call-interactively #'kill-region)
+        (call-interactively #'kill-region)
       (backward-kill-word arg))))
 
 (defun creature/open-init-file ()

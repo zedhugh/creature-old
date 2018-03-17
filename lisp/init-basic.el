@@ -124,24 +124,27 @@
 (setq track-eol t)
 (setq line-move-visual nil)
 
-(set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
-(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+;; add fontset work after emacs initialized
+(add-hook 'after-init-hook
+          (lambda ()
+            (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
+            (set-face-attribute 'font-lock-comment-face nil :slant 'italic)))
 
 (setq x-gtk-use-system-tooltips nil)
 
-;; fontset
-;; single-byte code
-(let ((family (car creature/default-font))
-      (size (cdr creature/default-font)))
-  (set-face-attribute 'default nil
-                      :font (font-spec :family family :size size)))
-;; multi-byte code
-(let ((family (car creature/chinese-font))
-      (size (cdr creature/chinese-font)))
-  (dolist (charset '(kana han cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font) charset
-                      (font-spec :family family :size size))))
-
+;; fontset only for graphic
+(when window-system
+  ;; single-byte code
+  (let ((family (car creature/default-font))
+        (size (cdr creature/default-font)))
+    (set-face-attribute 'default nil
+                        :font (font-spec :family family :size size)))
+  ;; multi-byte code
+  (let ((family (car creature/chinese-font))
+        (size (cdr creature/chinese-font)))
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font) charset
+                        (font-spec :family family :size size)))))
 
 (put 'erase-buffer 'disabled nil)
 

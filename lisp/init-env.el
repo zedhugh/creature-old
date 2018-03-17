@@ -35,8 +35,8 @@
 
 (defconst creature/chinese-font
   (if sys/win32p
-      '("SimSun" . 16)
-    '("Emacs SimSum" . 16))
+      '("SimSun" . 18)
+    '("Emacs SimSun" . 18))
   "Default font for multi-byte code.")
 
 (defconst creature-dir

@@ -39,6 +39,9 @@
     '("Emacs SimSum" . 16))
   "Default font for multi-byte code.")
 
+(defconst creature-dir
+  (getenv "CREATUREDIR"))
+
 (defconst creature-cache
   (expand-file-name ".cache" creature-dir)
   "Cache directory.")

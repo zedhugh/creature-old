@@ -14,11 +14,11 @@
 ;;; Code:
 ;; (package-initialize)
 
-(defconst creature-dir
-  (file-name-directory (or load-file-name buffer-file-name))
-  "Directory creature in.")
+(setenv "CREATUREDIR"
+        (file-name-directory (or load-file-name buffer-file-name)))
 
-(add-to-list 'load-path (expand-file-name "lisp" creature-dir))
+(add-to-list 'load-path
+             (expand-file-name "lisp" (getenv "CREATUREDIR")))
 
 (require 'init-env)
 (require 'init-elpa)

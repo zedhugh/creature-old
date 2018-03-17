@@ -16,7 +16,6 @@
   (setq create-lockfiles t))
 
 ;; indent
-(require 'init-env)
 (let ((offset (if sys/win32p 4 2)))
   (setq-default c-basic-offset offset)
   (setq-default tab-width offset))

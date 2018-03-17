@@ -29,6 +29,8 @@
 (require 'init-ivy)
 (require 'init-git)
 (require 'init-webdev)
+(require 'org)
+(require 'init-org)
 (require 'init-keybindings)
 
 ;; load custom file

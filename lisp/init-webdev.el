@@ -61,7 +61,7 @@
 
 ;; tern config
 (require 'tern)
-(add-to-list 'tern-command "-no-port-file" 'append)
+;; (add-to-list 'tern-command "--no-port-file" 'append)
 
 ;; company tern
 (add-hook 'js2-mode-hook 'tern-mode)

@@ -70,5 +70,12 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (set (make-local-variable 'company-backends)
        (push 'company-tern company-backends)))
 
+(defun creature/emmet-expand ()
+  "Expand at right way."
+  (interactive)
+  (if (bound-and-true-p yas-minor-mode)
+      (call-interactively 'emmet-expand-yas)
+    (call-interactively 'emmet-expand-line)))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

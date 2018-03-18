@@ -29,7 +29,9 @@
 (require 'init-env)
 (if sys/win32p
     (setq js2-basic-offset 4)
-  (setq js2-basic-offset 2))
+  (setq js2-basic-offset 2)
+  (setq js-switch-indent-offset js2-basic-offset)
+  (setq js2-switch-indent-offset js2-basic-offset))
 
 (require 'json-mode)
 (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
@@ -42,13 +44,13 @@
 (add-hook 'js2-jsx-mode-hook 'emmet-mode)
 (require 'evil)
 (evil-define-key 'insert emmet-mode-keymap
-  (kbd "Tab") 'emmet-expand-line)
+  (kbd "Tab") 'creature/emmet-expand)
 (evil-define-key 'insert emmet-mode-keymap
-  (kbd "<tab>") 'emmet-expand-line)
+  (kbd "<tab>") 'creature/emmet-expand)
 (evil-define-key 'emacs emmet-mode-keymap
-  (kbd "Tab") 'emmet-expand-line)
+  (kbd "Tab") 'creature/emmet-expand)
 (evil-define-key 'emacs emmet-mode-keymap
-  (kbd "<tab>") 'emmet-expand-line)
+  (kbd "<tab>") 'creature/emmet-expand)
 
 ;; company-web
 (require 'init-defuns)

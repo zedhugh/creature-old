@@ -27,11 +27,9 @@
 (setq ivy-virtual-abbreviate 'full)
 (setq ivy-rich-switch-buffer-align-virtual-buffer t)
 (setq ivy-rich-path-style 'abbrev)
-(add-hook 'ivy-mode-hook
-	  (lambda ()
-	    (ivy-set-display-transformer
-             'ivy-switch-buffer
-             'ivy-rich-switch-buffer-transformer)))
+(ivy-set-display-transformer
+ 'ivy-switch-buffer
+ 'ivy-rich-switch-buffer-transformer)
 
 (global-set-key (kbd "C-s") 'swiper)
 

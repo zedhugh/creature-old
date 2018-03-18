@@ -14,6 +14,8 @@
 (require-package 'company-web)
 (require-package 'tern)
 (require-package 'company-tern)
+(require-package 'yasnippet)
+(require-package 'yasnippet-snippets)
 
 ;; web-mode
 (require 'web-mode)
@@ -65,6 +67,13 @@
 (add-hook 'js2-mode-hook 'tern-mode)
 (add-hook 'js2-mode-hook 'add-tern)
 
+;; yasnippet
+(require 'yasnippet)
+;; (yas-reload-all)
+(add-hook 'company-mode-hook 'yas-minor-mode-on)
+(add-hook 'yas-minor-mode-hook 'add-yas)
+;; (push 'company-yasnippet company-backends)
+;; (add-to-list 'company-backends 'company-yasnippet 'append)
 
 (provide 'init-webdev)
 ;;; init-webdev.el ends here

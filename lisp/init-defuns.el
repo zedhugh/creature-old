@@ -57,7 +57,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 (defun creature/open-init-file ()
   "Open init file."
   (interactive)
-  (find-file (expand-file-name "init.el" user-emacs-directory)))
+  (find-file (expand-file-name "init.el" creature-dir)))
 
 (require 'company)
 (defun add-company-web-backend ()

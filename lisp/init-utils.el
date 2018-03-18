@@ -18,6 +18,7 @@
 (require-package 'popwin)
 (require-package 'rainbow-identifiers)
 (require-package 'spacemacs-theme)
+(require-package 'all-the-icons-dired)
 
 ;; which-key
 (require 'which-key)
@@ -87,6 +88,9 @@
 ;; load theme
 (require 'spacemacs-dark-theme)
 (load-theme 'spacemacs-dark t)
+
+(require 'all-the-icons-dired)
+(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
 
 ;; popwin
 (require 'popwin)

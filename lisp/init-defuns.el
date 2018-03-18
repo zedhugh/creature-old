@@ -59,5 +59,16 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (interactive)
   (find-file (expand-file-name "init.el" user-emacs-directory)))
 
+(require 'company)
+(defun add-company-web-backend ()
+  "Add company-web to company backends."
+  (set (make-local-variable 'company-backends)
+       (push 'company-web-html company-backends)))
+
+(defun add-tern ()
+  "Add tern to company backends."
+  (set (make-local-variable 'company-backends)
+       (push 'company-tern company-backends)))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

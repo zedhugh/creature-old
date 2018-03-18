@@ -17,7 +17,7 @@
 (require-package 'expand-region)
 (require-package 'popwin)
 (require-package 'rainbow-identifiers)
-(require-package 'solarized-theme)
+(require-package 'spacemacs-theme)
 
 ;; which-key
 (require 'which-key)
@@ -85,8 +85,8 @@
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
 ;; load theme
-(require 'solarized)
-(load-theme 'solarized-dark t)
+(require 'spacemacs-dark-theme)
+(load-theme 'spacemacs-dark t)
 
 ;; popwin
 (require 'popwin)

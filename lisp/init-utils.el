@@ -89,8 +89,9 @@
 (require 'spacemacs-dark-theme)
 (load-theme 'spacemacs-dark t)
 
-(require 'all-the-icons-dired)
-(add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+(unless sys/win32p
+  (require 'all-the-icons-dired)
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 ;; popwin
 (require 'popwin)

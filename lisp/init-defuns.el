@@ -77,5 +77,12 @@ and `backward-kill-word' otherwise.  ARG is passed to
       (call-interactively 'emmet-expand-yas)
     (call-interactively 'emmet-expand-line)))
 
+(defun add-yas ()
+  "Add yasnippet to company popup menu."
+  (let ((backends company-backends))
+    (set (make-local-variable 'company-backends) nil)
+    (dolist (backend backends)
+      (add-to-list 'company-backends (cons backend '(:with company-yasnippet)) 'append))))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

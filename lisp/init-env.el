@@ -29,6 +29,11 @@
     yaml-mode)
   "Modes which disable auto-indenting.")
 
+(defconst creature/org-src-lang-modes
+  '(("js"   . js2)
+    ("html" . web))
+  "Better src lang reflex to mode.")
+
 (defconst creature/default-font
   '("Operator Mono Book" . 16)
   "Default font for single-byte code.")

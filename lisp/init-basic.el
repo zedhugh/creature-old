@@ -124,7 +124,7 @@
 ;; position of cursor is at the end.
 ;; Require line-move-visual is nil.
 (setq track-eol t)
-(setq line-move-visual nil)
+(setq line-move-visual t)
 
 ;; add fontset work after emacs initialized
 (add-hook 'after-init-hook

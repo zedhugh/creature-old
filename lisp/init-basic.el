@@ -5,6 +5,9 @@
 
 ;;; Code:
 
+;; use utf-8 for default
+(prefer-coding-system 'utf-8)
+
 ;; files set
 (setq delete-by-moving-to-trash t)
 (setq make-backup-files nil)

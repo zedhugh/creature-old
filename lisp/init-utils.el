@@ -19,6 +19,7 @@
 (require-package 'rainbow-identifiers)
 (require-package 'spacemacs-theme)
 (require-package 'all-the-icons-dired)
+(require-package 'pyim)
 
 ;; which-key
 (require 'which-key)
@@ -92,6 +93,22 @@
 (unless sys/win32p
   (require 'all-the-icons-dired)
   (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
+;; pyim
+(require 'pyim)
+(require 'pyim-basedict)
+(setq default-input-method 'pyim)
+(setq pyim-page-style 'one-line)
+(if (< emacs-major-version 26)
+    (setq pyim-page-tooltip 'popup)
+  (setq pyim-page-tooltip 'child-frame))
+(setq pyim-english-input-switch-functions
+      '(pyim-probe-program-mode))
+(setq pyim-punctuation-half-width-functions
+      '(pyim-probe-punctuation-line-beginning
+        pyim-probe-punctuation-after-punctuation))
+(pyim-basedict-enable)
+(creature/pyim-greatdict-enable)
 
 ;; popwin
 (require 'popwin)

@@ -82,7 +82,24 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (let ((backends company-backends))
     (set (make-local-variable 'company-backends) nil)
     (dolist (backend backends)
-      (add-to-list 'company-backends (cons backend '(:with company-yasnippet)) 'append))))
+      (add-to-list 'company-backends
+                   (cons backend
+                         '(:with company-yasnippet))
+                   'append))))
+
+(require 'pyim)
+(defun creature/pyim-greatdict-enable ()
+  "Enable a big dict for pyim."
+  (let ((greatdict
+         (concat creature-dir
+                 "pyim-dicts/pyim-greatdict.pyim.gz")))
+    (if (featurep 'pyim)
+        (pyim-extra-dicts-add-dict
+         `(:name "Greatdict-elpa"
+                 :file ,greatdict
+                 :coding utf-8-lang
+                 :dict-type pinyin-dict))
+      nil)))
 
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

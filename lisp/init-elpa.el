@@ -13,9 +13,14 @@
 (setq package-selected-packages nil)
 
 (setq package-archives
-      '(("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
-        ("org-cn"   . "https://elpa.emacs-china.org/org/")
-        ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")))
+      '(
+        ;; ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
+        ;; ("org-cn"   . "https://elpa.emacs-china.org/org/")
+        ;; ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+        ("gnu"   . "https://elpa.gnu.org/packages/")
+        ("org"   . "https://orgmode.org/elpa/")
+        ("melpa" . "https://melpa.org/packages/")
+        ))
 
 (defun require-package (package &optional min-version no-refresh)
   "Install if PACKAGE is not installed with NO-REFRESH.

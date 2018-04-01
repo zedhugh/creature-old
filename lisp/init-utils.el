@@ -44,7 +44,10 @@
 
 ;; syntax check
 (require 'flycheck)
-(global-flycheck-mode)
+(add-hook 'prog-mode-hook 'flycheck-mode-on-safe)
+(add-hook 'emacs-lisp-mode-hook
+          (lambda ()
+            (flycheck-mode -1)))
 (require 'init-defuns)
 (setq flycheck-emacs-lisp-load-path load-path)
 (evil-leader/set-key

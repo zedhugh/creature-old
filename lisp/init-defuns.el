@@ -5,13 +5,11 @@
 
 ;;; Code:
 
-(require 'which-key)
-(require 'evil-leader)
 (defun creature/which-key-declare-prefixes (key doc &rest bind)
   "Define KEY's DOC with the same way of `evil-leader/set-key'.
 BIND is rest sets of KEY and DOC."
   (while key
-    (let ((key1 (concat evil-leader/leader key))
+    (let ((key1 (concat evil-leader/leader " " key))
           (key2 (concat evil-leader/non-normal-prefix
                         evil-leader/leader " " key)))
       (which-key-add-key-based-replacements key1 doc)
@@ -19,7 +17,6 @@ BIND is rest sets of KEY and DOC."
     (setq key (pop bind)
           doc (pop bind))))
 
-(require 'init-env)
 (defun creature/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
@@ -40,7 +37,6 @@ BIND is rest sets of KEY and DOC."
     (interactive)
     (kill-buffer (buffer-name))))
 
-(require 'smartparens)
 (defun creature/backward-kill-word-or-region (&optional arg)
   "Call `kill-region' when a region is active.
 and `backward-kill-word' otherwise.  ARG is passed to
@@ -59,7 +55,6 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (interactive)
   (find-file (expand-file-name "init.el" creature-dir)))
 
-(require 'company)
 (defun add-company-web-backend ()
   "Add company-web to company backends."
   (set (make-local-variable 'company-backends)
@@ -87,7 +82,6 @@ and `backward-kill-word' otherwise.  ARG is passed to
                          '(:with company-yasnippet))
                    'append))))
 
-(require 'pyim)
 (defun creature/pyim-greatdict-enable ()
   "Enable a big dict for pyim."
   (let ((greatdict

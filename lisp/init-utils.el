@@ -4,174 +4,167 @@
 
 ;;; Code:
 
-(require 'init-elpa)
-(require-package 'which-key)
-(require-package 'window-numbering)
-(require-package 'smooth-scrolling)
-(require-package 'company)
-(require-package 'flycheck)
-(require-package 'aggressive-indent)
-(require-package 'smartparens)
-(require-package 'hungry-delete)
-(require-package 'youdao-dictionary)
-(require-package 'expand-region)
-(require-package 'popwin)
-(require-package 'rainbow-identifiers)
-(require-package 'spacemacs-theme)
-(require-package 'all-the-icons-dired)
-(require-package 'pyim)
-
 ;; which-key
-(require 'which-key)
-(which-key-mode)
-(setq which-key-idle-delay 0.4)
+(use-package which-key
+  :init
+  (add-hook 'emacs-startup-hook 'which-key-mode)
+  (setq which-key-idle-delay 0.4))
 
-(window-numbering-mode)
-(smooth-scrolling-mode)
+(use-package window-numbering
+  :init
+  (add-hook 'emacs-startup-hook 'window-numbering-mode))
+
+(use-package smooth-scroll
+  :init
+  (add-hook 'emacs-startup-hook 'smooth-scrolling-mode))
 
 ;; complete
-(require 'company)
-(company-mode)
-(global-company-mode)
-(setq company-idle-delay 0)
-(setq company-minimum-prefix-length 1)
-(define-key company-active-map (kbd "C-n")
-  #'company-complete-common-or-cycle)
-(define-key company-active-map (kbd "C-p")
-  (lambda ()
-    (interactive)
-    (company-complete-common-or-cycle -1)))
+(use-package company
+  :init
+  (add-hook 'emacs-startup-hook 'global-company-mode)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 1)
+  (define-key company-active-map (kbd "C-n")
+    #'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "C-p")
+    (lambda ()
+      (interactive)
+      (company-complete-common-or-cycle -1))))
 
 ;; syntax check
-(require 'flycheck)
-(add-hook 'prog-mode-hook 'flycheck-mode-on-safe)
-(add-hook 'emacs-lisp-mode-hook
-          (lambda ()
-            (flycheck-mode -1)))
-(require 'init-defuns)
-(setq flycheck-emacs-lisp-load-path load-path)
-(evil-leader/set-key
-  "el" 'flycheck-list-errors
-  "ex" 'flycheck-display-error-at-point)
+(use-package flycheck
+  :init
+  (defun enable-flycheck ()
+    (flycheck-mode 1))
+  (defun disable-flycheck ()
+    (flycheck-mode -1))
+  (add-hook 'prog-mode-hook 'enable-flycheck)
+  (add-hook 'emacs-lisp-mode-hook 'disable-flycheck)
+  (setq flycheck-emacs-lisp-load-path load-path)
+  (evil-leader/set-key
+    "el" 'flycheck-list-errors
+    "ex" 'flycheck-display-error-at-point))
 
-;; auto indent
-(require 'aggressive-indent)
-(require 'init-env)
-(global-aggressive-indent-mode)
-;; disable when open big file
-(add-hook 'find-file-hook
-          (lambda ()
-            (when (> (buffer-size) (* 3000 80))
-              (aggressive-indent-mode -1))))
-;; disable if indent means special
-(dolist (mode creature/indent-sensitive-modes)
-  (push mode aggressive-indent-excluded-modes))
-
-(require 'smartparens)
-(smartparens-global-strict-mode)
-(show-smartparens-global-mode)
-(require 'smartparens-config)
+(use-package smartparens
+  :init
+  (add-hook 'emacs-startup-hook 'smartparens-global-strict-mode)
+  (show-smartparens-global-mode)
+  (require 'smartparens-config))
 
 ;; delete multi space
-(require 'hungry-delete)
-(global-hungry-delete-mode)
-(setq hungry-delete-chars-to-skip " \t\f\v")
-(define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward)
+(use-package hungry-delete
+  :init
+  (add-hook 'emacs-startup-hook 'global-hungry-delete-mode)
+  :config
+  (setq hungry-delete-chars-to-skip " \t\f\v")
+  (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward))
 
 ;; youdao dictionary
-(evil-leader/set-key
-  "ys" 'youdao-dictionary-search-at-point
-  "yp" 'youdao-dictionary-play-voice-at-point)
+(use-package youdao-dictionary
+  :init
+  (evil-leader/set-key
+    "ys" 'youdao-dictionary-search-at-point
+    "yp" 'youdao-dictionary-play-voice-at-point))
 
 ;; expand region
-(evil-leader/set-key "v" 'er/expand-region)
+(use-package expand-region
+  :init
+  (evil-leader/set-key "v" 'er/expand-region))
 
 ;; colorful GUI
-(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
+(use-package rainbow-identifiers
+  :init
+  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
 
 ;; load theme
-(require 'spacemacs-dark-theme)
-(load-theme 'spacemacs-dark t)
+(use-package spacemacs-theme
+  :init
+  (load-theme 'spacemacs-dark t))
 
-(unless sys/win32p
-  (require 'all-the-icons-dired)
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+(use-package all-the-icons-dired
+  :init
+  (unless sys/win32p
+    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
 
 ;; pyim
-(require 'pyim)
-(require 'pyim-basedict)
-(setq default-input-method 'pyim)
-(setq pyim-page-style 'one-line)
-(if (< emacs-major-version 26)
-    (setq pyim-page-tooltip 'popup)
-  (setq pyim-page-tooltip 'child-frame))
-(setq pyim-english-input-switch-functions
-      '(pyim-probe-program-mode))
-(setq pyim-punctuation-half-width-functions
-      '(pyim-probe-punctuation-line-beginning
-        pyim-probe-punctuation-after-punctuation))
-(pyim-basedict-enable)
-(creature/pyim-greatdict-enable)
+(use-package pyim
+  :init
+  (setq default-input-method 'pyim)
+  (setq pyim-page-style 'one-line)
+  (if (< emacs-major-version 26)
+      (setq pyim-page-tooltip 'popup)
+    (setq pyim-page-tooltip 'child-frame))
+  (setq pyim-english-input-switch-functions
+        '(pyim-probe-program-mode))
+  (setq pyim-punctuation-half-width-functions
+        '(pyim-probe-punctuation-line-beginning
+          pyim-probe-punctuation-after-punctuation))
+  (when (featurep 'pyim-basedict)
+    (pyim-basedict-enable))
+  (creature/pyim-greatdict-enable))
 
 ;; popwin
-(require 'popwin)
-(popwin-mode)
-(setq popwin:special-display-config
-      '(;; Emacs
-        ("*Help*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        ("*Compile-Log*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        ("*Warnings*" :dedicated t :position bottom :stick t :noselect t)
-        ("*Completions*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil)
-        ("\*Async Shell Command\*.+" :regexp t :position bottom :stick t :noselect nil)
-        ("^*Man.+*$" :regexp t :position bottom :stick nil :noselect nil :height 0.4)
-        ("^*WoMan.+*$" :regexp t :position bottom)
-        ("^*Backtrace.+*$" :regexp t :dedicated t :position bottom :stick t :noselect nil)
+(use-package popwin
+  :init
+  (require 'popwin)
+  (add-hook 'emacs-startup-hook 'popwin-mode)
+  (setq popwin:special-display-config
+        '(;; Emacs
+          ("*Help*" :dedicated t :position bottom :stick t :noselect nil)
+          ("*compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          ("*Compile-Log*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
+          ("*Warnings*" :dedicated t :position bottom :stick t :noselect t)
+          ("*Completions*" :dedicated t :position bottom :stick t :noselect nil)
+          ("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil)
+          ("\*Async Shell Command\*.+" :regexp t :position bottom :stick t :noselect nil)
+          ("^*Man.+*$" :regexp t :position bottom :stick nil :noselect nil :height 0.4)
+          ("^*WoMan.+*$" :regexp t :position bottom)
+          ("^*Backtrace.+*$" :regexp t :dedicated t :position bottom :stick t :noselect nil)
 
-        ;; Kill Ring
-        ("*Kill Ring*" :dedicated t :position bottom)
+          ;; Kill Ring
+          ("*Kill Ring*" :dedicated t :position bottom)
 
-        ;; Flycheck
-        ("\*flycheck errors\*.+*$" :regexp t :position bottom :stick t :noselect nil)
+          ;; Flycheck
+          ("\*flycheck errors\*.+*$" :regexp t :position bottom :stick t :noselect nil)
 
-        ;; Youdao dict
-        ("*Youdao Dictionary*" :dedicated t :stick t :position bottom)
+          ;; Youdao dict
+          ("*Youdao Dictionary*" :dedicated t :stick t :position bottom)
 
-        ;; Paradox
-        ("*Paradox Report*" :dedicated t :position bottom :noselect nil)
+          ;; Paradox
+          ("*Paradox Report*" :dedicated t :position bottom :noselect nil)
 
-        ;; List
-        ("*Colors*" :dedicated t :position bottom)
-        ("*Process List*" :dedicated t :position bottom)
-        ("*Process-Environment*" :dedicated t :position bottom)
+          ;; List
+          ("*Colors*" :dedicated t :position bottom)
+          ("*Process List*" :dedicated t :position bottom)
+          ("*Process-Environment*" :dedicated t :position bottom)
 
-        ;; undo-tree
-        (" *undo-tree*" :dedicated t :position right :stick t :noselect nil :width 60)
+          ;; undo-tree
+          (" *undo-tree*" :dedicated t :position right :stick t :noselect nil :width 60)
 
-        ;; Search
-        ("*grep*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*ag search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*rg*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*pt-search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*Occur*" :dedicated t :position bottom :stick t :noselect nil)
-        ("\*ivy-occur.+*$" :regexp t :position bottom :stick t :noselect nil)
-        ("*xref*" :dedicated t :position bottom :stick nil :noselect nil)
+          ;; Search
+          ("*grep*" :dedicated t :position bottom :stick t :noselect nil)
+          ("*ag search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          ("*rg*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          ("*pt-search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
+          ("*Occur*" :dedicated t :position bottom :stick t :noselect nil)
+          ("\*ivy-occur.+*$" :regexp t :position bottom :stick t :noselect nil)
+          ("*xref*" :dedicated t :position bottom :stick nil :noselect nil)
 
-        ;; VC
-        ("*vc-diff*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*vc-change-log*" :dedicated t :position bottom :stick t :noselect nil)
+          ;; VC
+          ("*vc-diff*" :dedicated t :position bottom :stick t :noselect nil)
+          ("*vc-change-log*" :dedicated t :position bottom :stick t :noselect nil)
 
-        ;; Magit
-        ;; (magit-status-mode :dedicated t :position bottom :stick t :height 0.5)
-        ;; (magit-diff-mode :dedicated t :position bottom :stick t :noselect t :height 0.5)
+          ;; Magit
+          ;; (magit-status-mode :dedicated t :position bottom :stick t :height 0.5)
+          ;; (magit-diff-mode :dedicated t :position bottom :stick t :noselect t :height 0.5)
 
-        ;; Script
-        ("*shell*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*Python*" :dedicated t :position bottom :stick t :noselect t)
-        ("*Ruby*" :dedicated t :position bottom :stick t :noselect t)
-        ("*quickrun*" :dedicated t :position bottom :stick t :noselect t)
-        ))
+          ;; Script
+          ("*shell*" :dedicated t :position bottom :stick t :noselect nil)
+          ("*Python*" :dedicated t :position bottom :stick t :noselect t)
+          ("*Ruby*" :dedicated t :position bottom :stick t :noselect t)
+          ("*quickrun*" :dedicated t :position bottom :stick t :noselect t)
+          )))
 
 (provide 'init-utils)
 ;;; init-utils.el ends here

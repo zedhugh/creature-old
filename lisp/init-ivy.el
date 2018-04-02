@@ -6,40 +6,39 @@
 
 ;;; Code:
 
-(require 'init-elpa)
-(require-package 'counsel)
-(require-package 'swiper)
-(require-package 'ivy)
-(require-package 'ivy-rich)
-(require-package 'smex)
+(use-package counsel
+  :init
+  (add-hook 'emacs-startup-hook 'counsel-mode)
+  (evil-leader/set-key
+    "fr" 'counsel-recentf))
 
-(require 'counsel)
-(counsel-mode)
-(ivy-mode)
-(evil-leader/set-key
-  "fr" 'counsel-recentf)
-
-(setq ivy-use-virtual-buffers t)
-(setq enable-recursive-minibuffers t)
+(use-package ivy
+  :init
+  (add-hook 'emacs-startup-hook 'ivy-mode)
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t))
 
 ;; ivy-rich
-(require 'ivy-rich)
-(setq ivy-virtual-abbreviate 'full)
-(setq ivy-rich-switch-buffer-align-virtual-buffer t)
-(setq ivy-rich-path-style 'abbrev)
-(ivy-set-display-transformer
- 'ivy-switch-buffer
- 'ivy-rich-switch-buffer-transformer)
+(use-package ivy-rich
+  :config
+  (setq ivy-virtual-abbreviate 'full)
+  (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+  (setq ivy-rich-path-style 'abbrev)
+  (ivy-set-display-transformer
+   'ivy-switch-buffer
+   'ivy-rich-switch-buffer-transformer))
 
-(global-set-key (kbd "C-s") 'swiper)
+(use-package swiper
+  :init
+  (global-set-key (kbd "C-s") 'swiper))
 
 ;; smex
-(require 'init-env)
-(require 'smex)
-(unless (file-exists-p creature-cache)
-  (make-directory creature-cache))
-(setq smex-save-file
-      (expand-file-name ".smex-items" creature-cache))
+(use-package smex
+  :init
+  (unless (file-exists-p creature-cache)
+    (make-directory creature-cache))
+  (setq smex-save-file
+        (expand-file-name ".smex-items" creature-cache)))
 
 (provide 'init-ivy)
 ;;; init-ivy.el ends here

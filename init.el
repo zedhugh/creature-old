@@ -14,22 +14,22 @@
 ;;; Code:
 ;; (package-initialize)
 
-(setenv "CREATUREDIR"
-        (file-name-directory (or load-file-name buffer-file-name)))
+(defconst creature-dir
+  (file-name-directory (or load-file-name buffer-file-name))
+  "Root directory of creature.")
 
 (add-to-list 'load-path
-             (expand-file-name "lisp" (getenv "CREATUREDIR")))
+             (expand-file-name "lisp" creature-dir))
 
 (require 'init-env)
 (require 'init-elpa)
 (require 'init-basic)
+(require 'init-defuns)
 (require 'init-evil)
 (require 'init-utils)
-(require 'init-defuns)
 (require 'init-ivy)
 (require 'init-git)
 (require 'init-webdev)
-(require 'org)
 (require 'init-org)
 (require 'init-keybindings)
 

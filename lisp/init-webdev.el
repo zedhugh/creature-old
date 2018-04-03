@@ -78,22 +78,5 @@
          (push 'company-tern company-backends)))
   (add-hook 'js2-mode-hook 'add-tern))
 
-;; yasnippet
-(use-package yasnippet
-  :init
-  (defun add-yas ()
-    "Add yasnippet to company popup menu."
-    (let ((backends company-backends))
-      (set (make-local-variable 'company-backends) nil)
-      (dolist (backend backends)
-        (add-to-list 'company-backends
-                     (cons backend
-                           '(:with company-yasnippet))
-                     'append))))
-  (add-hook 'company-mode-hook 'yas-minor-mode)
-  (add-hook 'yas-minor-mode-hook 'add-yas))
-
-(use-package yasnippet-snippets)
-
 (provide 'init-webdev)
 ;;; init-webdev.el ends here

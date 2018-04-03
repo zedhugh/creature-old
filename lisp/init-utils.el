@@ -7,7 +7,7 @@
 ;; which-key
 (use-package which-key
   :init
-  (add-hook 'emacs-startup-hook 'which-key-mode)
+  (add-hook 'after-init-hook 'which-key-mode)
   (setq which-key-idle-delay 0.4)
   (defun creature/which-key-declare-prefixes (key doc &rest bind)
     "Define KEY's DOC with the same way of `evil-leader/set-key'.
@@ -23,25 +23,11 @@ BIND is rest sets of KEY and DOC."
 
 (use-package window-numbering
   :init
-  (add-hook 'emacs-startup-hook 'window-numbering-mode))
+  (add-hook 'after-init-hook 'window-numbering-mode))
 
 (use-package smooth-scrolling
   :init
-  (add-hook 'emacs-startup-hook 'smooth-scrolling-mode))
-
-;; complete
-(use-package company
-  :init
-  (add-hook 'emacs-startup-hook 'global-company-mode)
-  :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
-  (define-key company-active-map (kbd "C-n")
-    #'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "C-p")
-    (lambda ()
-      (interactive)
-      (company-complete-common-or-cycle -1))))
+  (add-hook 'after-init-hook 'smooth-scrolling-mode))
 
 ;; syntax check
 (use-package flycheck
@@ -59,7 +45,7 @@ BIND is rest sets of KEY and DOC."
 
 (use-package smartparens
   :init
-  (add-hook 'emacs-startup-hook 'smartparens-global-strict-mode)
+  (add-hook 'after-init-hook 'smartparens-global-strict-mode)
   (add-hook 'smartparens-global-strict-mode-hook
             'show-smartparens-global-mode)
   (add-hook 'smartparens-global-strict-mode-hook
@@ -80,7 +66,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; delete multi space
 (use-package hungry-delete
   :init
-  (add-hook 'emacs-startup-hook 'global-hungry-delete-mode)
+  (add-hook 'after-init-hook 'global-hungry-delete-mode)
   :config
   (setq hungry-delete-chars-to-skip " \t\f\v")
   (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward))
@@ -115,6 +101,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; pyim
 (use-package pyim
   :init
+  (require 'pyim)
   (setq default-input-method 'pyim)
   (setq pyim-page-style 'one-line)
   (if (< emacs-major-version 26)
@@ -146,7 +133,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 (use-package popwin
   :init
   (require 'popwin)
-  (add-hook 'emacs-startup-hook 'popwin-mode)
+  (add-hook 'after-init-hook 'popwin-mode)
   (setq popwin:special-display-config
         '(;; Emacs
           ("*Help*" :dedicated t :position bottom :stick t :noselect nil)

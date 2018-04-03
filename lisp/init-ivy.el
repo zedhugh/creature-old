@@ -8,13 +8,13 @@
 
 (use-package counsel
   :init
-  (add-hook 'emacs-startup-hook 'counsel-mode)
+  (add-hook 'after-init-hook 'counsel-mode)
   (evil-leader/set-key
     "fr" 'counsel-recentf))
 
 (use-package ivy
   :init
-  (add-hook 'emacs-startup-hook 'ivy-mode)
+  (add-hook 'after-init-hook 'ivy-mode)
   (setq ivy-use-virtual-buffers t)
   (setq enable-recursive-minibuffers t))
 

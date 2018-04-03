@@ -29,6 +29,7 @@
 (require 'init-defuns)
 (require 'init-evil)
 (require 'init-utils)
+(require 'init-company)
 (require 'init-ivy)
 (require 'init-git)
 (require 'init-webdev)

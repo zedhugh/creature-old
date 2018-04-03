@@ -86,7 +86,7 @@
 ;; evil-surround
 (use-package evil-surround
   :init
-  (add-hook 'emacs-startup-hook 'global-evil-surround-mode)
+  (add-hook 'after-init-hook 'global-evil-surround-mode)
   (evil-define-key 'visual evil-surround-mode-map "cc" 'evil-surround-change)
   (evil-define-key 'visual evil-surround-mode-map "cd" 'evil-surround-delete)
   (evil-define-key 'visual evil-surround-mode-map "cs" 'evil-surround-region))

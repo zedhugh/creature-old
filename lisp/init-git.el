@@ -29,7 +29,7 @@
 (use-package gitignore-mode)
 
 ;; (evil-magit-init)
-(use-package evil-magic
+(use-package evil-magit
   :init
   (add-hook 'magit-mode-hook 'evil-magit-init))
 

@@ -6,14 +6,36 @@
 
 ;;; Code:
 
+(use-package evil
+  :init
+  ;; (add-hook 'evil-leader-mode-hook 'evil-mode)
+  (add-hook 'global-evil-leader-mode-hook 'evil-mode)
+  :config
+  (setcdr evil-insert-state-map nil)
+  (evil-global-set-key 'insert [escape] 'evil-normal-state)
+  (evil-global-set-key 'motion (kbd "TAB") nil)
+  (evil-global-set-key 'motion (kbd "<SPC>") nil)
+  ;; inital state for modes
+  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'image-mode 'emacs)
+  (evil-set-initial-state 'Custom-mode 'motion)
+  (evil-set-initial-state 'package-menu-mode 'motion)
+  (evil-set-initial-state 'messages-buffer-mode 'motion)
+  (evil-set-initial-state 'youdao-dictionary-mode 'motion)
+  (evil-set-initial-state 'flycheck-error-list-mode 'motion)
+  (evil-change-to-initial-state "*Messages*")
+
+  (define-advice about-emacs (:after nil)
+    (with-current-buffer "*About GNU Emacs*"
+      (evil-motion-state))))
+
 ;; evil-leader should enable before enable evil,
 ;; otherwise it's will not be enabled.
 (use-package evil-leader
   :init
+  (global-evil-leader-mode)
   (setq evil-leader/in-all-states t)
   (setq evil-leader/non-normal-prefix "S-")
-  (add-hook 'emacs-startup-hook 'global-evil-leader-mode)
-  :config
   (evil-leader/set-leader "<SPC>")
   (evil-leader/set-key
     "bb"  'switch-to-buffer
@@ -46,29 +68,6 @@
     "wn"  'evil-window-next
     "wp"  'evil-window-prev
     "SPC" 'execute-extended-command))
-
-(use-package evil
-  :init
-  ;; (add-hook 'evil-leader-mode-hook 'evil-mode)
-  (add-hook 'global-evil-leader-mode-hook 'evil-mode)
-  :config
-  (setcdr evil-insert-state-map nil)
-  (evil-global-set-key 'insert [escape] 'evil-normal-state)
-  (evil-global-set-key 'motion (kbd "TAB") nil)
-  (evil-global-set-key 'motion (kbd "<SPC>") nil)
-  ;; inital state for modes
-  (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'image-mode 'emacs)
-  (evil-set-initial-state 'Custom-mode 'motion)
-  (evil-set-initial-state 'package-menu-mode 'motion)
-  (evil-set-initial-state 'messages-buffer-mode 'motion)
-  (evil-set-initial-state 'youdao-dictionary-mode 'motion)
-  (evil-set-initial-state 'flycheck-error-list-mode 'motion)
-  (evil-change-to-initial-state "*Messages*")
-
-  (define-advice about-emacs (:after nil)
-    (with-current-buffer "*About GNU Emacs*"
-      (evil-motion-state))))
 
 ;; mwim
 (use-package mwim

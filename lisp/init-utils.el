@@ -14,7 +14,7 @@
   :init
   (add-hook 'emacs-startup-hook 'window-numbering-mode))
 
-(use-package smooth-scroll
+(use-package smooth-scrolling
   :init
   (add-hook 'emacs-startup-hook 'smooth-scrolling-mode))
 
@@ -49,8 +49,10 @@
 (use-package smartparens
   :init
   (add-hook 'emacs-startup-hook 'smartparens-global-strict-mode)
-  (show-smartparens-global-mode)
-  (require 'smartparens-config))
+  (add-hook 'smartparens-global-strict-mode-hook
+            'show-smartparens-global-mode)
+  (add-hook 'smartparens-global-strict-mode-hook
+            (lambda () (require 'smartparens-config))))
 
 ;; delete multi space
 (use-package hungry-delete

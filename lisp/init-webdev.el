@@ -35,6 +35,14 @@
   (add-hook 'web-mode-hook 'emmet-mode)
   (add-hook 'css-mode-hook 'emmet-mode)
   (add-hook 'js2-jsx-mode-hook 'emmet-mode)
+
+  (defun creature/emmet-expand ()
+    "Expand at right way."
+    (interactive)
+    (if (bound-and-true-p yas-minor-mode)
+        (call-interactively 'emmet-expand-yas)
+      (call-interactively 'emmet-expand-line)))
+
   (evil-define-key 'insert emmet-mode-keymap
     (kbd "Tab") 'creature/emmet-expand)
   (evil-define-key 'insert emmet-mode-keymap
@@ -47,6 +55,10 @@
 ;; company-web
 (use-package company-web
   :init
+  (defun add-company-web-backend ()
+    "Add company-web to company backends."
+    (set (make-local-variable 'company-backends)
+         (push 'company-web-html company-backends)))
   (add-hook 'web-mode-hook 'add-company-web-backend)
   (add-hook 'js2-jsx-mode-hook 'add-company-web-backend))
 
@@ -60,11 +72,24 @@
 (use-package company-tern
   :init
   ;; company tern
+  (defun add-tern ()
+    "Add tern to company backends."
+    (set (make-local-variable 'company-backends)
+         (push 'company-tern company-backends)))
   (add-hook 'js2-mode-hook 'add-tern))
 
 ;; yasnippet
 (use-package yasnippet
   :init
+  (defun add-yas ()
+    "Add yasnippet to company popup menu."
+    (let ((backends company-backends))
+      (set (make-local-variable 'company-backends) nil)
+      (dolist (backend backends)
+        (add-to-list 'company-backends
+                     (cons backend
+                           '(:with company-yasnippet))
+                     'append))))
   (add-hook 'company-mode-hook 'yas-minor-mode)
   (add-hook 'yas-minor-mode-hook 'add-yas))
 

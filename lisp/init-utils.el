@@ -8,7 +8,18 @@
 (use-package which-key
   :init
   (add-hook 'emacs-startup-hook 'which-key-mode)
-  (setq which-key-idle-delay 0.4))
+  (setq which-key-idle-delay 0.4)
+  (defun creature/which-key-declare-prefixes (key doc &rest bind)
+    "Define KEY's DOC with the same way of `evil-leader/set-key'.
+BIND is rest sets of KEY and DOC."
+    (while key
+      (let ((key1 (concat evil-leader/leader " " key))
+            (key2 (concat evil-leader/non-normal-prefix
+                          evil-leader/leader " " key)))
+        (which-key-add-key-based-replacements key1 doc)
+        (which-key-add-key-based-replacements key2 doc))
+      (setq key (pop bind)
+            doc (pop bind)))))
 
 (use-package window-numbering
   :init
@@ -52,7 +63,19 @@
   (add-hook 'smartparens-global-strict-mode-hook
             'show-smartparens-global-mode)
   (add-hook 'smartparens-global-strict-mode-hook
-            (lambda () (require 'smartparens-config))))
+            (lambda () (require 'smartparens-config)))
+  (defun creature/backward-kill-word-or-region (&optional arg)
+    "Call `kill-region' when a region is active.
+and `backward-kill-word' otherwise.  ARG is passed to
+`backward-kill-word' if no region is active."
+    (interactive "p")
+    (if (featurep 'smartparens)
+        (if (region-active-p)
+            (call-interactively #'sp-kill-region)
+          (sp-backward-kill-word arg))
+      (if (region-active-p)
+          (call-interactively #'kill-region)
+        (backward-kill-word arg)))))
 
 ;; delete multi space
 (use-package hungry-delete
@@ -104,6 +127,19 @@
           pyim-probe-punctuation-after-punctuation))
   (when (featurep 'pyim-basedict)
     (pyim-basedict-enable))
+
+  (defun creature/pyim-greatdict-enable ()
+    "Enable a big dict for pyim."
+    (let ((greatdict
+           (concat creature-dir
+                   "pyim-dicts/pyim-greatdict.pyim.gz")))
+      (if (featurep 'pyim)
+          (pyim-extra-dicts-add-dict
+           `(:name "Greatdict-elpa"
+                   :file ,greatdict
+                   :coding utf-8-lang
+                   :dict-type pinyin-dict))
+        nil)))
   (creature/pyim-greatdict-enable))
 
 ;; popwin

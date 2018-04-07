@@ -5,6 +5,7 @@
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)
+  (setq company-show-numbers t)
   (define-key company-active-map (kbd "C-n")
     #'company-complete-common-or-cycle)
   (define-key company-active-map (kbd "C-p")

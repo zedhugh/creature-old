@@ -4,7 +4,8 @@
 
 ;;; Code:
 
-(package-initialize)
+(when (< emacs-major-version 27)
+  (package-initialize))
 
 (setq package-selected-packages nil)
 

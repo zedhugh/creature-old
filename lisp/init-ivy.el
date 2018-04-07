@@ -16,17 +16,20 @@
   :init
   (add-hook 'after-init-hook 'ivy-mode)
   (setq ivy-use-virtual-buffers t)
+  (setq ivy-use-selectable-prompt t)
   (setq enable-recursive-minibuffers t))
 
 ;; ivy-rich
 (use-package ivy-rich
-  :config
-  (setq ivy-virtual-abbreviate 'full)
-  (setq ivy-rich-switch-buffer-align-virtual-buffer t)
-  (setq ivy-rich-path-style 'abbrev)
-  (ivy-set-display-transformer
-   'ivy-switch-buffer
-   'ivy-rich-switch-buffer-transformer))
+  :init
+  (defun enable-ivy-rich ()
+    (setq ivy-virtual-abbreviate 'full)
+    (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+    (setq ivy-rich-path-style 'abbrev)
+    (ivy-set-display-transformer
+     'ivy-switch-buffer
+     'ivy-rich-switch-buffer-transformer))
+  (add-hook 'ivy-mode-hook 'enable-ivy-rich))
 
 (use-package swiper
   :init

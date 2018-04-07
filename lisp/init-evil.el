@@ -29,6 +29,10 @@
     (with-current-buffer "*About GNU Emacs*"
       (evil-motion-state))))
 
+(use-package evil-matchit
+  :init
+  (add-hook 'evil-mode-hook 'global-evil-matchit-mode))
+
 ;; evil-leader should enable before enable evil,
 ;; otherwise it's will not be enabled.
 (use-package evil-leader

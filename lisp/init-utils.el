@@ -98,6 +98,16 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (unless sys/win32p
     (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
 
+;; page break line
+(use-package page-break-lines
+  :init
+  (setq page-break-lines-char ?-))
+
+;; unicode fonts
+(use-package unicode-fonts
+  :init
+  (add-hook 'after-init-hook 'unicode-fonts-setup))
+
 ;; pyim
 (use-package pyim
   :init

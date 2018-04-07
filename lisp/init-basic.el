@@ -106,7 +106,9 @@
 ;; line and colum
 (column-number-mode)
 (if (fboundp 'display-line-numbers-mode)
-    (global-display-line-numbers-mode)
+    (progn
+      (global-display-line-numbers-mode)
+      (setq display-line-numbers-width-start t))
   (global-linum-mode))
 
 (require 'time)
@@ -130,10 +132,8 @@
 (setq line-move-visual t)
 
 ;; add fontset work after emacs initialized
-(add-hook 'after-init-hook
-          (lambda ()
-            (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
-            (set-face-attribute 'font-lock-comment-face nil :slant 'italic)))
+(set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
+(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 
 (setq x-gtk-use-system-tooltips nil)
 

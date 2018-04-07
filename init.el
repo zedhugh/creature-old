@@ -25,7 +25,11 @@
 
 (require 'init-env)
 (require 'init-elpa)
-(require 'init-basic)
+(add-hook 'after-init-hook
+          (lambda ()
+            (require 'init-basic)
+            ))
+;; (require 'init-basic)
 (require 'init-defuns)
 (require 'init-evil)
 (require 'init-utils)

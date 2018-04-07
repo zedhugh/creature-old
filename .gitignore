@@ -8,3 +8,5 @@ server/
 custom.el
 url/
 pyim/
+bookmarks
+var/

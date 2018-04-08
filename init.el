@@ -12,9 +12,8 @@
 ;;   4. organize config with function.
 
 ;;; Code:
-;; (package-initialize)
 
-(setq start-init-time (current-time))
+;; (package-initialize)
 
 (defconst creature-dir
   (file-name-directory (or load-file-name buffer-file-name))
@@ -23,34 +22,38 @@
 (add-to-list 'load-path
              (expand-file-name "lisp" creature-dir))
 
-(require 'init-env)
-(require 'init-elpa)
 (add-hook 'after-init-hook
           (lambda ()
+            (require 'init-env)
+            (require 'init-elpa)
             (require 'init-basic)
-            ))
-;; (require 'init-basic)
-(require 'init-defuns)
-(require 'init-evil)
-(require 'init-utils)
-(require 'init-company)
-(require 'init-ivy)
-(require 'init-git)
-(require 'init-webdev)
-(require 'init-org)
-(require 'init-keybindings)
+            (require 'init-defuns)
+            (require 'init-evil)
+            (require 'init-utils)
+            (require 'init-company)
+            (require 'init-ivy)
+            (require 'init-git)
+            (require 'init-webdev)
+            (require 'init-org)
+            (require 'init-keybindings)
 
-(setq end-init-time (current-time))
-
-;; load custom file
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file))
-
-(setq finial-init-time (current-time))
-
-(float-time (time-subtract end-init-time start-init-time))
-(float-time (time-subtract finial-init-time start-init-time))
+            ;; load custom file
+            (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+            (when (file-exists-p custom-file)
+              (load custom-file))))
 
 ;; (provide 'init)
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(company-tern tern youdao-dictionary yasnippet-snippets window-numbering which-key web-mode use-package unicode-fonts spacemacs-theme smooth-scrolling smex smartparens s rainbow-identifiers pyim popwin page-break-lines org-pomodoro mwim json-mode js2-mode ivy-rich hungry-delete gitignore-mode gitconfig-mode gitattributes-mode flycheck fill-column-indicator expand-region evil-surround evil-nerd-commenter evil-matchit evil-magit evil-leader emmet-mode dash-functional counsel company-web all-the-icons-dired)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

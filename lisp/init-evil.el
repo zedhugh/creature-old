@@ -6,33 +6,6 @@
 
 ;;; Code:
 
-(use-package evil
-  :init
-  ;; (add-hook 'evil-leader-mode-hook 'evil-mode)
-  (add-hook 'global-evil-leader-mode-hook 'evil-mode)
-  :config
-  (setcdr evil-insert-state-map nil)
-  (evil-global-set-key 'insert [escape] 'evil-normal-state)
-  (evil-global-set-key 'motion (kbd "TAB") nil)
-  (evil-global-set-key 'motion (kbd "<SPC>") nil)
-  ;; inital state for modes
-  (evil-set-initial-state 'dired-mode 'emacs)
-  (evil-set-initial-state 'image-mode 'emacs)
-  (evil-set-initial-state 'Custom-mode 'motion)
-  (evil-set-initial-state 'package-menu-mode 'motion)
-  (evil-set-initial-state 'messages-buffer-mode 'motion)
-  (evil-set-initial-state 'youdao-dictionary-mode 'motion)
-  (evil-set-initial-state 'flycheck-error-list-mode 'motion)
-  (evil-change-to-initial-state "*Messages*")
-
-  (define-advice about-emacs (:after nil)
-    (with-current-buffer "*About GNU Emacs*"
-      (evil-motion-state))))
-
-(use-package evil-matchit
-  :init
-  (add-hook 'evil-mode-hook 'global-evil-matchit-mode))
-
 ;; evil-leader should enable before enable evil,
 ;; otherwise it's will not be enabled.
 (use-package evil-leader
@@ -73,6 +46,32 @@
     "wp"  'evil-window-prev
     "SPC" 'execute-extended-command))
 
+(use-package evil
+  :init
+  (evil-mode)
+  :config
+  (setcdr evil-insert-state-map nil)
+  (evil-global-set-key 'insert [escape] 'evil-normal-state)
+  (evil-global-set-key 'motion (kbd "TAB") nil)
+  (evil-global-set-key 'motion (kbd "<SPC>") nil)
+  ;; inital state for modes
+  (evil-set-initial-state 'dired-mode 'emacs)
+  (evil-set-initial-state 'image-mode 'emacs)
+  (evil-set-initial-state 'Custom-mode 'motion)
+  (evil-set-initial-state 'package-menu-mode 'motion)
+  (evil-set-initial-state 'messages-buffer-mode 'motion)
+  (evil-set-initial-state 'youdao-dictionary-mode 'motion)
+  (evil-set-initial-state 'flycheck-error-list-mode 'motion)
+  (evil-change-to-initial-state "*Messages*")
+
+  (define-advice about-emacs (:after nil)
+    (with-current-buffer "*About GNU Emacs*"
+      (evil-motion-state))))
+
+(use-package evil-matchit
+  :init
+  (global-evil-matchit-mode))
+
 ;; mwim
 (use-package mwim
   :init
@@ -90,7 +89,7 @@
 ;; evil-surround
 (use-package evil-surround
   :init
-  (add-hook 'after-init-hook 'global-evil-surround-mode)
+  (global-evil-surround-mode)
   (evil-define-key 'visual evil-surround-mode-map "cc" 'evil-surround-change)
   (evil-define-key 'visual evil-surround-mode-map "cd" 'evil-surround-delete)
   (evil-define-key 'visual evil-surround-mode-map "cs" 'evil-surround-region))

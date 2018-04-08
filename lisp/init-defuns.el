@@ -21,24 +21,10 @@
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
-
-
-
-
 (defun creature/open-init-file ()
   "Open init file."
   (interactive)
   (find-file (expand-file-name "init.el" creature-dir)))
-
-
-
-
-
-
-
-
-
-
 
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

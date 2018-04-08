@@ -7,7 +7,7 @@
 ;; which-key
 (use-package which-key
   :init
-  (add-hook 'after-init-hook 'which-key-mode)
+  (which-key-mode)
   (setq which-key-idle-delay 0.4)
   (defun creature/which-key-declare-prefixes (key doc &rest bind)
     "Define KEY's DOC with the same way of `evil-leader/set-key'.
@@ -23,20 +23,18 @@ BIND is rest sets of KEY and DOC."
 
 (use-package window-numbering
   :init
-  (add-hook 'after-init-hook 'window-numbering-mode))
+  (window-numbering-mode))
 
 (use-package smooth-scrolling
   :init
-  (add-hook 'after-init-hook 'smooth-scrolling-mode))
+  (smooth-scrolling-mode))
 
 ;; syntax check
 (use-package flycheck
   :init
-  (defun enable-flycheck ()
-    (flycheck-mode 1))
   (defun disable-flycheck ()
     (flycheck-mode -1))
-  (add-hook 'prog-mode-hook 'enable-flycheck)
+  (add-hook 'prog-mode-hook 'flycheck-mode)
   (add-hook 'emacs-lisp-mode-hook 'disable-flycheck)
   (setq flycheck-emacs-lisp-load-path load-path)
   (evil-leader/set-key
@@ -45,11 +43,9 @@ BIND is rest sets of KEY and DOC."
 
 (use-package smartparens
   :init
-  (add-hook 'after-init-hook 'smartparens-global-strict-mode)
-  (add-hook 'smartparens-global-strict-mode-hook
-            'show-smartparens-global-mode)
-  (add-hook 'smartparens-global-strict-mode-hook
-            (lambda () (require 'smartparens-config)))
+  (smartparens-global-strict-mode)
+  (show-smartparens-global-mode)
+  (require 'smartparens-config)
   (defun creature/backward-kill-word-or-region (&optional arg)
     "Call `kill-region' when a region is active.
 and `backward-kill-word' otherwise.  ARG is passed to
@@ -66,7 +62,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; delete multi space
 (use-package hungry-delete
   :init
-  (add-hook 'after-init-hook 'global-hungry-delete-mode)
+  (global-hungry-delete-mode)
   :config
   (setq hungry-delete-chars-to-skip " \t\f\v")
   (define-key hungry-delete-mode-map (kbd "DEL") 'hungry-delete-backward))
@@ -106,7 +102,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; unicode fonts
 (use-package unicode-fonts
   :init
-  (add-hook 'after-init-hook 'unicode-fonts-setup))
+  (unicode-fonts-setup))
 
 ;; pyim
 (use-package pyim
@@ -124,26 +120,23 @@ and `backward-kill-word' otherwise.  ARG is passed to
           pyim-probe-punctuation-after-punctuation))
   (when (featurep 'pyim-basedict)
     (pyim-basedict-enable))
-
-  (defun creature/pyim-greatdict-enable ()
-    "Enable a big dict for pyim."
-    (let ((greatdict
-           (concat creature-dir
-                   "pyim-dicts/pyim-greatdict.pyim.gz")))
-      (if (featurep 'pyim)
-          (pyim-extra-dicts-add-dict
-           `(:name "Greatdict-elpa"
-                   :file ,greatdict
-                   :coding utf-8-lang
-                   :dict-type pinyin-dict))
-        nil)))
-  (creature/pyim-greatdict-enable))
+  ;; Enable a big dict for pyim.
+  (let ((greatdict
+         (concat creature-dir
+                 "pyim-dicts/pyim-greatdict.pyim.gz")))
+    (if (featurep 'pyim)
+        (pyim-extra-dicts-add-dict
+         `(:name "Greatdict-elpa"
+                 :file ,greatdict
+                 :coding utf-8-lang
+                 :dict-type pinyin-dict))
+      nil)))
 
 ;; popwin
 (use-package popwin
   :init
   (require 'popwin)
-  (add-hook 'after-init-hook 'popwin-mode)
+  (popwin-mode)
   (setq popwin:special-display-config
         '(;; Emacs
           ("*Help*" :dedicated t :position bottom :stick t :noselect nil)

@@ -9,7 +9,7 @@
 
 (setq package-selected-packages nil)
 
-(setq package-archives creature/elpa)
+(setq package-archives creature/elpa-cn)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)

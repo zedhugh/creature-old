@@ -1,7 +1,7 @@
 ;; complete
 (use-package company
   :init
-  (add-hook 'after-init-hook 'global-company-mode)
+  (global-company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 1)

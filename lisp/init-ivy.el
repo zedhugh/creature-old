@@ -8,13 +8,13 @@
 
 (use-package counsel
   :init
-  (add-hook 'after-init-hook 'counsel-mode)
+  (counsel-mode)
   (evil-leader/set-key
     "fr" 'counsel-recentf))
 
 (use-package ivy
   :init
-  (add-hook 'after-init-hook 'ivy-mode)
+  (ivy-mode)
   (setq ivy-use-virtual-buffers t)
   (setq ivy-use-selectable-prompt t)
   (setq enable-recursive-minibuffers t))
@@ -22,14 +22,12 @@
 ;; ivy-rich
 (use-package ivy-rich
   :init
-  (defun enable-ivy-rich ()
-    (setq ivy-virtual-abbreviate 'full)
-    (setq ivy-rich-switch-buffer-align-virtual-buffer t)
-    (setq ivy-rich-path-style 'abbrev)
-    (ivy-set-display-transformer
-     'ivy-switch-buffer
-     'ivy-rich-switch-buffer-transformer))
-  (add-hook 'ivy-mode-hook 'enable-ivy-rich))
+  (setq ivy-virtual-abbreviate 'full)
+  (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+  (setq ivy-rich-path-style 'abbrev)
+  (ivy-set-display-transformer
+   'ivy-switch-buffer
+   'ivy-rich-switch-buffer-transformer))
 
 (use-package swiper
   :init

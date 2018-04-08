@@ -67,9 +67,9 @@
 (setq-default savehist-autosave-interval 60)
 
 ;; hightlight line
-(if sys/graphicp
-    (global-hl-line-mode 1)
-  (global-hl-line-mode -1))
+;; (if sys/graphicp
+;;     (global-hl-line-mode 1)
+;;   (global-hl-line-mode -1))
 
 ;; disable menu bar, tool bar and scroll bar
 (menu-bar-mode -1)

@@ -97,6 +97,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; page break line
 (use-package page-break-lines
   :init
+  (global-page-break-lines-mode)
   (setq page-break-lines-char ?-))
 
 ;; unicode fonts

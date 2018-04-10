@@ -58,11 +58,13 @@
   (evil-set-initial-state 'dired-mode 'emacs)
   (evil-set-initial-state 'image-mode 'emacs)
   (evil-set-initial-state 'Custom-mode 'motion)
+  (evil-set-initial-state 'special-mode 'motion)
   (evil-set-initial-state 'package-menu-mode 'motion)
   (evil-set-initial-state 'messages-buffer-mode 'motion)
   (evil-set-initial-state 'youdao-dictionary-mode 'motion)
   (evil-set-initial-state 'flycheck-error-list-mode 'motion)
   (evil-change-to-initial-state "*Messages*")
+  (setq evil-emacs-state-cursor 'bar)
 
   (define-advice about-emacs (:after nil)
     (with-current-buffer "*About GNU Emacs*"

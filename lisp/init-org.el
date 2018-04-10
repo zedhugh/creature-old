@@ -8,19 +8,23 @@
 
 (use-package org-pomodoro)
 
-(use-package org
+(use-package org-plus-contrib
   :init
   (setq org-image-actual-width nil)
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-preview-latex-image-directory
         (expand-file-name "ltximg/" creature-cache))
+  (setq shell
+        (if (< (string-to-number (org-version)) 9)
+            'sh
+          'shell))
   (add-hook 'org-mode-hook 'org-display-inline-images)
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C          . t)
+   `((C          . t)
      (js         . t)
      (latex      . t)
-     (shell      . t)
+     (,shell     . t)
      (python     . t)
      (emacs-lisp . t)))
 

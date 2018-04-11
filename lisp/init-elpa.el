@@ -4,8 +4,11 @@
 
 ;;; Code:
 
-(when (< emacs-major-version 27)
-  (package-initialize))
+(if (< emacs-major-version 27)
+    (package-initialize)
+  (unless (file-exists-p
+	    (expand-file-name "elpa" user-emacs-directory))
+    (package-initialize)))
 
 (setq package-selected-packages nil)
 

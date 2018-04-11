@@ -22,21 +22,18 @@
 (add-to-list 'load-path
              (expand-file-name "lisp" creature-dir))
 
-(add-hook 'after-init-hook
-          (lambda ()
-            (require 'init-env)
-            (require 'init-elpa)
-            (require 'init-defuns)
-            (require 'init-evil)
-            (require 'init-utils)
-            (require 'init-company)
-            (require 'init-ivy)
-            (require 'init-git)
-            (require 'init-webdev)
-            (require 'init-org)
-            (require 'init-keybindings)
-            (require 'init-basic)
-            ))
+(require 'init-env)
+(require 'init-elpa)
+(require 'init-defuns)
+(require 'init-evil)
+(require 'init-utils)
+(require 'init-company)
+(require 'init-ivy)
+(require 'init-git)
+(require 'init-webdev)
+(require 'init-org)
+(require 'init-keybindings)
+(require 'init-basic)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

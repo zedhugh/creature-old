@@ -22,6 +22,8 @@
 (add-to-list 'load-path
              (expand-file-name "lisp" creature-dir))
 
+(setq-local a (current-time))
+
 (require 'init-env)
 (require 'init-elpa)
 (require 'init-defuns)
@@ -35,10 +37,20 @@
 (require 'init-keybindings)
 (require 'init-basic)
 
+
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(setq-local b (current-time))
+
+(setq-local c (float-time (time-subtract b a)))
+
+(setq initial-scratch-message
+      (concat ";; load init file: `" (number-to-string c) "'"
+              ", emacs init time: `" (emacs-init-time) "'\n"
+              initial-scratch-message))
 
 ;; (provide 'init)
 ;;; init.el ends here

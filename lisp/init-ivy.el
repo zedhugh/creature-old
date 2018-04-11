@@ -33,7 +33,7 @@
   :init
   (global-set-key (kbd "C-s") 'swiper))
 
-;; smex
+;; smex: record freq for command
 (use-package smex
   :init
   (unless (file-exists-p creature-cache)

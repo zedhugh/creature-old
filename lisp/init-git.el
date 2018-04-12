@@ -31,7 +31,7 @@
 ;; (evil-magit-init)
 (use-package evil-magit
   :init
-  (add-hook 'magit-mode-hook 'evil-magit-init))
+  (evil-magit-init))
 
 (provide 'init-git)
 ;;; init-git.el ends here

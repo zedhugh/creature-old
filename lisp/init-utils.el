@@ -80,6 +80,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
   (evil-leader/set-key "v" 'er/expand-region))
 
 ;; pyim
+(use-package posframe)
 (use-package pyim
   :init
   (require 'pyim)

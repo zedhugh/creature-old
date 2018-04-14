@@ -36,6 +36,7 @@
 (require 'init-org)
 (require 'init-keybindings)
 (require 'init-basic)
+(require 'init-ui)
 
 
 ;; load custom file

@@ -79,32 +79,6 @@ and `backward-kill-word' otherwise.  ARG is passed to
   :init
   (evil-leader/set-key "v" 'er/expand-region))
 
-;; colorful GUI
-(use-package rainbow-identifiers
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
-
-;; load theme
-(use-package spacemacs-theme
-  :init
-  (load-theme 'spacemacs-dark t))
-
-(use-package all-the-icons-dired
-  :init
-  (unless sys/win32p
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
-
-;; page break line
-(use-package page-break-lines
-  :init
-  (global-page-break-lines-mode)
-  (setq page-break-lines-char ?-))
-
-;; unicode fonts
-(use-package unicode-fonts
-  :init
-  (unicode-fonts-setup))
-
 ;; pyim
 (use-package pyim
   :init

@@ -48,9 +48,8 @@
 (save-place-mode)
 
 ;; remember recent opened files.
-(require 'recentf)
 (recentf-mode)
-(setq-default recentf-max-saved-items 1000)
+(setq recentf-max-saved-items 1000)
 (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
 (add-to-list 'recentf-exclude "bookmarks")
 (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
@@ -58,35 +57,13 @@
 (savehist-mode)
 (setq enable-recursive-minibuffers t)
 (setq history-length 1000)
-(setq-default savehist-additional-variables
-              '(mark-ring
-                global-mark-ring
-                search-ring
-                regexp-search-ring
-                extended-command-history))
-(setq-default savehist-autosave-interval 60)
-
-;; hightlight line
-;; (if sys/graphicp
-;;     (global-hl-line-mode 1)
-;;   (global-hl-line-mode -1))
-
-;; disable menu bar, tool bar and scroll bar
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
-;; disable bell
-(setq ring-bell-function 'ignore)
-
-;; maximized frame except in tiled window manager.
-;; there is "awesome".
-(unless (string-equal "awesome" (getenv "DESKTOP_SESSION"))
-  (setq initial-frame-alist '((fullscreen . maximized))))
-
-;; click(C-c RET) to browse URL
-(goto-address-mode)
-(goto-address-prog-mode)
+(setq savehist-additional-variables
+      '(mark-ring
+        global-mark-ring
+        search-ring
+        regexp-search-ring
+        extended-command-history))
+(setq savehist-autosave-interval 60)
 
 ;; delete with key "C-w"
 (delete-selection-mode)
@@ -106,53 +83,7 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-;; line and colum
-(column-number-mode)
-(if (fboundp 'display-line-numbers-mode)
-    (progn
-      (global-display-line-numbers-mode)
-      (setq display-line-numbers-width-start t))
-  (global-linum-mode))
-
-(require 'time)
-(if sys/graphicp
-    nil
-  (setq display-time-24hr-format t)
-  (setq display-time-day-and-date t)
-  (display-time-mode))
-
-;; disable startup screen
-(setq inhibit-splash-screen t)
-
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq visible-bell nil)
-(size-indication-mode)
-(blink-cursor-mode -1)
-;; Keep cursor at end of lines when prev
-;; position of cursor is at the end.
-;; Require line-move-visual is nil.
-(setq track-eol t)
-(setq line-move-visual t)
-
-;; add fontset work after emacs initialized
-(set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
-(set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-
-(setq x-gtk-use-system-tooltips nil)
-
-;; fontset only for graphic
-(when window-system
-  ;; single-byte code
-  (let ((family (car creature/default-font))
-        (size (cdr creature/default-font)))
-    (set-face-attribute 'default nil
-                        :font (font-spec :family family :size size)))
-  ;; multi-byte code
-  (let ((family (car creature/chinese-font))
-        (size (cdr creature/chinese-font)))
-    (dolist (charset '(kana han cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font) charset
-                        (font-spec :family family :size size)))))
 
 (put 'erase-buffer 'disabled nil)
 

@@ -76,6 +76,9 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 
+;; disable bell
+(setq ring-bell-function 'ignore)
+
 ;; maximized frame except in tiled window manager.
 ;; there is "awesome".
 (unless (string-equal "awesome" (getenv "DESKTOP_SESSION"))

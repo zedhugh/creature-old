@@ -6,7 +6,10 @@
 
 ;;; Code:
 
-(use-package org-pomodoro)
+(use-package org-pomodoro
+  :config
+  (when sys/win32p
+    (setq org-pomodoro-audio-player "mplayer")))
 
 (use-package org-plus-contrib
   :init

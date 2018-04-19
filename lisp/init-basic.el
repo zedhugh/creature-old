@@ -83,6 +83,8 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
+(auto-save-visited-mode)
+
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (put 'erase-buffer 'disabled nil)

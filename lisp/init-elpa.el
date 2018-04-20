@@ -22,14 +22,78 @@
 
 (setq package-selected-packages nil)
 
-(setq package-archives creature/elpa-cn)
+(setq package-archives
+      '(
+        ;; ("gnu"   . "https://elpa.gnu.org/packages/")
+        ;; ("org"   . "https://orgmode.org/elpa/")
+        ;; ("melpa" . "https://melpa.org/packages/")
 
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+        ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
+        ("org-cn"   . "https://elpa.emacs-china.org/org/")
+        ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+        ))
 
-(require 'use-package)
-(setq use-package-always-defer t)
-(setq use-package-always-ensure t)
+;; evil
+(require-package 'mwim)
+(require-package 'evil)
+(require-package 'evil-leader)
+(require-package 'evil-matchit)
+(require-package 'evil-surround)
+(require-package 'evil-nerd-commenter)
+
+;; utils
+(require-package 'which-key)
+(require-package 'window-numbering)
+(require-package 'smooth-scrolling)
+(require-package 'flycheck)
+(require-package 'smartparens)
+(require-package 'hungry-delete)
+(require-package 'youdao-dictionary)
+(require-package 'expand-region)
+(require-package 'posframe)
+(require-package 'pyim)
+(require-package 'popwin)
+
+;; company
+(require-package 'company)
+(require-package 'yasnippet)
+(require-package 'yasnippet-snippets)
+
+;; ivy
+(require-package 'counsel)
+(require-package 'ivy)
+(require-package 'ivy-rich)
+(require-package 'swiper)
+(require-package 'smex)
+
+;; git
+(require-package 'fill-column-indicator)
+(require-package 'magit)
+(require-package 'gitattributes-mode)
+(require-package 'gitconfig-mode)
+(require-package 'gitignore-mode)
+(require-package 'evil-magit)
+
+;; webdev
+(require-package 'web-mode)
+(require-package 'js2-mode)
+(require-package 'json-mode)
+(require-package 'emmet-mode)
+(require-package 'company-web)
+(require-package 'tern)
+(require-package 'company-tern)
+
+;; org
+(require-package 'org-pomodoro)
+(require-package 'org-plus-contrib)
+
+;; ui
+(require-package 'rainbow-delimiters)
+(require-package 'rainbow-identifiers)
+(require-package 'spacemacs-theme)
+(require-package 'solarized-theme)
+(require-package 'all-the-icons-dired)
+(require-package 'page-break-lines)
+(require-package 'unicode-fonts)
 
 (provide 'init-elpa)

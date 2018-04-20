@@ -1,39 +1,32 @@
 ;; complete
-(use-package company
-  :init
-  (global-company-mode)
-  :config
-  (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1)
-  (setq company-show-numbers t)
-  (define-key company-active-map (kbd "C-n")
-    #'company-complete-common-or-cycle)
-  (define-key company-active-map (kbd "C-p")
-    (lambda ()
-      (interactive)
-      (company-complete-common-or-cycle -1)))
-  (add-hook 'text-mode-hook
-            (lambda ()
-              (set (make-local-variable 'company-backends)
-                   (add-to-list 'company-backends 'company-ispell)))))
+(global-company-mode)
+(setq company-idle-delay 0)
+(setq company-minimum-prefix-length 1)
+(setq company-show-numbers t)
+(define-key company-active-map (kbd "C-n")
+  #'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "C-p")
+  (lambda ()
+    (interactive)
+    (company-complete-common-or-cycle -1)))
+(add-hook 'text-mode-hook
+          (lambda ()
+            (set (make-local-variable 'company-backends)
+                 (add-to-list 'company-backends 'company-ispell))))
 
 ;; yasnippet
-(use-package yasnippet
-  :init
-  (defun creature/show-snippets-in-company (backend)
-    (if (and (listp backend) (member 'company-yasnippet backend))
-        backend
-      (append (if (consp backend) backend (list backend))
-              '(:with company-yasnippet))))
+(defun creature/show-snippets-in-company (backend)
+  (if (and (listp backend) (member 'company-yasnippet backend))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
 
-  (defun add-yas ()
-    "Add yasnippet to company popup menu."
-    (set (make-local-variable 'company-backends)
-         (mapcar 'creature/show-snippets-in-company company-backends)))
+(defun add-yas ()
+  "Add yasnippet to company popup menu."
+  (set (make-local-variable 'company-backends)
+       (mapcar 'creature/show-snippets-in-company company-backends)))
 
-  (add-hook 'company-mode-hook 'yas-minor-mode)
-  (add-hook 'yas-minor-mode-hook 'add-yas))
-
-(use-package yasnippet-snippets)
+(add-hook 'company-mode-hook 'yas-minor-mode)
+(add-hook 'yas-minor-mode-hook 'add-yas)
 
 (provide 'init-company)

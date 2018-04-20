@@ -65,37 +65,25 @@
                         (font-spec :family family :size size)))))
 
 ;; colorful GUI
-(use-package rainbow-identifiers
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-identifiers-mode))
+(add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 
-(use-package rainbow-delimiters
-  :init
-  (add-hook 'prog-mode-hook 'rainbow-delimiters-mode))
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; load theme
-(use-package spacemacs-theme
-  :init
-  (load-theme 'spacemacs-dark t))
+(load-theme 'spacemacs-dark t)
 
 ;; add fontset work after emacs initialized
 (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 
-(use-package all-the-icons-dired
-  :init
-  (unless sys/win32p
-    (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
+(unless sys/win32p
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 ;; page break line
-(use-package page-break-lines
-  :init
-  (global-page-break-lines-mode)
-  (setq page-break-lines-char ?-))
+(global-page-break-lines-mode)
+(setq page-break-lines-char ?-)
 
 ;; unicode fonts
-(use-package unicode-fonts
-  :init
-  (unicode-fonts-setup))
+(unicode-fonts-setup)
 
 (provide 'init-ui)

@@ -48,17 +48,5 @@
   (expand-file-name ".cache" creature-dir)
   "Cache directory.")
 
-(defconst creature/elpa
-  '(("gnu"   . "https://elpa.gnu.org/packages/")
-    ("org"   . "https://orgmode.org/elpa/")
-    ("melpa" . "https://melpa.org/packages/"))
-  "Foreign package sources.")
-
-(defconst creature/elpa-cn
-  '(("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
-    ("org-cn"   . "https://elpa.emacs-china.org/org/")
-    ("melpa-cn" . "https://elpa.emacs-china.org/melpa/"))
-  "Chinese mirror for package sources.")
-
 (provide 'init-env)
 ;;; init-env.el ends here

@@ -72,7 +72,6 @@
 (require-package 'gitattributes-mode)
 (require-package 'gitconfig-mode)
 (require-package 'gitignore-mode)
-(require-package 'evil-magit)
 
 ;; webdev
 (require-package 'web-mode)

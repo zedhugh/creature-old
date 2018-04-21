@@ -20,8 +20,5 @@
  "gf" "git files"
  "g"  "gits")
 
-;; (evil-magit-init)
-(evil-magit-init)
-
 (provide 'init-git)
 ;;; init-git.el ends here

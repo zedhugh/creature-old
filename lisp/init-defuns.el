@@ -5,7 +5,20 @@
 
 ;;; Code:
 
-
+(defconst creature/indent-sensitive-modes
+  '(asm-mode
+    coffee-mode
+    elm-mode
+    haml-mode
+    haskell-mode
+    slim-mode
+    makefile-mode
+    makefile-bsdmake-mode
+    makefile-gmake-mode
+    makefile-imake-mode
+    python-mode
+    yaml-mode)
+  "Modes which disable auto-indenting.")
 
 (defun creature/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."

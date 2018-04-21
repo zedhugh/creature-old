@@ -6,9 +6,15 @@
 
 ;;; Code:
 
+(defconst creature/org-src-lang-modes
+  '(("js"   . js2)
+    ("html" . web))
+  "Better src lang reflex to mode.")
+
 (when sys/win32p
   (setq org-pomodoro-audio-player "mplayer"))
 
+;; inline image
 (setq org-image-actual-width nil)
 (setq org-preview-latex-default-process 'dvisvgm)
 (setq org-preview-latex-image-directory
@@ -27,12 +33,12 @@
    (python     . t)
    (emacs-lisp . t)))
 
- ;; don't prompt before eval code
- (setq org-confirm-babel-evaluate nil)
+;; don't prompt before eval code
+(setq org-confirm-babel-evaluate nil)
 
- ;; add better src lang reflex to mode
- (dolist (src2mode creature/org-src-lang-modes)
-   (add-to-list 'org-src-lang-modes src2mode))
+;; add better src lang reflex to mode
+(dolist (src2mode creature/org-src-lang-modes)
+  (add-to-list 'org-src-lang-modes src2mode))
 
 (provide 'init-org)
 ;;; init-org.el ends here

@@ -15,16 +15,32 @@
 
 ;; (package-initialize)
 
+(setq-local a (current-time))
+
+(defconst sys/win32p
+  (eq system-type 'windows-nt)
+  "Is the system is Windows?")
+
+(defconst sys/graphicp
+  (display-graphic-p)
+  "Is Emacs run with graphic?")
+
 (defconst creature-dir
   (file-name-directory (or load-file-name buffer-file-name))
   "Root directory of creature.")
 
+(defconst creature-cache
+  (expand-file-name ".cache" creature-dir)
+  "Cache directory.")
+
+(defconst best-gc-cons-threshold 4000000
+  "Best default gc threshold value. Should't be to big.")
+
+(setq gc-cons-threshold most-positive-fixnum)
+
 (add-to-list 'load-path
              (expand-file-name "lisp" creature-dir))
 
-(setq-local a (current-time))
-
-(require 'init-env)
 (require 'init-elpa)
 (require 'init-defuns)
 (require 'init-evil)
@@ -42,7 +58,7 @@
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
-  (load custom-file))
+  (load custom-file 'noerror))
 
 (setq-local b (current-time))
 
@@ -52,6 +68,8 @@
       (concat ";; load init file: `" (number-to-string c) "'"
               ", emacs init time: `" (emacs-init-time) "'\n"
               initial-scratch-message))
+
+(setq gc-cons-threshold best-gc-cons-threshold)
 
 ;; (provide 'init)
 ;;; init.el ends here

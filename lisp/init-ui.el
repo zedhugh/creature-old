@@ -1,3 +1,13 @@
+(defconst creature/default-font
+  '("Operator Mono Book" . 16)
+  "Default font for single-byte code.")
+
+(defconst creature/chinese-font
+  (if sys/win32p
+      '("SimSun" . 18)
+    '("Emacs SimSun" . 18))
+  "Default font for multi-byte code.")
+
 ;; hightlight line
 ;; (if sys/graphicp
 ;;     (global-hl-line-mode 1)

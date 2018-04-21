@@ -90,4 +90,6 @@
 (require-package 'page-break-lines)
 (require-package 'unicode-fonts)
 
+(require-package 'idle-require)
+
 (provide 'init-elpa)

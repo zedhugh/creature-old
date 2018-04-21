@@ -45,16 +45,18 @@
 (require 'init-defuns)
 (require 'init-evil)
 (require 'init-utils)
-(require 'init-company)
+(idle-require 'init-company)
 (require 'init-ivy)
-(require 'init-git)
-(require 'init-javascript)
-(require 'init-web-mode)
-(require 'init-org)
+(idle-require 'init-git)
+(idle-require 'init-javascript)
+(idle-require 'init-web-mode)
+(idle-require 'init-org)
 (require 'init-keybindings)
 (require 'init-misc)
 (require 'init-ui)
 
+(setq idle-require-idle-delay 5)
+(idle-require-mode)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

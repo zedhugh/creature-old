@@ -6,13 +6,15 @@
 (define-key company-active-map (kbd "C-n")
   #'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "C-p")
-  (lambda ()
+  (defun creature/company-select-prev ()
     (interactive)
     (company-complete-common-or-cycle -1)))
-(add-hook 'text-mode-hook
-          (lambda ()
-            (set (make-local-variable 'company-backends)
-                 (add-to-list 'company-backends 'company-ispell))))
+
+(defun enable-ispell ()
+  "Turn on spell prompt."
+  (set (make-local-variable 'company-backends)
+       (add-to-list 'company-backends 'company-ispell)))
+(add-hook 'text-mode-hook 'enable-ispell)
 
 ;; yasnippet
 (defun creature/show-snippets-in-company (backend)

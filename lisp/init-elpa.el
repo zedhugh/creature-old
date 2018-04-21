@@ -4,12 +4,6 @@
 
 ;;; Code:
 
-(if (< emacs-major-version 27)
-    (package-initialize)
-  (unless (file-exists-p
-           (expand-file-name "elpa" user-emacs-directory))
-    (package-initialize)))
-
 (defun require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
   (if (package-installed-p package min-version)
@@ -50,7 +44,8 @@
 (require-package 'hungry-delete)
 (require-package 'youdao-dictionary)
 (require-package 'expand-region)
-(require-package 'posframe)
+(when (>= emacs-major-version 26)
+  (require-package 'posframe))
 (require-package 'pyim)
 (require-package 'popwin)
 

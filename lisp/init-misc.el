@@ -1,10 +1,3 @@
-;;; init-basic.el --- basic config
-
-;;; Commentary:
-;; basic config for build-in package.
-
-;;; Code:
-
 ;; use utf-8 for default
 (prefer-coding-system 'utf-8)
 
@@ -82,11 +75,11 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-(auto-save-visited-mode)
+(when (>= emacs-major-version 26)
+  (auto-save-visited-mode))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (put 'erase-buffer 'disabled nil)
 
-(provide 'init-basic)
-;;; init-basic.el ends here
+(provide 'init-misc)

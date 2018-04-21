@@ -13,7 +13,7 @@
 
 ;;; Code:
 
-;; (package-initialize)
+(package-initialize)
 
 (setq-local a (current-time))
 
@@ -48,10 +48,11 @@
 (require 'init-company)
 (require 'init-ivy)
 (require 'init-git)
-(require 'init-webdev)
+(require 'init-javascript)
+(require 'init-web-mode)
 (require 'init-org)
 (require 'init-keybindings)
-(require 'init-basic)
+(require 'init-misc)
 (require 'init-ui)
 
 

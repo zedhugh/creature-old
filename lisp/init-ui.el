@@ -1,5 +1,6 @@
 (defconst creature/default-font
-  '("Operator Mono Book" . 16)
+  ;; '("Operator Mono Book" . 16)
+  '("Source Code Pro" . 16)
   "Default font for single-byte code.")
 
 (defconst creature/chinese-font
@@ -80,7 +81,11 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; load theme
-(load-theme 'spacemacs-dark t)
+;; (load-theme 'spacemacs-dark t)
+(load-theme 'solarized-dark t)
+;; (load-theme 'spacemacs-light t)
+;; (load-theme 'solarized-light t)
+(load-theme 'monokai t)
 
 ;; add fontset work after emacs initialized
 (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)

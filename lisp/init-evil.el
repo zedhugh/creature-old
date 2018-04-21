@@ -61,7 +61,12 @@
 (evil-set-initial-state 'youdao-dictionary-mode 'motion)
 (evil-set-initial-state 'flycheck-error-list-mode 'motion)
 (evil-change-to-initial-state "*Messages*")
-(setq evil-emacs-state-cursor 'bar)
+(defun emacs-state-cursor-bar ()
+  "Change cursor for emacs state to bar."
+  (set (make-local-variable 'evil-emacs-state-cursor)
+       'bar))
+(add-hook 'text-mode-hook 'emacs-state-cursor-bar)
+(add-hook 'prog-mode-hook 'emacs-state-cursor-bar)
 
 (define-advice about-emacs (:after nil)
   (with-current-buffer "*About GNU Emacs*"

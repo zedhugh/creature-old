@@ -1,6 +1,6 @@
 (defconst creature/default-font
-  ;; '("Operator Mono Book" . 16)
-  '("Source Code Pro" . 16)
+  '("Operator Mono Book" . 16)
+  ;; '("Source Code Pro" . 16)
   "Default font for single-byte code.")
 
 (defconst creature/chinese-font

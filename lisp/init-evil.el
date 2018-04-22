@@ -54,7 +54,7 @@
 ;; inital state for modes
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'image-mode 'emacs)
-(evil-set-initial-state 'Custom-mode 'motion)
+(evil-set-initial-state 'Custom-mode 'emacs)
 (evil-set-initial-state 'special-mode 'motion)
 (evil-set-initial-state 'package-menu-mode 'motion)
 (evil-set-initial-state 'messages-buffer-mode 'motion)

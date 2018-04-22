@@ -16,14 +16,6 @@
   (setq-default tab-width offset))
 (setq-default indent-tabs-mode nil)
 
-;; dired mode
-(setq-default dired-dwim-target t)
-(setq-default dired-recursive-copies 'always)
-(setq-default dired-recursive-deletes 'always)
-(put 'dired-find-alternate-file 'disabled nil)
-(require 'dired-x)
-(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file)
-
 ;; key modifiers in windows
 (when sys/win32p
   ;; (w32-register-hot-key [s-t])

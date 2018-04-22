@@ -91,9 +91,6 @@
 (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)
 (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
 
-(unless sys/win32p
-  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
-
 ;; page break line
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?-)

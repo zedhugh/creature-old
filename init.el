@@ -56,6 +56,7 @@
 
 ;; idle load
 (idle-require 'init-org)
+(idle-require 'init-dired)
 (setq idle-require-idle-delay 5)
 (idle-require-mode)
 

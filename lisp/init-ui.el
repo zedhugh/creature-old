@@ -97,6 +97,7 @@
 ;; page break line
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?-)
+(add-to-list 'page-break-lines-modes 'web-mode)
 
 ;; unicode fonts
 (unicode-fonts-setup)

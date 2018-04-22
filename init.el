@@ -45,16 +45,17 @@
 (require 'init-defuns)
 (require 'init-evil)
 (require 'init-utils)
-(idle-require 'init-company)
+(require 'init-company)
 (require 'init-ivy)
-(idle-require 'init-git)
-(idle-require 'init-javascript)
-(idle-require 'init-web-mode)
-(idle-require 'init-org)
+(require 'init-javascript)
+(require 'init-web-mode)
 (require 'init-keybindings)
 (require 'init-misc)
 (require 'init-ui)
 
+;; idle load
+(idle-require 'init-org)
+(idle-require 'init-git)
 (setq idle-require-idle-delay 5)
 (idle-require-mode)
 

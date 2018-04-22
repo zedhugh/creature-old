@@ -84,6 +84,7 @@
 ;; ui
 (require-package 'rainbow-delimiters)
 (require-package 'rainbow-identifiers)
+(require-package 'monokai-theme)
 (require-package 'spacemacs-theme)
 (require-package 'solarized-theme)
 (require-package 'all-the-icons-dired)

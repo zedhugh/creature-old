@@ -82,7 +82,7 @@
 
 ;; load theme
 ;; (load-theme 'spacemacs-dark t)
-(load-theme 'solarized-dark t)
+;; (load-theme 'solarized-dark t)
 ;; (load-theme 'spacemacs-light t)
 ;; (load-theme 'solarized-light t)
 (load-theme 'monokai t)

@@ -52,10 +52,10 @@
 (require 'init-keybindings)
 (require 'init-misc)
 (require 'init-ui)
+(require 'init-git)
 
 ;; idle load
 (idle-require 'init-org)
-(idle-require 'init-git)
 (setq idle-require-idle-delay 5)
 (idle-require-mode)
 

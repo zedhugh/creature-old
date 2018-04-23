@@ -93,4 +93,7 @@
 
 (require-package 'idle-require)
 
+;; C
+(require-package 'google-c-style)
+
 (provide 'init-elpa)

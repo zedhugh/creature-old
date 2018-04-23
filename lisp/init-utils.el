@@ -4,6 +4,11 @@
 
 ;;; Code:
 
+;; C code indent style
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+;; (setq c-mode-hook c-mode-common-hook)
+
 ;; which-key
 (which-key-mode)
 (setq which-key-idle-delay 0.4)

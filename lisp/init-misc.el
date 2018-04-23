@@ -70,7 +70,8 @@
 (add-hook 'write-file-functions 'delete-trailing-whitespace)
 
 (when (>= emacs-major-version 26)
-  (auto-save-visited-mode))
+  (auto-save-visited-mode)
+  (setq auto-save-visited-interval 2))
 
 (fset 'yes-or-no-p 'y-or-n-p)
 

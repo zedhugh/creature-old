@@ -56,7 +56,7 @@
 (evil-set-initial-state 'image-mode 'emacs)
 (evil-set-initial-state 'Custom-mode 'emacs)
 (evil-set-initial-state 'special-mode 'motion)
-(evil-set-initial-state 'package-menu-mode 'motion)
+(evil-set-initial-state 'package-menu-mode 'emacs)
 (evil-set-initial-state 'messages-buffer-mode 'motion)
 (evil-set-initial-state 'youdao-dictionary-mode 'motion)
 (evil-set-initial-state 'flycheck-error-list-mode 'motion)

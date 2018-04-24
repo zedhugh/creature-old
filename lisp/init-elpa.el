@@ -22,6 +22,10 @@
         ;; ("org"   . "https://orgmode.org/elpa/")
         ;; ("melpa" . "https://melpa.org/packages/")
 
+        ;; ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+        ;; ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+
         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
         ("org-cn"   . "https://elpa.emacs-china.org/org/")
         ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")

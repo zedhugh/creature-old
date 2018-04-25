@@ -67,7 +67,7 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-(add-hook 'write-file-functions 'delete-trailing-whitespace)
+(setq-default show-trailing-whitespace t)
 
 (when (>= emacs-major-version 26)
   (auto-save-visited-mode)

@@ -67,7 +67,9 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-(setq-default show-trailing-whitespace t)
+(add-hook 'display-line-numbers-mode-hook
+          (defun show-trailing-whitespace ()
+            (set (make-local-variable 'show-trailing-whitespace) t)))
 
 (when (>= emacs-major-version 26)
   (auto-save-visited-mode)

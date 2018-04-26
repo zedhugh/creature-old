@@ -34,6 +34,11 @@
           (message "Indented buffer.")))
       (whitespace-cleanup))))
 
+(unless (fboundp 'kill-current-buffer)
+  (defun kill-current-buffer ()
+    (interactive)
+    (kill-buffer (buffer-name))))
+
 (defun creature/open-init-file ()
   "Open init file."
   (interactive)

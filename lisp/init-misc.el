@@ -79,4 +79,9 @@
 
 (put 'erase-buffer 'disabled nil)
 
+;; enable narrow function
+(put 'narrow-to-page 'disabled nil)
+(put 'narrow-to-defun 'disable nil)
+(put 'narrow-to-region 'disabled nil)
+
 (provide 'init-misc)

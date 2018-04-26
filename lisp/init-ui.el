@@ -85,7 +85,9 @@
 ;; (load-theme 'solarized-dark t)
 ;; (load-theme 'spacemacs-light t)
 ;; (load-theme 'solarized-light t)
-(load-theme 'monokai t)
+(when sys/graphicp
+  (load-theme 'monokai t))
+
 
 ;; add fontset work after emacs initialized
 (set-face-attribute 'italic nil :slant 'italic :underline 'unspecified)

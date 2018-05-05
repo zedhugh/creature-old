@@ -33,7 +33,10 @@
   (expand-file-name ".cache" creature-dir)
   "Cache directory.")
 
-(defconst best-gc-cons-threshold 4000000
+(defconst best-gc-cons-threshold
+  (if sys/win32p
+      (* 512 1024 1024)
+    4000000)
   "Best default gc threshold value. Should't be to big.")
 
 (setq gc-cons-threshold most-positive-fixnum)

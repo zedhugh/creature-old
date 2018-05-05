@@ -44,5 +44,19 @@
   (interactive)
   (find-file (expand-file-name "init.el" creature-dir)))
 
+(defun creature/open-in-external-app (file-path)
+  (start-process "" nil "xdg-open" file-path))
+
+(defun creature/open-file-or-directory-in-external-app (arg)
+  (interactive "P")
+  (if arg
+      (creature/open-in-external-app (expand-file-name default-directory))
+    (let ((file-path (if (derived-mode-p 'dired-mode)
+                         (dired-get-file-for-visit)
+                       buffer-file-name)))
+      (if file-path
+          (creature/open-in-external-app file-path)
+        (message "No file associated to this buffer")))))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

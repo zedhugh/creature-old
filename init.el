@@ -54,8 +54,8 @@
 (require 'init-web-mode)
 (require 'init-keybindings)
 (require 'init-misc)
-(require 'init-ui)
 (require 'init-git)
+(require 'init-ui)
 
 ;; idle load
 (idle-require 'init-org)

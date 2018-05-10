@@ -45,7 +45,9 @@
   (find-file (expand-file-name "init.el" creature-dir)))
 
 (defun creature/open-in-external-app (file-path)
-  (start-process "" nil "xdg-open" file-path))
+  (if sys/win32p
+      (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path))
+    (start-process "" nil "xdg-open" file-path)))
 
 (defun creature/open-file-or-directory-in-external-app (arg)
   (interactive "P")

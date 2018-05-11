@@ -95,8 +95,6 @@
 (require-package 'page-break-lines)
 (require-package 'unicode-fonts)
 
-(require-package 'idle-require)
-
 ;; C
 (require-package 'google-c-style)
 

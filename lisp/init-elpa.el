@@ -81,6 +81,9 @@
 (require-package 'tern)
 (require-package 'company-tern)
 
+;; program language
+(require-package 'lua-mode)
+
 ;; org
 (require-package 'org-pomodoro)
 (require-package 'org-plus-contrib)

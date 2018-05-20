@@ -54,6 +54,9 @@
 
 (electric-pair-mode)
 
+;; folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
+
 ;; automatically reload files which modified by external program
 (global-auto-revert-mode)
 

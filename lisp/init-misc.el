@@ -52,6 +52,8 @@
 ;; delete with key "C-w"
 (delete-selection-mode)
 
+(electric-pair-mode)
+
 ;; automatically reload files which modified by external program
 (global-auto-revert-mode)
 

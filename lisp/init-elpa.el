@@ -80,6 +80,8 @@
 (require-package 'company-web)
 (require-package 'tern)
 (require-package 'company-tern)
+(require-package 'typescript-mode)
+(require-package 'tide)
 
 ;; program language
 (require-package 'lua-mode)

@@ -1,5 +1,4 @@
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-to-list 'auto-mode-alist '("\\.ts\\'" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js2-jsx-mode))
 (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
 (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
@@ -8,6 +7,13 @@
 
 (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
 (add-to-list 'auto-mode-alist '("\\.widget\\'" . json-mode))
+
+(defun typescript-setup ()
+  (tide-setup)
+  (tide-hl-identifier-mode)
+  (setq tide-hl-identifier-idle-time 0.01))
+
+(add-hook 'typescript-mode-hook 'typescript-setup)
 
 (setq js-indent-level 2)
 (setq js-switch-indent-offset 2)

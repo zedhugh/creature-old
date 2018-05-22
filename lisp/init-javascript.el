@@ -11,12 +11,14 @@
 (defun typescript-setup ()
   (tide-setup)
   (tide-hl-identifier-mode)
+  (setq typescript-indent-level 2)
   (setq tide-hl-identifier-idle-time 0.01))
 
 (add-hook 'typescript-mode-hook 'typescript-setup)
 
-(setq js-indent-level 2)
-(setq js-switch-indent-offset 2)
+(with-eval-after-load 'js2-mode
+  (setq js-indent-level 2)
+  (setq js-switch-indent-offset js-indent-level))
 
 ;; tern config
 (with-eval-after-load 'tern

@@ -72,7 +72,7 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-(add-hook 'display-line-numbers-mode-hook
+(add-hook 'find-file-hook
           (defun show-trailing-whitespace ()
             (set (make-local-variable 'show-trailing-whitespace) t)))
 

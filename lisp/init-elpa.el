@@ -66,7 +66,6 @@
 (require-package 'smex)
 
 ;; git
-(require-package 'fill-column-indicator)
 (require-package 'magit)
 (require-package 'gitattributes-mode)
 (require-package 'gitconfig-mode)

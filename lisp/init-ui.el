@@ -101,4 +101,24 @@
 ;; unicode fonts
 (unicode-fonts-setup)
 
+;; don't show indicator for minor mode in modeline
+(diminish 'which-key-mode)
+(diminish 'smartparens-mode)
+(diminish 'hungry-delete-mode)
+(diminish 'company-mode)
+(diminish 'yas-minor-mode)
+(diminish 'company-childframe-mode)
+(diminish 'counsel-mode)
+(diminish 'ivy-mode)
+(diminish 'emmet-mode)
+(diminish 'tern-mode)
+(diminish 'tide-mode)
+(diminish 'all-the-icons-dired-mode)
+(diminish 'page-break-lines-mode)
+
+(diminish 'hs-minor-mode)
+(diminish 'auto-revert-mode)
+(diminish 'undo-tree-mode)
+(diminish 'eldoc-mode)
+
 (provide 'init-ui)

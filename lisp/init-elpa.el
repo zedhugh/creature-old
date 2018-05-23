@@ -101,6 +101,7 @@
 (require-package 'all-the-icons-dired)
 (require-package 'page-break-lines)
 (require-package 'unicode-fonts)
+(require-package 'diminish)
 
 ;; C
 (require-package 'google-c-style)

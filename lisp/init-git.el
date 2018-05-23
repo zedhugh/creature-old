@@ -6,6 +6,8 @@
 
 ;;; Code:
 
+(add-hook 'git-commit-mode-hook 'fci-mode)
+
 (evil-leader/set-key
   "gc"  'magit-clone
   "gff" 'magit-find-file

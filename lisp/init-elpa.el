@@ -58,6 +58,7 @@
 (require-package 'company)
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
+(require-package 'company-childframe)
 
 ;; ivy
 (require-package 'counsel)
@@ -67,6 +68,7 @@
 (require-package 'smex)
 
 ;; git
+(require-package 'fill-column-indicator)
 (require-package 'magit)
 (require-package 'gitattributes-mode)
 (require-package 'gitconfig-mode)

@@ -7,7 +7,8 @@
 (defun require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
   (if (package-installed-p package min-version)
-      (push package package-selected-packages)
+      (unless (member package package-selected-packages)
+        (push package package-selected-packages))
     (if (or (assoc package package-archive-contents) no-refresh)
         (package-install package t)
       (progn

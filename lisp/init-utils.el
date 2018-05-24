@@ -37,7 +37,7 @@ BIND is rest sets of KEY and DOC."
 (evil-leader/set-key
   "el" 'flycheck-list-errors
   "ex" 'flycheck-display-error-at-point)
-
+(define-key smartparens-strict-mode-map (kbd "C-d") 'sp-delete-char)
 (smartparens-global-strict-mode)
 (show-smartparens-global-mode)
 (require 'smartparens-config)

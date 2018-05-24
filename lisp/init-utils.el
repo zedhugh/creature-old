@@ -41,6 +41,7 @@ BIND is rest sets of KEY and DOC."
 (smartparens-global-strict-mode)
 (show-smartparens-global-mode)
 (require 'smartparens-config)
+(remove-hook 'post-self-insert-hook 'sp--post-self-insert-hook-handler)
 (defun creature/backward-kill-word-or-region (&optional arg)
   "Call `kill-region' when a region is active.
 and `backward-kill-word' otherwise.  ARG is passed to

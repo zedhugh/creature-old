@@ -106,19 +106,24 @@
 (diminish 'smartparens-mode)
 (diminish 'hungry-delete-mode)
 (diminish 'company-mode)
-(diminish 'yas-minor-mode)
 (diminish 'company-childframe-mode)
 (diminish 'counsel-mode)
 (diminish 'ivy-mode)
-(diminish 'emmet-mode)
-(diminish 'tern-mode)
-(diminish 'tide-mode)
-(diminish 'all-the-icons-dired-mode)
 (diminish 'page-break-lines-mode)
-
-(diminish 'hs-minor-mode)
 (diminish 'auto-revert-mode)
 (diminish 'undo-tree-mode)
 (diminish 'eldoc-mode)
+(with-eval-after-load 'all-the-icons-dired
+  (diminish 'all-the-icons-dired-mode))
+(with-eval-after-load 'emmet-mode
+  (diminish 'emmet-mode))
+(with-eval-after-load 'tide
+  (diminish 'tide-mode))
+(with-eval-after-load 'tern
+  (diminish 'tern-mode))
+(with-eval-after-load 'hideshow
+  (diminish 'hs-minor-mode))
+(with-eval-after-load 'yasnippet
+  (diminish 'yas-minor-mode))
 
 (provide 'init-ui)

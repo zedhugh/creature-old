@@ -58,7 +58,8 @@
 (require-package 'company)
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
-(require-package 'company-childframe)
+(when (>= emacs-major-version 26)
+  (require-package 'company-childframe))
 
 ;; ivy
 (require-package 'counsel)

@@ -1,6 +1,7 @@
 ;; complete
 (global-company-mode)
-(company-childframe-mode)
+(when (featurep 'company-childframe)
+  (company-childframe-mode))
 (setq company-idle-delay 0)
 (setq company-show-numbers t)
 (setq company-require-match nil)

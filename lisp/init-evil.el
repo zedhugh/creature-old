@@ -51,6 +51,7 @@
 (evil-global-set-key 'insert [escape] 'evil-normal-state)
 (evil-global-set-key 'motion (kbd "TAB") nil)
 (evil-global-set-key 'motion (kbd "<SPC>") nil)
+(evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
 ;; inital state for modes
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'image-mode 'emacs)

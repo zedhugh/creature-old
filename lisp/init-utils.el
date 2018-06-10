@@ -73,9 +73,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 (require 'pyim)
 (setq default-input-method 'pyim)
 (setq pyim-page-style 'one-line)
-(if (< emacs-major-version 26)
-    (setq pyim-page-tooltip 'popup)
-  (setq pyim-page-tooltip 'child-frame))
+(setq pyim-page-tooltip 'child-frame)
 (setq pyim-english-input-switch-functions
       '(pyim-probe-program-mode))
 (setq pyim-punctuation-half-width-functions

@@ -77,9 +77,8 @@
           (defun show-trailing-whitespace ()
             (set (make-local-variable 'show-trailing-whitespace) t)))
 
-(when (>= emacs-major-version 26)
-  (auto-save-visited-mode)
-  (setq auto-save-visited-interval 2))
+(auto-save-visited-mode)
+(setq auto-save-visited-interval 2)
 
 (fset 'yes-or-no-p 'y-or-n-p)
 

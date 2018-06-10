@@ -49,8 +49,7 @@
 (require-package 'hungry-delete)
 (require-package 'youdao-dictionary)
 (require-package 'expand-region)
-(when (>= emacs-major-version 26)
-  (require-package 'posframe))
+(require-package 'posframe)
 (require-package 'pyim)
 (require-package 'popwin)
 
@@ -58,8 +57,7 @@
 (require-package 'company)
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
-(when (>= emacs-major-version 26)
-  (require-package 'company-childframe))
+(require-package 'company-childframe)
 
 ;; ivy
 (require-package 'counsel)

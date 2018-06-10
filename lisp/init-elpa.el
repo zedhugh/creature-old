@@ -67,6 +67,7 @@
 (require-package 'ivy-rich)
 (require-package 'swiper)
 (require-package 'smex)
+(require-package 'pinyinlib)
 
 ;; git
 (require-package 'fill-column-indicator)

@@ -33,5 +33,39 @@
 (setq smex-save-file
       (expand-file-name ".smex-items" creature-cache))
 
+;; let `ivy-read' support chinese pinyin
+(require 'pinyinlib)
+(defun re-builder-pinyin (str)
+  (or (pinyin-to-utf8 str)
+      (ivy--regex-plus str)
+      (ivy--regex-ignore-order)))
+
+(setq ivy-re-builders-alist '((t . re-builder-pinyin)))
+
+(defun my-pinyinlib-build-regexp-string (str)
+  (progn
+    (cond ((equal str ".*") ".*")
+          (t (pinyinlib-build-regexp-string str t)))))
+
+(defun my-pinyin-regexp-helper (str)
+  (cond ((equal str " ") ".*")
+        ((equal str "") nil)
+        (t str)))
+
+(defun pinyin-to-utf8 (str)
+  (cond ((equal 0 (length str))nil)
+        ((equal (substring str 0 1) "!")
+         (mapconcat 'my-pinyinlib-build-regexp-string
+                    (remove nil
+                            (mapcar 'my-pinyin-regexp-helper
+                                    (split-string
+                                     (replace-regexp-in-string "!" "" str)
+                                     "")))
+                    ""))
+        nil))
+
+;; remove `pinyin' match with this
+;; (defun pinyin-to-utf8 (str) nil)
+
 (provide 'init-ivy)
 ;;; init-ivy.el ends here

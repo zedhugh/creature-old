@@ -54,12 +54,12 @@
 
 (defun pinyin-to-utf8 (str)
   (cond ((equal 0 (length str))nil)
-        ((equal (substring str 0 1) "!")
+        ((equal (substring str 0 1) "?")
          (mapconcat 'my-pinyinlib-build-regexp-string
                     (remove nil
                             (mapcar 'my-pinyin-regexp-helper
                                     (split-string
-                                     (replace-regexp-in-string "!" "" str)
+                                     (replace-regexp-in-string "?" "" str)
                                      "")))
                     ""))
         nil))

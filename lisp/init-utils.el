@@ -153,5 +153,9 @@ and `backward-kill-word' otherwise.  ARG is passed to
         ("*quickrun*" :dedicated t :position bottom :stick t :noselect t)
         ))
 
+;; Ediff
+(setq ediff-split-window-function 'split-window-horizontally)
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
 (provide 'init-utils)
 ;;; init-utils.el ends here

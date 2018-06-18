@@ -33,10 +33,11 @@ BIND is rest sets of KEY and DOC."
   (flycheck-mode -1))
 (add-hook 'prog-mode-hook 'flycheck-mode)
 (add-hook 'emacs-lisp-mode-hook 'disable-flycheck)
-(setq flycheck-emacs-lisp-load-path load-path)
-(evil-leader/set-key
-  "el" 'flycheck-list-errors
-  "ex" 'flycheck-display-error-at-point)
+(with-eval-after-load 'flycheck
+  (setq flycheck-emacs-lisp-load-path load-path)
+  (evil-leader/set-key
+    "el" 'flycheck-list-errors
+    "ex" 'flycheck-display-error-at-point))
 
 (smartparens-global-strict-mode)
 (show-smartparens-global-mode)

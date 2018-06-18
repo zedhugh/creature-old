@@ -43,4 +43,3 @@
 (add-hook 'css-mode-hook 'css-setup)
 
 (provide 'init-web-mode)
-(append '(company-css company-web-html) company-backends)

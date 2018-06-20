@@ -18,6 +18,7 @@
 ;; inline image
 (add-hook 'org-mode-hook 'org-display-inline-images)
 (with-eval-after-load 'org
+  (define-key org-mode-map (kbd "RET") 'newline-and-indent)
   (setq org-image-actual-width nil)
   (setq org-preview-latex-default-process 'dvisvgm)
   (setq org-preview-latex-image-directory

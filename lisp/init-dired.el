@@ -1,5 +1,6 @@
 (with-eval-after-load 'dired
   (setq dired-dwim-target t)
+  (setq dired-listing-switches "-alh")
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
   (put 'dired-find-alternate-file 'disabled nil)

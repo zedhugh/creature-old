@@ -13,6 +13,9 @@
 
 ;;; Code:
 
+;; use utf-8 for default
+(prefer-coding-system 'utf-8)
+
 (package-initialize)
 
 (setq-local a (current-time))

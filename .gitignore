@@ -3,7 +3,7 @@ elpa/
 auto-save-list/
 history
 places
-recentf
+recentf*
 server/
 custom.el
 url/

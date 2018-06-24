@@ -9,6 +9,9 @@
     '("Emacs SimSun" . 18))
   "Default font for multi-byte code.")
 
+(defconst creature/theme 'monokai
+  "Theme for this config.")
+
 ;; hightlight line
 ;; (if sys/graphicp
 ;;     (global-hl-line-mode 1)
@@ -25,7 +28,7 @@
 ;; maximized frame except in tiled window manager.
 ;; there is "awesome".
 (unless (string-equal "awesome" (getenv "DESKTOP_SESSION"))
-  (setq initial-frame-alist '((fullscreen . maximized))))
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 ;; click(C-c RET) to browse URL
 (goto-address-mode)
@@ -63,17 +66,9 @@
 
 ;; fontset only for graphic
 (when window-system
-  ;; single-byte code
-  (let ((family (car creature/default-font))
-        (size (cdr creature/default-font)))
-    (set-face-attribute 'default nil
-                        :font (font-spec :family family :size size)))
-  ;; multi-byte code
-  (let ((family (car creature/chinese-font))
-        (size (cdr creature/chinese-font)))
-    (dolist (charset '(kana han cjk-misc bopomofo))
-      (set-fontset-font (frame-parameter nil 'font) charset
-                        (font-spec :family family :size size)))))
+  (creature/fontset))
+
+(add-to-list 'after-make-frame-functions 'creature/emacsclient-setup)
 
 ;; colorful GUI
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
@@ -81,12 +76,8 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
 ;; load theme
-;; (load-theme 'spacemacs-dark t)
-;; (load-theme 'solarized-dark t)
-;; (load-theme 'spacemacs-light t)
-;; (load-theme 'solarized-light t)
 (when sys/graphicp
-  (load-theme 'monokai t))
+  (load-theme creature/theme t))
 
 
 ;; add fontset work after emacs initialized

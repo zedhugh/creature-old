@@ -60,5 +60,27 @@
           (creature/open-in-external-app file-path)
         (message "No file associated to this buffer")))))
 
+(defun creature/fontset ()
+  "Font sets for default and multi-byte code."
+  ;; single-byte code
+  (let ((family (car creature/default-font))
+        (size (cdr creature/default-font)))
+    (set-face-attribute 'default nil
+                        :font (font-spec :family family :size size)))
+  ;; multi-byte code
+  (let ((family (car creature/chinese-font))
+        (size (cdr creature/chinese-font)))
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font) charset
+                        (font-spec :family family :size size)))))
+
+(defun creature/emacsclient-setup (frame)
+  "Fontset when emacs setup by emacsclient."
+  (select-frame frame)
+  (load-theme creature/theme t)
+  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
+  (when (window-system frame)
+    (creature/fontset)))
+
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

@@ -98,6 +98,7 @@
 (diminish 'hungry-delete-mode)
 (diminish 'company-mode)
 (diminish 'company-childframe-mode)
+(diminish 'company-posframe-mode)
 (diminish 'counsel-mode)
 (diminish 'ivy-mode)
 (diminish 'page-break-lines-mode)

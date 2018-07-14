@@ -98,9 +98,12 @@
 (require-package 'monokai-theme)
 (require-package 'spacemacs-theme)
 (require-package 'solarized-theme)
-(require-package 'all-the-icons-dired)
 (require-package 'page-break-lines)
 (require-package 'diminish)
+
+;; dired
+(require-package 'dired-narrow)
+(require-package 'all-the-icons-dired)
 
 ;; C
 (require-package 'google-c-style)

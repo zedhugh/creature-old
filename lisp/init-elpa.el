@@ -100,7 +100,6 @@
 (require-package 'solarized-theme)
 (require-package 'all-the-icons-dired)
 (require-package 'page-break-lines)
-(require-package 'unicode-fonts)
 (require-package 'diminish)
 
 ;; C

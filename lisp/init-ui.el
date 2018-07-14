@@ -89,9 +89,6 @@
 (setq page-break-lines-char ?-)
 (add-to-list 'page-break-lines-modes 'web-mode)
 
-;; unicode fonts
-(unicode-fonts-setup)
-
 ;; don't show indicator for minor mode in modeline
 (diminish 'which-key-mode)
 (diminish 'smartparens-mode)

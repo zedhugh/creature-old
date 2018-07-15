@@ -89,30 +89,4 @@
 (setq page-break-lines-char ?-)
 (add-to-list 'page-break-lines-modes 'web-mode)
 
-;; don't show indicator for minor mode in modeline
-(diminish 'which-key-mode)
-(diminish 'smartparens-mode)
-(diminish 'hungry-delete-mode)
-(diminish 'company-mode)
-(diminish 'company-childframe-mode)
-(diminish 'company-posframe-mode)
-(diminish 'counsel-mode)
-(diminish 'ivy-mode)
-(diminish 'page-break-lines-mode)
-(diminish 'auto-revert-mode)
-(diminish 'undo-tree-mode)
-(diminish 'eldoc-mode)
-(with-eval-after-load 'all-the-icons-dired
-  (diminish 'all-the-icons-dired-mode))
-(with-eval-after-load 'emmet-mode
-  (diminish 'emmet-mode))
-(with-eval-after-load 'tide
-  (diminish 'tide-mode))
-(with-eval-after-load 'tern
-  (diminish 'tern-mode))
-(with-eval-after-load 'hideshow
-  (diminish 'hs-minor-mode))
-(with-eval-after-load 'yasnippet
-  (diminish 'yas-minor-mode))
-
 (provide 'init-ui)

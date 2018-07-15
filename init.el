@@ -61,6 +61,7 @@
 (require 'init-org)
 (require 'init-dired)
 (require 'init-ui)
+(require 'init-modeline)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

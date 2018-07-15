@@ -30,6 +30,9 @@
   (set (make-local-variable 'company-backends)
        (mapcar 'creature/show-snippets-in-company company-backends)))
 
+(setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
+(setq company-dabbrev-code-other-buffers 'all)
+
 (add-hook 'company-mode-hook 'yas-minor-mode)
 (add-hook 'yas-minor-mode-hook 'add-yas)
 

@@ -101,7 +101,7 @@ and `backward-kill-word' otherwise.  ARG is passed to
 (popwin-mode)
 (setq popwin:special-display-config
       '(;; Emacs
-        ("*Help*" :dedicated t :position bottom :stick t :noselect nil)
+        ("*Help*" :dedicated t :position right :stick t :noselect nil :width 0.5)
         ("*compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
         ("*Compile-Log*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
         ("*Warnings*" :dedicated t :position bottom :stick t :noselect t)

@@ -17,7 +17,8 @@
 (setq creature/mode-line-buffer-name
       '(:eval (propertize
                "%b"
-               'face '((:foreground "yellow")))))
+               'face 'mode-line-buffer-id)))
+(set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 (put 'creature/mode-line-buffer-name 'risky-local-variable t)
 
 (setq-local origin-mode-line-format mode-line-format)

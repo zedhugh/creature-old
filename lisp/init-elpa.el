@@ -108,4 +108,7 @@
 ;; C
 (require-package 'google-c-style)
 
+;; env
+(require-package 'exec-path-from-shell)
+
 (provide 'init-elpa)

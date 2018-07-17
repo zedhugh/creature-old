@@ -1,27 +1,32 @@
-(setq creature/mode-line-window-number
-      '(:eval (window-numbering-get-number-string)))
+(defvar creature/mode-line-window-number
+  '(:eval (window-numbering-get-number-string))
+  "Get window number by window-numbering.")
 (put 'creature/mode-line-window-number 'risky-local-variable t)
 
-(setq creature/mode-line-evil-state
-      '(:eval
-        (cond
-         ((eq evil-state 'emacs) "[E]")
-         ((eq evil-state 'insert) "[I]")
-         ((eq evil-state 'motion) "[M]")
-         ((eq evil-state 'normal) "[N]")
-         ((eq evil-state 'visual) "[V]")
-         ((eq evil-state 'replace) "[R]")
-         ((eq evil-state 'operator) "[O]"))))
+(defvar creature/mode-line-evil-state
+  '(:eval
+    (cond
+     ((eq evil-state 'emacs) "[E]")
+     ((eq evil-state 'insert) "[I]")
+     ((eq evil-state 'motion) "[M]")
+     ((eq evil-state 'normal) "[N]")
+     ((eq evil-state 'visual) "[V]")
+     ((eq evil-state 'replace) "[R]")
+     ((eq evil-state 'operator) "[O]")))
+  "Evil state indicator.")
 (put 'creature/mode-line-evil-state 'risky-local-variable t)
 
-(setq creature/mode-line-buffer-name
-      '(:eval (propertize
-               "%b"
-               'face 'mode-line-buffer-id)))
+(defvar creature/mode-line-buffer-name
+  '(:eval (propertize
+           "%b"
+           'face 'mode-line-buffer-id))
+  "Buffer name with face.")
 (set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 (put 'creature/mode-line-buffer-name 'risky-local-variable t)
 
-(setq-local origin-mode-line-format mode-line-format)
+(defvar creature/origin-mode-line-format
+  mode-line-format
+  "Keep origin `mode-line-format'")
 
 (defvar creature/mode-line-format
   '("%e"
@@ -47,11 +52,13 @@
     " (%m" ; major mode
     mode-line-process
     ")"
-    (vc-mode vc-mode)
+    ;; (vc-mode vc-mode)
     (flycheck-mode flycheck-mode-line)
-    ))
+    )
+  "Customized mode line format.")
 
 (defun creature/set-mode-line-format-for-exist-buffers ()
+  "Make customized mode line works in exist buffers."
   (mapc (lambda (buffer)
           (with-current-buffer buffer
             (setq mode-line-format creature/mode-line-format)))

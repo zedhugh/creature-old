@@ -51,7 +51,6 @@
 (require-package 'expand-region)
 (require-package 'posframe)
 (require-package 'pyim)
-(require-package 'popwin)
 
 ;; company
 (require-package 'company)

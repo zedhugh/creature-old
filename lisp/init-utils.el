@@ -96,66 +96,6 @@ and `backward-kill-word' otherwise.  ARG is passed to
                :dict-type pinyin-dict))
     nil))
 
-;; popwin
-(require 'popwin)
-(popwin-mode)
-(setq popwin:special-display-config
-      '(;; Emacs
-        ("*Help*" :dedicated t :position right :stick t :noselect nil :width 0.5)
-        ("*compilation*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        ("*Compile-Log*" :dedicated t :position bottom :stick t :noselect t :height 0.4)
-        ("*Warnings*" :dedicated t :position bottom :stick t :noselect t)
-        ("*Completions*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*Shell Command Output*" :dedicated t :position bottom :stick t :noselect nil)
-        ("\*Async Shell Command\*.+" :regexp t :position bottom :stick t :noselect nil)
-        ("^*Man.+*$" :regexp t :position bottom :stick nil :noselect nil :height 0.4)
-        ("^*WoMan.+*$" :regexp t :position bottom)
-        ("^*Backtrace.+*$" :regexp t :dedicated t :position bottom :stick t :noselect nil)
-
-        ;; Kill Ring
-        ("*Kill Ring*" :dedicated t :position bottom)
-
-        ;; Flycheck
-        ("\*flycheck errors\*.+*$" :regexp t :position bottom :stick t :noselect nil)
-
-        ;; Youdao dict
-        ("*Youdao Dictionary*" :dedicated t :stick t :position bottom)
-
-        ;; Paradox
-        ("*Paradox Report*" :dedicated t :position bottom :noselect nil)
-
-        ;; List
-        ("*Colors*" :dedicated t :position bottom)
-        ("*Process List*" :dedicated t :position bottom)
-        ("*Process-Environment*" :dedicated t :position bottom)
-
-        ;; undo-tree
-        (" *undo-tree*" :dedicated t :position right :stick t :noselect nil :width 60)
-
-        ;; Search
-        ("*grep*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*ag search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*rg*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*pt-search*" :dedicated t :position bottom :stick t :noselect nil :height 0.4)
-        ("*Occur*" :dedicated t :position bottom :stick t :noselect nil)
-        ("\*ivy-occur.+*$" :regexp t :position bottom :stick t :noselect nil)
-        ("*xref*" :dedicated t :position bottom :stick nil :noselect nil)
-
-        ;; VC
-        ("*vc-diff*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*vc-change-log*" :dedicated t :position bottom :stick t :noselect nil)
-
-        ;; Magit
-        ;; (magit-status-mode :dedicated t :position bottom :stick t :height 0.5)
-        ;; (magit-diff-mode :dedicated t :position bottom :stick t :noselect t :height 0.5)
-
-        ;; Script
-        ("*shell*" :dedicated t :position bottom :stick t :noselect nil)
-        ("*Python*" :dedicated t :position bottom :stick t :noselect t)
-        ("*Ruby*" :dedicated t :position bottom :stick t :noselect t)
-        ("*quickrun*" :dedicated t :position bottom :stick t :noselect t)
-        ))
-
 ;; Ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)

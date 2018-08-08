@@ -34,14 +34,6 @@
 (goto-address-mode)
 (goto-address-prog-mode)
 
-;; line and colum
-(column-number-mode)
-(if (fboundp 'display-line-numbers-mode)
-    (progn
-      (global-display-line-numbers-mode)
-      (setq display-line-numbers-width-start t))
-  (global-linum-mode))
-
 (if sys/graphicp
     nil
   (require 'time)

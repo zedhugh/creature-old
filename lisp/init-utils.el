@@ -26,8 +26,6 @@ BIND is rest sets of KEY and DOC."
 
 (window-numbering-mode)
 
-(smooth-scrolling-mode)
-
 ;; syntax check
 (defun disable-flycheck ()
   (flycheck-mode -1))

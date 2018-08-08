@@ -43,7 +43,6 @@
 ;; utils
 (require-package 'which-key)
 (require-package 'window-numbering)
-(require-package 'smooth-scrolling)
 (require-package 'flycheck)
 (require-package 'smartparens)
 (require-package 'hungry-delete)
@@ -67,7 +66,6 @@
 (require-package 'pinyinlib)
 
 ;; git
-(require-package 'fill-column-indicator)
 (require-package 'magit)
 (require-package 'gitattributes-mode)
 (require-package 'gitconfig-mode)
@@ -95,10 +93,7 @@
 (require-package 'rainbow-delimiters)
 (require-package 'rainbow-identifiers)
 (require-package 'monokai-theme)
-(require-package 'spacemacs-theme)
-(require-package 'solarized-theme)
 (require-package 'page-break-lines)
-(require-package 'diminish)
 
 ;; dired
 (require-package 'dired-narrow)

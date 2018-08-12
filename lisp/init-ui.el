@@ -60,8 +60,6 @@
 (when window-system
   (creature/fontset))
 
-(add-to-list 'after-make-frame-functions 'creature/emacsclient-setup)
-
 ;; colorful GUI
 (add-hook 'prog-mode-hook 'rainbow-identifiers-mode)
 

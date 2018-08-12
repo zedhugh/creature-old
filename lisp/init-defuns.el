@@ -74,13 +74,5 @@
       (set-fontset-font (frame-parameter nil 'font) charset
                         (font-spec :family family :size size)))))
 
-(defun creature/emacsclient-setup (frame)
-  "Fontset when emacs setup by emacsclient."
-  (select-frame frame)
-  (load-theme creature/theme t)
-  (set-face-attribute 'font-lock-comment-face nil :slant 'italic)
-  (when (window-system frame)
-    (creature/fontset)))
-
 (provide 'init-defuns)
 ;;; init-defuns.el ends here

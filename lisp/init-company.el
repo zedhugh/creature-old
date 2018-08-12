@@ -15,7 +15,7 @@
 (defun enable-ispell ()
   "Turn on spell prompt."
   (set (make-local-variable 'company-backends)
-       (add-to-list 'company-backends 'company-ispell)))
+       (add-to-list 'company-backends 'company-ispell 'append)))
 (add-hook 'text-mode-hook 'enable-ispell)
 
 ;; yasnippet
@@ -32,6 +32,7 @@
 
 (setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
 (setq company-dabbrev-code-other-buffers 'all)
+(setq company-dabbrev-downcase nil)
 
 (add-hook 'company-mode-hook 'yas-minor-mode)
 (add-hook 'yas-minor-mode-hook 'add-yas)

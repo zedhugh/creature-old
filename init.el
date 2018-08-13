@@ -61,6 +61,7 @@
 (require 'init-org)
 (require 'init-dired)
 (require 'init-ui)
+(require 'init-hydra)
 (require 'init-modeline)
 
 ;; load custom file

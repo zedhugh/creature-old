@@ -106,4 +106,7 @@
 ;; env
 (require-package 'exec-path-from-shell)
 
+;; hydra
+(require-package 'hydra)
+
 (provide 'init-elpa)

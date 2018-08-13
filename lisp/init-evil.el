@@ -28,21 +28,21 @@
   "hdk" 'describe-key
   "hdp" 'describe-package
   "qq"  'save-buffers-kill-terminal
-  "wd"  'delete-window
-  "w/"  'split-window-right
-  "w-"  'split-window-below
-  "w="  'balance-windows
-  "wj"  'evil-window-down
-  "wJ"  'evil-window-move-very-bottom
-  "wk"  'evil-window-up
-  "wK"  'evil-window-move-very-top
-  "wh"  'evil-window-left
-  "wH"  'evil-window-move-far-left
-  "wl"  'evil-window-right
-  "wL"  'evil-window-move-far-right
-  "wm"  'delete-other-windows
-  "wn"  'evil-window-next
-  "wp"  'evil-window-prev
+  ;; "wd"  'delete-window
+  ;; "w/"  'split-window-right
+  ;; "w-"  'split-window-below
+  ;; "w="  'balance-windows
+  ;; "wj"  'evil-window-down
+  ;; "wJ"  'evil-window-move-very-bottom
+  ;; "wk"  'evil-window-up
+  ;; "wK"  'evil-window-move-very-top
+  ;; "wh"  'evil-window-left
+  ;; "wH"  'evil-window-move-far-left
+  ;; "wl"  'evil-window-right
+  ;; "wL"  'evil-window-move-far-right
+  ;; "wm"  'delete-other-windows
+  ;; "wn"  'evil-window-next
+  ;; "wp"  'evil-window-prev
   "SPC" 'execute-extended-command)
 
 

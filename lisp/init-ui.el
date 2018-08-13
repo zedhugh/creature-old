@@ -9,7 +9,7 @@
     '("Emacs SimSun" . 18))
   "Default font for multi-byte code.")
 
-(defconst creature/theme 'monokai
+(defconst creature/theme 'molokai
   "Theme for this config.")
 
 ;; hightlight line

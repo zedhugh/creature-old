@@ -92,6 +92,7 @@
 ;; ui
 (require-package 'rainbow-delimiters)
 (require-package 'rainbow-identifiers)
+(require-package 'molokai-theme)
 (require-package 'monokai-theme)
 (require-package 'page-break-lines)
 

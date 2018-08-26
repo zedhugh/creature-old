@@ -55,7 +55,7 @@
 (require-package 'company)
 (require-package 'yasnippet)
 (require-package 'yasnippet-snippets)
-(require-package 'company-childframe)
+(require-package 'company-posframe)
 
 ;; ivy
 (require-package 'counsel)

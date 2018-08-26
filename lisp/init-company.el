@@ -1,6 +1,6 @@
 ;; complete
 (global-company-mode)
-(company-childframe-mode)
+(company-posframe-mode)
 (setq company-idle-delay 0)
 (setq company-show-numbers t)
 (setq company-require-match nil)

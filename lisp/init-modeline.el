@@ -52,8 +52,10 @@
     " (%m" ; major mode
     mode-line-process
     ")"
-    ;; (vc-mode vc-mode)
+    (vc-mode vc-mode)
     (flycheck-mode flycheck-mode-line)
+    mode-line-misc-info
+    mode-line-end-spaces
     )
   "Customized mode line format.")
 

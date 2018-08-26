@@ -44,6 +44,11 @@
   (interactive)
   (find-file (expand-file-name "init.el" creature-dir)))
 
+(defun creature/open-early-init-file ()
+  "Open init file."
+  (interactive)
+  (find-file (expand-file-name "early-init.el" creature-dir)))
+
 (defun creature/open-in-external-app (file-path)
   (if sys/win32p
       (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path))

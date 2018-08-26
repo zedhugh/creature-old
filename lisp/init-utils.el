@@ -37,6 +37,7 @@ BIND is rest sets of KEY and DOC."
     "el" 'flycheck-list-errors
     "ex" 'flycheck-display-error-at-point))
 
+(require 'smartparens)
 (smartparens-global-strict-mode)
 (show-smartparens-global-mode)
 (require 'smartparens-config)

@@ -5,6 +5,9 @@
               "early-init.el"
               user-emacs-directory)))
 
+(when sys/win32p
+  (setq inhibit-splash-screen t))
+
 (when (display-graphic-p)
   (creature/fontset)
   (blink-cursor-mode -1))

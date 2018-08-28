@@ -12,6 +12,9 @@
   (creature/fontset)
   (blink-cursor-mode -1))
 
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
+
 (setq gc-cons-threshold best-gc-cons-threshold)
 
 ;; load custom file
@@ -27,7 +30,6 @@
         (concat ";; load init file: `" (number-to-string c) "'"
                 ", emacs init time: " (emacs-init-time) "\n"
                 initial-scratch-message)))
-
 
 ;; (provide 'init)
 ;;; init.el ends here

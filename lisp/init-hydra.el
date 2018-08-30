@@ -54,10 +54,10 @@ _l_:right    _m_:maxmium    _L_:right
 _p_:prev     _=_:balance    _<_:height    _>_:height
 _n_:next     _q_:quit       _[_:width     _]_:width
 "
-  ("d" delete-window)
-  ("/" split-window-right)
-  ("-" split-window-below)
-  ("=" balance-windows)
+  ("d" delete-window :exit t)
+  ("/" split-window-right :exit t)
+  ("-" split-window-below :exit t)
+  ("=" balance-windows :exit t)
   ("j" evil-window-down)
   ("J" evil-window-move-very-bottom)
   ("k" evil-window-up)
@@ -66,7 +66,7 @@ _n_:next     _q_:quit       _[_:width     _]_:width
   ("H" evil-window-move-far-left)
   ("l" evil-window-right)
   ("L" evil-window-move-far-right)
-  ("m" delete-other-windows)
+  ("m" delete-other-windows :exit t)
   ("n" evil-window-next)
   ("p" evil-window-prev)
   ("[" evil-window-decrease-width)

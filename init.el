@@ -22,14 +22,5 @@
 (when (file-exists-p custom-file)
   (load custom-file 'noerror))
 
-(when (< (time-to-seconds (current-time))
-         (time-to-seconds after-init-time))
-  (setq-local b (current-time))
-  (setq-local c (float-time (time-subtract b a)))
-  (setq initial-scratch-message
-        (concat ";; load init file: `" (number-to-string c) "'"
-                ", emacs init time: " (emacs-init-time) "\n"
-                initial-scratch-message)))
-
 ;; (provide 'init)
 ;;; init.el ends here

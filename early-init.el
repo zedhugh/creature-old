@@ -18,8 +18,6 @@
 
 (package-initialize)
 
-(setq-local a (current-time))
-
 (defconst sys/win32p
   (eq system-type 'windows-nt)
   "Is the system is Windows?")
@@ -59,15 +57,6 @@
 (require 'init-ui)
 (require 'init-hydra)
 (require 'init-modeline)
-
-;; (setq-local b (current-time))
-
-;; (setq-local c (float-time (time-subtract b a)))
-
-;; (setq initial-scratch-message
-;;       (concat ";; load init file: `" (number-to-string c) "'"
-;;               ", emacs init time: " (emacs-init-time) "\n"
-;;               initial-scratch-message))
 
 (provide 'early-init)
 ;;; early-init.el ends here

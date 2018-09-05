@@ -18,5 +18,8 @@
  "gf" "git files"
  "g"  "gits")
 
+(setq magit-revision-show-gravatars
+      '("^Author:     " . "^Commit:     "))
+
 (provide 'init-git)
 ;;; init-git.el ends here

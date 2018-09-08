@@ -77,9 +77,6 @@
           (defun show-trailing-whitespace ()
             (set (make-local-variable 'show-trailing-whitespace) t)))
 
-(auto-save-visited-mode)
-(setq auto-save-visited-interval 2)
-
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (put 'erase-buffer 'disabled nil)

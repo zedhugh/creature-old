@@ -20,7 +20,7 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "RET") 'newline-and-indent)
   (setq org-image-actual-width nil)
-  (setq org-preview-latex-default-process 'dvisvgm)
+  (setq org-preview-latex-default-process 'dvipng)
   (setq org-preview-latex-image-directory
         (expand-file-name "ltximg/" creature-cache))
   (org-babel-do-load-languages

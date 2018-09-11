@@ -75,6 +75,7 @@
 (require-package 'web-mode)
 (require-package 'js2-mode)
 (require-package 'json-mode)
+(require-package 'rjsx-mode)
 (require-package 'emmet-mode)
 (require-package 'company-web)
 (require-package 'tern)

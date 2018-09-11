@@ -60,7 +60,7 @@
 (evil-set-initial-state 'package-menu-mode 'emacs)
 (evil-set-initial-state 'messages-buffer-mode 'motion)
 (evil-set-initial-state 'youdao-dictionary-mode 'motion)
-(evil-set-initial-state 'flycheck-error-list-mode 'motion)
+(evil-set-initial-state 'flycheck-error-list-mode 'emacs)
 (evil-change-to-initial-state "*Messages*")
 (defun emacs-state-cursor-bar ()
   "Change cursor for emacs state to bar."

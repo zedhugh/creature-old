@@ -3,6 +3,29 @@
   "Get window number by window-numbering.")
 (put 'creature/mode-line-window-number 'risky-local-variable t)
 
+(defvar creature/flycheck-errors
+  '(:eval
+    (when (bound-and-true-p flycheck-mode)
+      (let ((text (pcase flycheck-last-status-change
+                    (`not-checked "")
+                    (`no-checker "-")
+                    (`running "*")
+                    (`errored "!")
+                    (`finished
+                     (let-alist (flycheck-count-errors flycheck-current-errors)
+                       (if (or .error .warning)
+                           (concat (propertize (format "•%s" (or .error 0))
+                                               'face `(:foreground "#ff0000"))
+                                   (propertize (format " •%s" (or .warning 0))
+                                               'face `(:foreground "#00ff00")))
+                         ;; (format "•%s •%s" (or .error 0) (or .warning 0))
+                         "")))
+                    (`interrupted ".")
+                    (`suspicious "?"))))
+        ;; (concat " " flycheck-mode-line-prefix text)
+        (concat " " text)))))
+(put 'creature/flycheck-errors 'risky-local-variable t)
+
 (defvar creature/mode-line-evil-state
   '(:eval
     (cond
@@ -53,7 +76,8 @@
     mode-line-process
     ")"
     (vc-mode vc-mode)
-    (flycheck-mode flycheck-mode-line)
+    ;; (flycheck-mode flycheck-mode-line)
+    creature/flycheck-errors
     mode-line-misc-info
     mode-line-end-spaces
     )

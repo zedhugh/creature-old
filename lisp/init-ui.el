@@ -32,6 +32,9 @@
 (add-hook 'text-mode 'goto-address-mode-hook)
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
+;; highlight line
+(global-hl-line-mode)
+
 ;; Keep cursor at end of lines when prev
 ;; position of cursor is at the end.
 ;; Require line-move-visual is nil.

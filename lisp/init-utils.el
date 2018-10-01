@@ -71,6 +71,12 @@ and `backward-kill-word' otherwise.  ARG is passed to
 ;; expand region
 (evil-leader/set-key "v" 'er/expand-region)
 
+;; smooth-scrolling
+(smooth-scrolling-mode)
+(add-hook 'special-mode-hook
+          (lambda ()
+            (setq-local smooth-scroll-margin 0)))
+
 ;; pyim
 (require 'pyim)
 (setq default-input-method 'pyim)

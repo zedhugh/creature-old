@@ -46,6 +46,7 @@
 (require-package 'flycheck)
 (require-package 'smartparens)
 (require-package 'hungry-delete)
+(require-package 'smooth-scrolling)
 (require-package 'youdao-dictionary)
 (require-package 'expand-region)
 (require-package 'posframe)

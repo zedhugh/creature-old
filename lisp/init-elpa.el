@@ -4,6 +4,9 @@
 
 ;;; Code:
 
+(unless (fboundp 'package-installed-p)
+  (package-initialize))
+
 (defun require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
   (if (package-installed-p package min-version)
@@ -23,13 +26,13 @@
         ;; ("org"   . "https://orgmode.org/elpa/")
         ;; ("melpa" . "https://melpa.org/packages/")
 
-        ;; ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ;; ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-        ;; ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+        ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 
-        ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
-        ("org-cn"   . "https://elpa.emacs-china.org/org/")
-        ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+        ;; ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
+        ;; ("org-cn"   . "https://elpa.emacs-china.org/org/")
+        ;; ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
         ))
 
 ;; evil

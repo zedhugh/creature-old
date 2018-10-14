@@ -52,8 +52,8 @@
 ;; delete with key "C-w"
 (delete-selection-mode)
 
-(electric-pair-mode)
-(define-key electric-pair-mode-map (kbd "DEL") nil)
+;; (electric-pair-mode)
+;; (define-key electric-pair-mode-map (kbd "DEL") nil)
 
 ;; folding
 (add-hook 'prog-mode-hook 'hs-minor-mode)

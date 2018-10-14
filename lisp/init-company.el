@@ -1,10 +1,10 @@
 ;; complete
 (global-company-mode)
 (company-posframe-mode)
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.1)
 (setq company-show-numbers t)
 (setq company-require-match nil)
-(setq company-minimum-prefix-length 1)
+(setq company-minimum-prefix-length 3)
 (define-key company-active-map (kbd "C-n")
   #'company-complete-common-or-cycle)
 (define-key company-active-map (kbd "C-p")

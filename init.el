@@ -13,6 +13,7 @@
   (blink-cursor-mode -1))
 
 (when (memq window-system '(mac ns x))
+  (require-package 'exec-path-from-shell)
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
 

@@ -10,7 +10,9 @@
 
 (when (display-graphic-p)
   (creature/fontset)
-  (blink-cursor-mode -1))
+  (company-posframe-mode)
+  (blink-cursor-mode -1)
+  (setq pyim-page-tooltip 'child-frame))
 
 (when (memq window-system '(mac ns x))
   (require-package 'exec-path-from-shell)

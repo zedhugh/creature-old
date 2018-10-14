@@ -327,7 +327,6 @@
 ** config
    #+BEGIN_SRC emacs-lisp
      (global-company-mode)
-     (company-posframe-mode)
      (setq company-idle-delay 0.1)
      (setq company-show-numbers t)
      (setq company-require-match nil)
@@ -589,7 +588,7 @@
      (require 'pyim)
      (setq default-input-method 'pyim)
      (setq pyim-page-style 'one-line)
-     (setq pyim-page-tooltip 'child-frame)
+     (setq pyim-page-tooltip 'popup)
      (setq pyim-english-input-switch-functions
            '(pyim-probe-program-mode))
      (setq pyim-punctuation-half-width-functions

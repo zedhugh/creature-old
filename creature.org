@@ -90,72 +90,6 @@
              ))
    #+END_SRC
 
-* defuns
-** indent
-   remap function of indentation, indent region when
-   marked some contents, otherwise indent buffer.
-   #+BEGIN_SRC emacs-lisp
-     (defconst creature/indent-sensitive-modes
-       '(asm-mode
-         coffee-mode
-         elm-mode
-         haml-mode
-         haskell-mode
-         slim-mode
-         makefile-mode
-         makefile-bsdmake-mode
-         makefile-gmake-mode
-         makefile-imake-mode
-         python-mode
-         yaml-mode)
-       "Modes which disable auto-indenting.")
-
-     (defun creature/indent-region-or-buffer ()
-       "Indent a region if selected, otherwise the whole buffer."
-       (interactive)
-       (unless (member major-mode creature/indent-sensitive-modes)
-         (save-excursion
-           (if (region-active-p)
-               (progn
-                 (indent-region (region-beginning) (region-end))
-                 (message "Indented selected region."))
-             (progn
-               (indent-region (point-min) (point-max))
-               (message "Indented buffer.")))
-           (whitespace-cleanup))))
-
-     (define-key global-map (kbd "C-M-\\") 'creature/indent-region-or-buffer)
-   #+END_SRC
-
-** open file function
-   #+BEGIN_SRC emacs-lisp
-     (defun creature/open-init-file ()
-       "Open init file."
-       (interactive)
-       (find-file (expand-file-name "init.el" creature-dir)))
-
-     (defun creature/open-early-init-file ()
-       "Open init file."
-       (interactive)
-       (find-file (expand-file-name "early-init.el" creature-dir)))
-
-     (defun creature/open-in-external-app (file-path)
-       (if sys/win32p
-           (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path))
-         (start-process "" nil "xdg-open" file-path)))
-
-     (defun creature/open-file-or-directory-in-external-app (arg)
-       (interactive "P")
-       (if arg
-           (creature/open-in-external-app (expand-file-name default-directory))
-         (let ((file-path (if (derived-mode-p 'dired-mode)
-                              (dired-get-file-for-visit)
-                            buffer-file-name)))
-           (if file-path
-               (creature/open-in-external-app file-path)
-             (message "No file associated to this buffer")))))
-   #+END_SRC
-
 * evil
   #+BEGIN_SRC emacs-lisp
     (install-packages '(mwim
@@ -316,6 +250,21 @@
                   'paredit/space-for-delimiter-p)
    #+END_SRC
 
+** show parens
+   #+BEGIN_SRC emacs-lisp
+     (require 'paren)
+     (show-paren-mode)
+     (setq show-paren-when-point-in-periphery t)
+     (setq show-paren-when-point-inside-paren t)
+     (define-advice show-paren-function (:around (fn) fix-show-paren-function)
+       "Highlight enclosing parens."
+       (advice-remove 'show-paren-function 'ad-Advice-show-paren-function)
+       (cond ((looking-at-p "\\s(") (funcall fn))
+             (t (save-excursion
+                  (ignore-errors (backward-up-list))
+                  (funcall fn)))))
+   #+END_SRC
+
 * auto completion
   #+BEGIN_SRC emacs-lisp
     (install-packages '(company
@@ -327,10 +276,10 @@
 ** config
    #+BEGIN_SRC emacs-lisp
      (global-company-mode)
-     (setq company-idle-delay 0.1)
+     ;; (setq company-idle-delay 0.1)
      (setq company-show-numbers t)
      (setq company-require-match nil)
-     (setq company-minimum-prefix-length 3)
+     ;; (setq company-minimum-prefix-length 3)
      (define-key company-active-map (kbd "C-n")
        #'company-complete-common-or-cycle)
      (define-key company-active-map (kbd "C-p")
@@ -679,7 +628,7 @@
      (add-hook 'web-mode-hook 'web-mode-setup)
    #+END_SRC
 
-* TODO javascript
+* javascript
   #+BEGIN_SRC emacs-lisp
     (install-packages '(js2-mode
                         rjsx-mode
@@ -690,52 +639,66 @@
                         typescript-mode))
   #+END_SRC
 
-  #+BEGIN_SRC emacs-lisp
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-    (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
-    (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
-    (add-to-list 'magic-mode-alist
-                 '("import\s+.*+\s+from\s+['\"]react['\"]" . rjsx-mode))
+** mode for files
+   #+BEGIN_SRC emacs-lisp
+     (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+     (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+     (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
+     (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
+     (add-to-list 'magic-mode-alist
+                  '("import\s+.*+\s+from\s+['\"]react['\"]" . rjsx-mode))
 
-    (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
-    (add-to-list 'auto-mode-alist '("\\.widget\\'" . json-mode))
+     (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
+     (add-to-list 'auto-mode-alist '("\\.widget\\'" . json-mode))
+   #+END_SRC
 
-    (defun typescript-setup ()
-      (tide-setup)
-      (tide-hl-identifier-mode)
-      (setq typescript-indent-level 2)
-      (setq tide-hl-identifier-idle-time 0.01))
+** typescript
+   #+BEGIN_SRC emacs-lisp
+     (defun typescript-setup ()
+       (tide-setup)
+       (tide-hl-identifier-mode)
+       (setq typescript-indent-level 2)
+       (setq tide-hl-identifier-idle-time 0.01))
 
-    (add-hook 'typescript-mode-hook 'typescript-setup)
+     (add-hook 'typescript-mode-hook 'typescript-setup)
+   #+END_SRC
 
-    (with-eval-after-load 'js
-      (setq js-chain-indent t)
-      (setq js-indent-level 2)
-      (setq js-switch-indent-offset js-indent-level))
+** js indentation
+   #+BEGIN_SRC emacs-lisp
+     (with-eval-after-load 'js
+       (setq js-chain-indent t)
+       (setq js-indent-level 2)
+       (setq js-switch-indent-offset js-indent-level))
+   #+END_SRC
 
-    ;; tern config
-    (with-eval-after-load 'tern
-      (add-to-list 'tern-command "--no-port-file" 'append))
+** tern config
+   1. don't create tern port file
+   2. add company tern backend to "company-backends"
+   #+BEGIN_SRC emacs-lisp
+     (with-eval-after-load 'tern
+       (add-to-list 'tern-command "--no-port-file" 'append))
 
-    (add-hook 'js-mode-hook 'tern-mode)
+     (add-hook 'js-mode-hook 'tern-mode)
 
-    ;; company tern
-    (defun add-tern ()
-      "Add tern to company backends."
-      (set (make-local-variable 'company-backends)
-           (push 'company-tern company-backends)))
-    (add-hook 'js-mode-hook 'add-tern)
+     ;; company tern
+     (defun add-tern ()
+       "Add tern to company backends."
+       (set (make-local-variable 'company-backends)
+            (push 'company-tern company-backends)))
+     (add-hook 'js-mode-hook 'add-tern)
+   #+END_SRC
 
-    ;; enable emmet mode when edit jsx file
-    (defun emmet-setup-for-jsx ()
-      "Emmet config for jsx."
-      (emmet-mode)
-      (set (make-local-variable 'emmet-expand-jsx-className?) t))
-    (add-hook 'js2-jsx-mode-hook 'emmet-setup-for-jsx)
-  #+END_SRC
+** emmet for jsx
+   enable emmet mode when edit jsx file
+   #+BEGIN_SRC emacs-lisp
+     (defun emmet-setup-for-jsx ()
+       "Emmet config for jsx."
+       (emmet-mode)
+       (set (make-local-variable 'emmet-expand-jsx-className?) t))
+     (add-hook 'js2-jsx-mode-hook 'emmet-setup-for-jsx)
+   #+END_SRC
 
-* TODO ivy
+* ivy
   #+BEGIN_SRC emacs-lisp
     (install-packages '(counsel
                         ivy
@@ -745,202 +708,279 @@
                         pinyinlib))
   #+END_SRC
 
-  #+BEGIN_SRC emacs-lisp
-    (counsel-mode)
-    (evil-leader/set-key
-      "fr" 'counsel-recentf)
+** base ivy config
+   #+BEGIN_SRC emacs-lisp
+     (counsel-mode)
+     (evil-leader/set-key
+       "fr" 'counsel-recentf)
 
-    (ivy-mode)
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-use-selectable-prompt t)
-    (setq enable-recursive-minibuffers t)
+     (global-set-key (kbd "C-s") 'swiper)
 
-    ;; ivy-rich
-    (setq ivy-rich--display-transformers-list
-          '(ivy-switch-buffer
-            (:columns
-             ((ivy-rich-candidate
-               (:width 30))
-              (ivy-rich-switch-buffer-size
-               (:width 7))
-              (ivy-rich-switch-buffer-indicators
-               (:width 4 :face error :align right))
-              (ivy-rich-switch-buffer-major-mode
-               (:width 20 :face warning))
-              (ivy-rich-switch-buffer-project
-               (:width 15 :face success))
-              (ivy-rich-switch-buffer-path
-               (:width
-                (lambda (x)
-                  (ivy-rich-switch-buffer-shorten-path
-                   x
-                   (ivy-rich-minibuffer-width 0.3))))))
-             :predicate
-             (lambda
-               (cand)
-               (get-buffer cand)))
-            counsel-M-x
-            (:columns
-             ((counsel-M-x-transformer
-               (:width 40))
-              (ivy-rich-counsel-function-docstring
-               (:face font-lock-doc-face))))
-            counsel-describe-function
-            (:columns
-             ((counsel-describe-function-transformer
-               (:width 40))
-              (ivy-rich-counsel-function-docstring
-               (:face font-lock-doc-face))))
-            counsel-describe-variable
-            (:columns
-             ((counsel-describe-variable-transformer
-               (:width 40))
-              (ivy-rich-counsel-variable-docstring
-               (:face font-lock-doc-face))))
-            counsel-recentf
-            (:columns
-             ((ivy-rich-candidate
-               (:width 0.8))
-              (ivy-rich-file-last-modified-time
-               (:face font-lock-comment-face))))))
-    (ivy-rich-mode)
-    (setq ivy-virtual-abbreviate 'full)
-    (setq ivy-rich-switch-buffer-align-virtual-buffer t)
-    (setq ivy-rich-path-style 'abbrev)
+     (ivy-mode)
+     (setq ivy-use-virtual-buffers t)
+     (setq ivy-use-selectable-prompt t)
+     (setq enable-recursive-minibuffers t)
+   #+END_SRC
 
-    (global-set-key (kbd "C-s") 'swiper)
+** ivy rich
+   config for display of ivy-rich
+   #+BEGIN_SRC emacs-lisp
+     (setq ivy-rich--display-transformers-list
+           '(ivy-switch-buffer
+             (:columns
+              ((ivy-rich-candidate
+                (:width 30))
+               (ivy-rich-switch-buffer-size
+                (:width 7))
+               (ivy-rich-switch-buffer-indicators
+                (:width 4 :face error :align right))
+               (ivy-rich-switch-buffer-major-mode
+                (:width 20 :face warning))
+               (ivy-rich-switch-buffer-project
+                (:width 15 :face success))
+               (ivy-rich-switch-buffer-path
+                (:width
+                 (lambda (x)
+                   (ivy-rich-switch-buffer-shorten-path
+                    x
+                    (ivy-rich-minibuffer-width 0.3))))))
+              :predicate
+              (lambda
+                (cand)
+                (get-buffer cand)))
+             counsel-M-x
+             (:columns
+              ((counsel-M-x-transformer
+                (:width 40))
+               (ivy-rich-counsel-function-docstring
+                (:face font-lock-doc-face))))
+             counsel-describe-function
+             (:columns
+              ((counsel-describe-function-transformer
+                (:width 40))
+               (ivy-rich-counsel-function-docstring
+                (:face font-lock-doc-face))))
+             counsel-describe-variable
+             (:columns
+              ((counsel-describe-variable-transformer
+                (:width 40))
+               (ivy-rich-counsel-variable-docstring
+                (:face font-lock-doc-face))))
+             counsel-recentf
+             (:columns
+              ((ivy-rich-candidate
+                (:width 0.8))
+               (ivy-rich-file-last-modified-time
+                (:face font-lock-comment-face))))))
+     (ivy-rich-mode)
+     (setq ivy-virtual-abbreviate 'full)
+     (setq ivy-rich-switch-buffer-align-virtual-buffer t)
+     (setq ivy-rich-path-style 'abbrev)
+   #+END_SRC
 
-    ;; smex: record freq for command
+** smex
+   smex freq file keep in cache directory
+   #+BEGIN_SRC emacs-lisp
+     (unless (file-exists-p creature-cache)
+       (make-directory creature-cache))
+     (setq smex-save-file
+           (expand-file-name ".smex-items" creature-cache))
+   #+END_SRC
 
-    (unless (file-exists-p creature-cache)
-      (make-directory creature-cache))
-    (setq smex-save-file
-          (expand-file-name ".smex-items" creature-cache))
+** ivy pinyin search
+   let "ivy-read" support chinese pinyin
+   #+BEGIN_SRC emacs-lisp
+     (require 'pinyinlib)
+     (defun re-builder-pinyin (str)
+       (or (pinyin-to-utf8 str)
+           (ivy--regex-plus str)
+           (ivy--regex-ignore-order)))
 
-    ;; let `ivy-read' support chinese pinyin
-    (require 'pinyinlib)
-    (defun re-builder-pinyin (str)
-      (or (pinyin-to-utf8 str)
-          (ivy--regex-plus str)
-          (ivy--regex-ignore-order)))
+     (setq ivy-re-builders-alist '((t . re-builder-pinyin)))
 
-    (setq ivy-re-builders-alist '((t . re-builder-pinyin)))
+     (defun my-pinyinlib-build-regexp-string (str)
+       (progn
+         (cond ((equal str ".*") ".*")
+               (t (pinyinlib-build-regexp-string str t)))))
 
-    (defun my-pinyinlib-build-regexp-string (str)
-      (progn
-        (cond ((equal str ".*") ".*")
-              (t (pinyinlib-build-regexp-string str t)))))
+     (defun my-pinyin-regexp-helper (str)
+       (cond ((equal str " ") ".*")
+             ((equal str "") nil)
+             (t str)))
 
-    (defun my-pinyin-regexp-helper (str)
-      (cond ((equal str " ") ".*")
-            ((equal str "") nil)
-            (t str)))
+     (defun pinyin-to-utf8 (str)
+       (cond ((equal 0 (length str))nil)
+             ((equal (substring str 0 1) "?")
+              (mapconcat 'my-pinyinlib-build-regexp-string
+                         (remove nil
+                                 (mapcar 'my-pinyin-regexp-helper
+                                         (split-string
+                                          (replace-regexp-in-string "?" "" str)
+                                          "")))
+                         ""))
+             nil))
+   #+END_SRC
 
-    (defun pinyin-to-utf8 (str)
-      (cond ((equal 0 (length str))nil)
-            ((equal (substring str 0 1) "?")
-             (mapconcat 'my-pinyinlib-build-regexp-string
-                        (remove nil
-                                (mapcar 'my-pinyin-regexp-helper
-                                        (split-string
-                                         (replace-regexp-in-string "?" "" str)
-                                         "")))
-                        ""))
-            nil))
+   remove "pinyin" match with this
+   #+BEGIN_SRC emacs-lisp
+     ;; (defun pinyin-to-utf8 (str) nil)
+   #+END_SRC
 
-    ;; remove `pinyin' match with this
-    ;; (defun pinyin-to-utf8 (str) nil)
-  #+END_SRC
+* built-in options
+** indent
+   indent offset
+   #+BEGIN_SRC emacs-lisp
+     (let ((offset (if sys/win32p 4 2)))
+       (setq-default c-basic-offset offset)
+       (setq-default tab-width offset))
+     (setq-default indent-tabs-mode nil)
+   #+END_SRC
 
-* TODO misc
-  #+BEGIN_SRC emacs-lisp
-    ;; files set
+   remap function of indentation, indent region when
+   marked some contents, otherwise indent buffer.
+   #+BEGIN_SRC emacs-lisp
+     (defconst creature/indent-sensitive-modes
+       '(asm-mode
+         coffee-mode
+         elm-mode
+         haml-mode
+         haskell-mode
+         slim-mode
+         makefile-mode
+         makefile-bsdmake-mode
+         makefile-gmake-mode
+         makefile-imake-mode
+         python-mode
+         yaml-mode)
+       "Modes which disable auto-indenting.")
+
+     (defun creature/indent-region-or-buffer ()
+       "Indent a region if selected, otherwise the whole buffer."
+       (interactive)
+       (unless (member major-mode creature/indent-sensitive-modes)
+         (save-excursion
+           (if (region-active-p)
+               (progn
+                 (indent-region (region-beginning) (region-end))
+                 (message "Indented selected region."))
+             (progn
+               (indent-region (point-min) (point-max))
+               (message "Indented buffer.")))
+           (whitespace-cleanup))))
+
+     (define-key global-map (kbd "C-M-\\") 'creature/indent-region-or-buffer)
+   #+END_SRC
+
+** config about file
+   define function
+   #+BEGIN_SRC emacs-lisp
+     (defun creature/open-init-file ()
+       "Open init file."
+       (interactive)
+       (find-file (expand-file-name "init.el" creature-dir)))
+
+     (defun creature/open-early-init-file ()
+       "Open init file."
+       (interactive)
+       (find-file (expand-file-name "early-init.el" creature-dir)))
+
+     (defun creature/open-in-external-app (file-path)
+       (if sys/win32p
+           (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path))
+         (start-process "" nil "xdg-open" file-path)))
+
+     (defun creature/open-file-or-directory-in-external-app (arg)
+       (interactive "P")
+       (if arg
+           (creature/open-in-external-app (expand-file-name default-directory))
+         (let ((file-path (if (derived-mode-p 'dired-mode)
+                              (dired-get-file-for-visit)
+                            buffer-file-name)))
+           (if file-path
+               (creature/open-in-external-app file-path)
+             (message "No file associated to this buffer")))))
+   #+END_SRC
+
+   1. automatically reload files which modified by external program
+   2. show trailing whitespace
+   3. delete file directly
+   4. don't backup file
+   5. enable auto save file
+   6. don't create lockfiles named ".#file-name" in Windows OS
+   #+BEGIN_SRC emacs-lisp
+     (global-auto-revert-mode)
+
+     (add-hook 'find-file-hook
+               (defun show-trailing-whitespace ()
+                 (set (make-local-variable 'show-trailing-whitespace) t)))
+
     (setq delete-by-moving-to-trash t)
     (setq make-backup-files nil)
     (setq auto-save-default t)
-    ;; don't create lockfiles named ".#file-name"
+
     (if sys/win32p
         (setq create-lockfiles nil)
       (setq create-lockfiles t))
+   #+END_SRC
 
-    ;; indent
-    (let ((offset (if sys/win32p 4 2)))
-      (setq-default c-basic-offset offset)
-      (setq-default tab-width offset))
-    (setq-default indent-tabs-mode nil)
+** history
+   1. record recently edit file
+   2. minibuffer history
+   3. save cursor position
+   #+BEGIN_SRC emacs-lisp
+     (recentf-mode)
+     (setq recentf-max-saved-items 1000)
+     (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
+     (add-to-list 'recentf-exclude "bookmarks")
+     (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
 
-    ;; key modifiers in windows
-    (when sys/win32p
-      ;; (w32-register-hot-key [s-t])
-      (setq-default w32-apps-modifier 'hyper)
-      (setq-default w32-lwindow-modifier 'super))
+     (savehist-mode)
+     (setq enable-recursive-minibuffers t)
+     (setq history-length 1000)
+     (setq savehist-additional-variables
+           '(mark-ring
+             global-mark-ring
+             search-ring
+             regexp-search-ring
+             extended-command-history))
+     (setq savehist-autosave-interval 60)
 
-    ;; enable server-mode
-    (require 'server)
-    (if (server-running-p)
-        t
-      (server-start))
+     (save-place-mode)
+   #+END_SRC
 
-    ;; remember last edit position for files
-    (save-place-mode)
+** better prompt
+   don't show prompt when call function
+   #+BEGIN_SRC emacs-lisp
+     (fset 'yes-or-no-p 'y-or-n-p)
+     (put 'erase-buffer 'disabled nil)
+     (put 'narrow-to-page 'disabled nil)
+     (put 'narrow-to-defun 'disable nil)
+     (put 'narrow-to-region 'disabled nil)
+   #+END_SRC
 
-    ;; remember recent opened files.
-    (recentf-mode)
-    (setq recentf-max-saved-items 1000)
-    (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
-    (add-to-list 'recentf-exclude "bookmarks")
-    (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+** misc
+   1. key modifiers in windows
+   2. enable server-mode
+   3. enable folding in prog-mode
+   4. type when selected region will replace the
+      selected region content with inputed content
+   #+BEGIN_SRC emacs-lisp
+     (when sys/win32p
+       ;; (w32-register-hot-key [s-t])
+       (setq-default w32-apps-modifier 'hyper)
+       (setq-default w32-lwindow-modifier 'super))
 
-    (savehist-mode)
-    (setq enable-recursive-minibuffers t)
-    (setq history-length 1000)
-    (setq savehist-additional-variables
-          '(mark-ring
-            global-mark-ring
-            search-ring
-            regexp-search-ring
-            extended-command-history))
-    (setq savehist-autosave-interval 60)
+     (require 'server)
+     (if (server-running-p)
+         t
+       (server-start))
 
-    ;; delete with key "C-w"
-    (delete-selection-mode)
+     (add-hook 'prog-mode-hook 'hs-minor-mode)
 
-    ;; (electric-pair-mode)
-    ;; (define-key electric-pair-mode-map (kbd "DEL") nil)
+     (delete-selection-mode)
+   #+END_SRC
 
-    ;; folding
-    (add-hook 'prog-mode-hook 'hs-minor-mode)
-
-    ;; automatically reload files which modified by external program
-    (global-auto-revert-mode)
-
-    (require 'paren)
-    (show-paren-mode)
-    (setq show-paren-when-point-in-periphery t)
-    (setq show-paren-when-point-inside-paren t)
-    (define-advice show-paren-function (:around (fn) fix-show-paren-function)
-      "Highlight enclosing parens."
-      (advice-remove 'show-paren-function 'ad-Advice-show-paren-function)
-      (cond ((looking-at-p "\\s(") (funcall fn))
-            (t (save-excursion
-                 (ignore-errors (backward-up-list))
-                 (funcall fn)))))
-
-    (add-hook 'find-file-hook
-              (defun show-trailing-whitespace ()
-                (set (make-local-variable 'show-trailing-whitespace) t)))
-
-    (fset 'yes-or-no-p 'y-or-n-p)
-
-    (put 'erase-buffer 'disabled nil)
-
-    ;; enable narrow function
-    (put 'narrow-to-page 'disabled nil)
-    (put 'narrow-to-defun 'disable nil)
-    (put 'narrow-to-region 'disabled nil)
-  #+END_SRC
-
-* TODO git
+* git
   #+BEGIN_SRC emacs-lisp
     (install-packages '(magit
                         gitattributes-mode
@@ -948,6 +988,7 @@
                         gitignore-mode))
   #+END_SRC
 
+  keybindings and prompt for which-key
   #+BEGIN_SRC emacs-lisp
     (evil-leader/set-key
       "gc"  'magit-clone
@@ -960,57 +1001,95 @@
     (creature/which-key-declare-prefixes
      "gf" "git files"
      "g"  "gits")
+  #+END_SRC
 
+  enable gravatar in magit
+  #+BEGIN_SRC emacs-lisp
     (setq magit-revision-show-gravatars
           '("^Author:     " . "^Commit:     "))
   #+END_SRC
 
-* TODO org
+* org
+  1. org-pomodoro for pomodoro
+  2. htmlize for code highlight in org src block
   #+BEGIN_SRC emacs-lisp
-    (install-packages '(org-pomodoro
+    (install-packages '(htmlize
+                        org-pomodoro
                         org-plus-contrib))
   #+END_SRC
 
-  #+BEGIN_SRC emacs-lisp
-    (defconst creature/org-src-lang-modes
-      '(("js"   . js2)
-        ("html" . web))
-      "Better src lang reflex to mode.")
+** code block
+   customize mode for src lang
+   #+BEGIN_SRC emacs-lisp
+     (defconst creature/org-src-lang-modes
+       '(("js"   . js2)
+         ("html" . web))
+       "Better src lang reflex to mode.")
+   #+END_SRC
 
-    (when sys/win32p
-      (with-eval-after-load 'org-pomodoro
-        (setq org-pomodoro-audio-player "mplayer")))
-
-    ;; inline image
-    (add-hook 'org-mode-hook 'org-display-inline-images)
-    (with-eval-after-load 'org
-      (define-key org-mode-map (kbd "RET") 'newline-and-indent)
-      (setq org-image-actual-width nil)
-      (setq org-preview-latex-default-process 'dvipng)
-      (setq org-preview-latex-image-directory
-            (expand-file-name "ltximg/" creature-cache))
-      (org-babel-do-load-languages
-       'org-babel-load-languages
+   enable code block in org file
+   #+BEGIN_SRC emacs-lisp
+     (defconst creature/org-src-enable-lang
        '((C          . t)
          (js         . t)
          (latex      . t)
          (shell      . t)
          (python     . t)
-         (emacs-lisp . t)))
+         (emacs-lisp . t))
+       "Enabled lang in org src code block.")
+   #+END_SRC
 
-      ;; don't prompt before eval code
-      (setq org-confirm-babel-evaluate nil)
+** org pomodoro
+   #+BEGIN_SRC emacs-lisp
+     (when sys/win32p
+       (with-eval-after-load 'org-pomodoro
+         (setq org-pomodoro-audio-player "mplayer")))
+   #+END_SRC
 
-      ;; add better src lang reflex to mode
-      (dolist (src2mode creature/org-src-lang-modes)
-        (add-to-list 'org-src-lang-modes src2mode)))
-  #+END_SRC
+** eval org config
+   show inline image when open org file
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'org-mode-hook 'org-display-inline-images)
+   #+END_SRC
 
-* TODO dired
+   better behavior for "RET" key
+   #+BEGIN_SRC emacs-lisp
+     (define-key org-mode-map (kbd "RET") 'org-return-indent)
+   #+END_SRC
+
+   1. enable scale image
+   2. config latex preview
+   3. don't prompt before eval code
+   4. make options configged before work
+   #+BEGIN_SRC emacs-lisp
+     (with-eval-after-load 'org
+       (setq org-image-actual-width nil)
+
+       (setq org-preview-latex-default-process 'dvipng)
+       (setq org-preview-latex-image-directory
+             (expand-file-name "ltximg/" creature-cache))
+
+       (setq org-confirm-babel-evaluate nil)
+
+       (org-babel-do-load-languages
+        'org-babel-load-languages
+        creature/org-src-enable-lang)
+       (dolist (src2mode creature/org-src-lang-modes)
+         (add-to-list 'org-src-lang-modes src2mode)))
+   #+END_SRC
+
+* dired
   #+BEGIN_SRC emacs-lisp
     (install-packages '(dired-narrow
                         all-the-icons-dired))
   #+END_SRC
+
+  1. don't make too many dired buffer
+  2. show file size human readable
+  3. copy and delete directory recursive
+  4. don't show prompt when open file from dired buffer
+  5. customize keybindings
+  6. Windows OS don't show icons in dired buffer.
   #+BEGIN_SRC emacs-lisp
     (with-eval-after-load 'dired
       (require 'dired-x)
@@ -1023,104 +1102,122 @@
       (define-key dired-mode-map (kbd "q") 'kill-current-buffer)
 
       (unless sys/win32p
-        (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
-      )
+        (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
   #+END_SRC
 
-* TODO modeline
-  #+BEGIN_SRC emacs-lisp
-    (defvar creature/mode-line-window-number
-      '(:eval (window-numbering-get-number-string))
-      "Get window number by window-numbering.")
-    (put 'creature/mode-line-window-number 'risky-local-variable t)
+* modeline
 
-    (defvar creature/flycheck-errors
-      '(:eval
-        (when (bound-and-true-p flycheck-mode)
-          (let ((text (pcase flycheck-last-status-change
-                        (`not-checked "")
-                        (`no-checker "-")
-                        (`running "*")
-                        (`errored "!")
-                        (`finished
-                         (let-alist (flycheck-count-errors flycheck-current-errors)
-                           (if (or .error .warning)
-                               (concat (propertize (format "•%s" (or .error 0))
-                                                   'face `(:foreground "#ff0000"))
-                                       (propertize (format " •%s" (or .warning 0))
-                                                   'face `(:foreground "#00ff00")))
-                             ;; (format "•%s •%s" (or .error 0) (or .warning 0))
-                             "")))
-                        (`interrupted ".")
-                        (`suspicious "?"))))
-            ;; (concat " " flycheck-mode-line-prefix text)
-            (concat " " text)))))
-    (put 'creature/flycheck-errors 'risky-local-variable t)
+** window-numbering
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/mode-line-window-number
+       '(:eval (window-numbering-get-number-string))
+       "Get window number by window-numbering.")
+     (put 'creature/mode-line-window-number 'risky-local-variable t)
+   #+END_SRC
 
-    (defvar creature/mode-line-evil-state
-      '(:eval
-        (cond
-         ((eq evil-state 'emacs) "[E]")
-         ((eq evil-state 'insert) "[I]")
-         ((eq evil-state 'motion) "[M]")
-         ((eq evil-state 'normal) "[N]")
-         ((eq evil-state 'visual) "[V]")
-         ((eq evil-state 'replace) "[R]")
-         ((eq evil-state 'operator) "[O]")))
-      "Evil state indicator.")
-    (put 'creature/mode-line-evil-state 'risky-local-variable t)
+** flycheck
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/flycheck-errors
+       '(:eval
+         (when (bound-and-true-p flycheck-mode)
+           (let ((text (pcase flycheck-last-status-change
+                         (`not-checked "")
+                         (`no-checker "-")
+                         (`running "*")
+                         (`errored "!")
+                         (`finished
+                          (let-alist (flycheck-count-errors flycheck-current-errors)
+                            (if (or .error .warning)
+                                (concat (propertize (format "•%s" (or .error 0))
+                                                    'face `(:foreground "#ff0000"))
+                                        (propertize (format " •%s" (or .warning 0))
+                                                    'face `(:foreground "#00ff00")))
+                              ;; (format "•%s •%s" (or .error 0) (or .warning 0))
+                              "")))
+                         (`interrupted ".")
+                         (`suspicious "?"))))
+             ;; (concat " " flycheck-mode-line-prefix text)
+             (concat " " text)))))
+     (put 'creature/flycheck-errors 'risky-local-variable t)
+   #+END_SRC
 
-    (defvar creature/mode-line-buffer-name
-      '(:eval (propertize
-               "%b"
-               'face 'mode-line-buffer-id))
-      "Buffer name with face.")
-    (set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
-    (put 'creature/mode-line-buffer-name 'risky-local-variable t)
+** evil state
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/mode-line-evil-state
+       '(:eval
+         (cond
+          ((eq evil-state 'emacs) "[E]")
+          ((eq evil-state 'insert) "[I]")
+          ((eq evil-state 'motion) "[M]")
+          ((eq evil-state 'normal) "[N]")
+          ((eq evil-state 'visual) "[V]")
+          ((eq evil-state 'replace) "[R]")
+          ((eq evil-state 'operator) "[O]")))
+       "Evil state indicator.")
+     (put 'creature/mode-line-evil-state 'risky-local-variable t)
+   #+END_SRC
 
-    (defvar creature/origin-mode-line-format
-      mode-line-format
-      "Keep origin `mode-line-format'")
+** buffer name
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/mode-line-buffer-name
+       '(:eval (propertize
+                "%b"
+                'face 'mode-line-buffer-id))
+       "Buffer name with face.")
+     (set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
+     (put 'creature/mode-line-buffer-name 'risky-local-variable t)
+   #+END_SRC
 
-    (defvar creature/mode-line-format
-      '("%e"
-        creature/mode-line-window-number
-        ;; (:eval (window-numbering-get-number-string))
-        " "
-        current-input-method-title
-        "%Z" ; coding system and eol type
-        "%*" ; read only buffer?
-        "%+" ; buffer modified?
-        "%@" ; buffer is in remote?
-        " "
-        creature/mode-line-buffer-name
-        " {"
-        "%p" ; percent of point in buffer
-        ","
-        "%I" ; buffer size
-        "}("
-        "%l,%c" ; line and column
-        ")"
-        " "
-        creature/mode-line-evil-state
-        " (%m" ; major mode
-        mode-line-process
-        ")"
-        (vc-mode vc-mode)
-        ;; (flycheck-mode flycheck-mode-line)
-        creature/flycheck-errors
-        mode-line-misc-info
-        mode-line-end-spaces
-        )
-      "Customized mode line format.")
+** combin mode line fromat
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/mode-line-format
+       '("%e"
+         creature/mode-line-window-number
+         ;; (:eval (window-numbering-get-number-string))
+         " "
+         current-input-method-title
+         "%Z" ; coding system and eol type
+         "%*" ; read only buffer?
+         "%+" ; buffer modified?
+         "%@" ; buffer is in remote?
+         " "
+         creature/mode-line-buffer-name
+         " {"
+         "%p" ; percent of point in buffer
+         ","
+         "%I" ; buffer size
+         "}("
+         "%l,%c" ; line and column
+         ")"
+         " "
+         creature/mode-line-evil-state
+         " (%m" ; major mode
+         mode-line-process
+         ")"
+         (vc-mode vc-mode)
+         ;; (flycheck-mode flycheck-mode-line)
+         creature/flycheck-errors
+         mode-line-misc-info
+         mode-line-end-spaces
+         )
+       "Customized mode line format.")
+     (setq-default mode-line-format creature/mode-line-format)
+   #+END_SRC
 
-    (defun creature/set-mode-line-format-for-exist-buffers ()
-      "Make customized mode line works in exist buffers."
-      (mapc (lambda (buffer)
-              (with-current-buffer buffer
-                (setq mode-line-format creature/mode-line-format)))
-            (buffer-list)))
+** load customized mode-line
+   1. define a variable to keep origin mode-line
+   2. make customized mode-line worked for exist buffers.
+   #+BEGIN_SRC emacs-lisp
+     (defvar creature/origin-mode-line-format
+       mode-line-format
+       "Keep origin `mode-line-format'")
 
-    (setq-default mode-line-format creature/mode-line-format)
-    (creature/set-mode-line-format-for-exist-buffers)
-  #+END_SRC
+     (defun creature/set-mode-line-format-for-exist-buffers ()
+       "Make customized mode line works in exist buffers."
+       (mapc (lambda (buffer)
+               (with-current-buffer buffer
+                 (setq mode-line-format creature/mode-line-format)))
+             (buffer-list)))
+
+     (creature/set-mode-line-format-for-exist-buffers)
+   #+END_SRC

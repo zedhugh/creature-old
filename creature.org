@@ -39,13 +39,6 @@
                   (setq gc-cons-threshold best-gc-cons-threshold)))
     #+END_SRC
 
-*** load path
-    #+BEGIN_SRC emacs-lisp
-      (dolist (item '("lisp" "site-lisp"))
-        (add-to-list 'load-path
-                     (expand-file-name item creature-dir)))
-    #+END_SRC
-
 ** function switch
    #+BEGIN_SRC emacs-lisp
      ;; ----------------TODO------------------
@@ -154,9 +147,6 @@
       (evil-global-set-key 'motion (kbd "TAB") nil)
       (evil-global-set-key 'motion (kbd "<SPC>") nil)
       (evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
-      (evil-leader/set-key "fi" 'creature/open-init-file)
-      (evil-leader/set-key "fe" 'creature/open-early-init-file)
-      (evil-leader/set-key "fo" 'creature/open-file-or-directory-in-external-app)
     #+END_SRC
 
 *** inital state for modes
@@ -218,38 +208,6 @@
      (electric-pair-mode)
    #+END_SRC
 
-** paredit mode
-   #+BEGIN_SRC emacs-lisp
-     (require 'paredit)
-     (add-hook 'prog-mode-hook 'enable-paredit-mode)
-   #+END_SRC
-
-   config space before "()" when type "("
-   #+BEGIN_SRC emacs-lisp
-     (defun paredit/space-for-delimiter-p (endp delm)
-       (or (member 'font-lock-keyword-face
-                   (text-properties-at (1- (point))))
-           (not (derived-mode-p 'c-mode
-                                'c++-mode
-                                'js-mode
-                                'lua-mode
-                                'objc-mode
-                                'pascal-mode
-                                'python-mode
-                                'java-mode
-                                'csharp-mode
-                                'dart-mode
-                                'd-mode
-                                'go-mode
-                                'basic-mode
-                                'r-mode
-                                'ruby-mode
-                                'rust-mode
-                                'typescript-mode))))
-     (add-to-list 'paredit-space-for-delimiter-predicates
-                  'paredit/space-for-delimiter-p)
-   #+END_SRC
-
 ** show parens
    #+BEGIN_SRC emacs-lisp
      (require 'paren)
@@ -263,6 +221,32 @@
              (t (save-excursion
                   (ignore-errors (backward-up-list))
                   (funcall fn)))))
+   #+END_SRC
+
+** smartparens
+   #+BEGIN_SRC emacs-lisp
+     (require-package 'smartparens)
+     (require 'smartparens)
+     (smartparens-global-strict-mode)
+     (show-smartparens-global-mode)
+     (require 'smartparens-config)
+     (remove-hook 'post-self-insert-hook 'sp--post-self-insert-hook-handler)
+     (define-key smartparens-strict-mode-map (kbd "C-d") 'sp-delete-char)
+     (define-key smartparens-strict-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+     (define-key smartparens-strict-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+     (defun creature/backward-kill-word-or-region (&optional arg)
+       "Call `kill-region' when a region is active.
+     and `backward-kill-word' otherwise.  ARG is passed to
+     `backward-kill-word' if no region is active."
+       (interactive "p")
+       (if (featurep 'smartparens)
+           (if (region-active-p)
+               (call-interactively #'sp-kill-region)
+             (sp-backward-kill-word arg))
+         (if (region-active-p)
+             (call-interactively #'kill-region)
+           (backward-kill-word arg))))
+     (global-set-key (kbd "C-w") 'creature/backward-kill-word-or-region)
    #+END_SRC
 
 * auto completion
@@ -879,10 +863,10 @@
        (interactive)
        (find-file (expand-file-name "init.el" creature-dir)))
 
-     (defun creature/open-early-init-file ()
+     (defun creature/open-early-init-org-file ()
        "Open init file."
        (interactive)
-       (find-file (expand-file-name "early-init.el" creature-dir)))
+       (find-file (expand-file-name "creature.org" creature-dir)))
 
      (defun creature/open-in-external-app (file-path)
        (if sys/win32p
@@ -899,6 +883,10 @@
            (if file-path
                (creature/open-in-external-app file-path)
              (message "No file associated to this buffer")))))
+
+     (evil-leader/set-key "fi" 'creature/open-init-file)
+     (evil-leader/set-key "fe" 'creature/open-early-init-org-file)
+     (evil-leader/set-key "fo" 'creature/open-file-or-directory-in-external-app)
    #+END_SRC
 
    1. automatically reload files which modified by external program

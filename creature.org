@@ -559,7 +559,8 @@
     (install-packages '(tern
                         web-mode
                         emmet-mode
-                        company-web))
+                        company-web
+                        company-tern))
   #+END_SRC
 
 ** indent
@@ -620,6 +621,7 @@
                         tern
                         tide
                         emmet-mode
+                        company-tern
                         typescript-mode))
   #+END_SRC
 

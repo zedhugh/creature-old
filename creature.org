@@ -954,6 +954,7 @@
    3. enable folding in prog-mode
    4. type when selected region will replace the
       selected region content with inputed content
+   5. like hungry-delete but only work for backward
    #+BEGIN_SRC emacs-lisp
      (when sys/win32p
        ;; (w32-register-hot-key [s-t])
@@ -968,6 +969,8 @@
      (add-hook 'prog-mode-hook 'hs-minor-mode)
 
      (delete-selection-mode)
+
+     (setq backward-delete-char-untabify-method 'all)
    #+END_SRC
 
 * git

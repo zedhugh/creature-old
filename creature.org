@@ -260,10 +260,12 @@
                   'paredit/space-for-delimiter-p)
    #+END_SRC
 
-   unbind "M-;" keybinding except emacs-lisp-mode
+   unbind "M-;" keybinding except all lisp modes
    #+BEGIN_SRC emacs-lisp
      (define-key paredit-mode-map (kbd "M-;") nil)
-     (define-key emacs-lisp-mode-map (kbd "M-;") 'paredit-comment-dwim)
+     (define-key lisp-mode-shared-map
+       (kbd "M-;") 'paredit-comment-dwim)
+
    #+END_SRC
 
 ** smartparens

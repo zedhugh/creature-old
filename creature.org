@@ -441,6 +441,13 @@
      (add-hook 'prog-mode-hook 'goto-address-prog-mode)
    #+END_SRC
 
+** beacon
+   notice cursor position when it changed
+   #+BEGIN_SRC emacs-lisp
+     (require-package 'beacon)
+     (beacon-mode)
+   #+END_SRC
+
 * hydra
   #+BEGIN_SRC emacs-lisp
     (require-package 'hydra)
@@ -589,6 +596,12 @@
    #+BEGIN_SRC emacs-lisp
      (setq ediff-split-window-function 'split-window-horizontally)
      (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+   #+END_SRC
+
+** iedit
+   #+BEGIN_SRC emacs-lisp
+     (require-package 'iedit)
+     (require 'iedit)
    #+END_SRC
 
 * clipboard keybindings

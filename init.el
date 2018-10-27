@@ -5,21 +5,13 @@
               "early-init.el"
               user-emacs-directory)))
 
-(when sys/win32p
-  (setq inhibit-splash-screen t))
-
 (when (display-graphic-p)
-  (creature/fontset)
-  (company-posframe-mode)
-  (blink-cursor-mode -1)
-  (setq pyim-page-tooltip 'child-frame))
+  (creature/fontset))
 
-(when (memq window-system '(mac ns x))
+(unless sys/win32p
   (require-package 'exec-path-from-shell)
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))
-
-(setq gc-cons-threshold best-gc-cons-threshold)
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

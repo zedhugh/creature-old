@@ -34,7 +34,7 @@
 
       (setq gc-cons-threshold most-positive-fixnum)
 
-      (add-hook 'after-init-hook
+      (add-hook 'emacs-startup-hook
                 (lambda ()
                   (setq gc-cons-threshold best-gc-cons-threshold)))
     #+END_SRC
@@ -297,7 +297,6 @@
 * auto completion
   #+BEGIN_SRC emacs-lisp
     (install-packages '(company
-                        company-posframe
                         yasnippet
                         yasnippet-snippets))
   #+END_SRC
@@ -393,19 +392,20 @@
          '("Emacs SimSun" . 18))
        "Default font for multi-byte code.")
 
-     (defun creature/fontset ()
+     (defun creature/fontset (&optional frame)
        "Font sets for default and multi-byte code."
        ;; single-byte code
        (let ((family (car creature/default-font))
              (size (cdr creature/default-font)))
-         (set-face-attribute 'default nil
+         (set-face-attribute 'default frame
                              :font (font-spec :family family :size size)))
        ;; multi-byte code
        (let ((family (car creature/chinese-font))
              (size (cdr creature/chinese-font)))
          (dolist (charset '(kana han cjk-misc bopomofo))
-           (set-fontset-font (frame-parameter nil 'font) charset
-                             (font-spec :family family :size size)))))
+           (set-fontset-font t ;; (frame-parameter nil 'font)
+                             charset
+                             (font-spec :family family :size size) frame))))
    #+END_SRC
 
 ** theme
@@ -560,7 +560,6 @@
 
 ** input method
    #+BEGIN_SRC emacs-lisp
-     (require-package 'posframe)
      (require-package 'pyim)
 
      (require 'pyim)
@@ -578,13 +577,12 @@
      (let ((greatdict
             (concat creature-dir
                     "pyim-dicts/pyim-greatdict.pyim.gz")))
-       (if (featurep 'pyim)
-           (pyim-extra-dicts-add-dict
-            `(:name "Greatdict-elpa"
-                    :file ,greatdict
-                    :coding utf-8-lang
-                    :dict-type pinyin-dict))
-         nil))
+       (when (featurep 'pyim)
+         (pyim-extra-dicts-add-dict
+          `(:name "Greatdict-elpa"
+                  :file ,greatdict
+                  :coding utf-8-lang
+                  :dict-type pinyin-dict))))
    #+END_SRC
 
 ** ediff
@@ -1009,6 +1007,8 @@
      (if (server-running-p)
          t
        (server-start))
+
+     (add-to-list 'after-make-frame-functions 'creature/fontset)
 
      (add-hook 'prog-mode-hook 'hs-minor-mode)
 

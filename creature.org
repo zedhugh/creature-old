@@ -1271,3 +1271,15 @@
 
      (creature/set-mode-line-format-for-exist-buffers)
    #+END_SRC
+
+* lua mode
+  #+BEGIN_SRC emacs-lisp
+    (install-packages '(lua-mode
+                        company-lua))
+    (add-hook 'lua-mode-hook
+              (lambda ()
+                (set (make-local-variable) 'paredit-mode-map
+                     (define-key paredit-mode-map (kbd ";") nil))
+                (set (make-local-variable 'company-backends)
+                     (push 'company-lua company-backends))))
+  #+END_SRC

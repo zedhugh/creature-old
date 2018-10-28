@@ -1152,6 +1152,9 @@
       (define-key dired-mode-map (kbd "q") 'kill-current-buffer)
 
       (unless sys/win32p
+        (require-package 'exec-path-from-shell)
+        (setq exec-path-from-shell-check-startup-files nil)
+        (exec-path-from-shell-initialize)
         (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)))
   #+END_SRC
 
@@ -1282,4 +1285,25 @@
                      (define-key paredit-mode-map (kbd ";") nil))
                 (set (make-local-variable 'company-backends)
                      (push 'company-lua company-backends))))
+  #+END_SRC
+
+* avy
+  #+BEGIN_SRC emacs-lisp
+    (require-package 'avy)
+    (evil-leader/set-key
+      "ac" 'avy-goto-char
+      "aw" 'avy-goto-word-1
+      "al" 'avy-goto-line)
+    (creature/which-key-declare-prefixes
+     "a"  "avy"
+     "b"  "buffer"
+     "c"  "comment"
+     "e"  "error"
+     "f"  "file"
+     "h"  "help"
+     "hd" "describe"
+     "q"  "quit"
+     "y" "youdao"
+     "ys" "search"
+     "yp" "pronounce")
   #+END_SRC

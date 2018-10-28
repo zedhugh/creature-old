@@ -5,13 +5,8 @@
               "early-init.el"
               user-emacs-directory)))
 
-(when (display-graphic-p)
-  (creature/fontset))
-
-(unless sys/win32p
-  (require-package 'exec-path-from-shell)
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
+;; (when (display-graphic-p)
+;;   (creature/fontset))
 
 ;; load custom file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))

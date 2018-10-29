@@ -1307,3 +1307,12 @@
      "ys" "search"
      "yp" "pronounce")
   #+END_SRC
+
+* tags
+  #+BEGIN_SRC emacs-lisp
+    (require-package 'ggtags)
+    (add-hook 'c-mode-common-hook
+              (lambda ()
+                (when (derived-mode-p 'c-mode 'c++-mode)
+                  (ggtags-mode 1))))
+  #+END_SRC

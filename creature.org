@@ -225,47 +225,25 @@
    #+END_SRC
 
 ** paredit
-   enable paredit mode
    #+BEGIN_SRC emacs-lisp
+     ;; enable paredit mode
      (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
      (require 'paredit)
-     (dolist (hook '(prog-mode-hook text-mode-hook))
+     (add-hook 'lisp-mode-hook 'enable-paredit-mode)
+     (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+     (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
+     (dolist (hook '(lisp-mode-hook
+                     emacs-lisp-mode-hook
+                     lisp-interaction-mode-hook
+                     text-mode-hook))
        (add-hook hook 'enable-paredit-mode))
-   #+END_SRC
 
-   don't insert space before keyword in below modes
-   #+BEGIN_SRC emacs-lisp
-     (defun paredit/space-for-delimiter-p (endp delm)
-       (or (member 'font-lock-keyword-face (text-properties-at (1- (point))))
-           (not (derived-mode-p 'basic-mode
-                                'c++-mode
-                                'c-mode
-                                'coffee-mode
-                                'csharp-mode
-                                'd-mode
-                                'dart-mode
-                                'go-mode
-                                'java-mode
-                                'js-mode
-                                'lua-mode
-                                'objc-mode
-                                'pascal-mode
-                                'python-mode
-                                'r-mode
-                                'ruby-mode
-                                'rust-mode
-                                'typescript-mode))))
-
-     (add-to-list 'paredit-space-for-delimiter-predicates
-                  'paredit/space-for-delimiter-p)
-   #+END_SRC
-
-   unbind "M-;" keybinding except all lisp modes
-   #+BEGIN_SRC emacs-lisp
-     (define-key paredit-mode-map (kbd "M-;") nil)
-     (define-key lisp-mode-shared-map
-       (kbd "M-;") 'paredit-comment-dwim)
-
+     ;; there are some performance problem when involve both "paredit" and
+     ;; "ggtags", finally "paredit-everywhere" resolveed this problem
+     (require-package 'paredit-everywhere)
+     (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
+     ;; (define-key paredit-everywhere-mode-map
+     ;;   (kbd "C-k") 'paredit-kill)
    #+END_SRC
 
 ** smartparens

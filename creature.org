@@ -192,8 +192,7 @@
                  (funcall fn)))))
 
     ;; enable paredit mode
-    (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
-    (require 'paredit)
+    (require-package 'paredit)
     (add-hook 'lisp-mode-hook 'enable-paredit-mode)
     (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
     (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
@@ -247,6 +246,7 @@
     (setq company-show-numbers t)
     (setq company-require-match nil)
     (setq company-minimum-prefix-length 1)
+    (setq company-clang-insert-arguments nil)
     (define-key company-active-map (kbd "C-n")
       #'company-complete-common-or-cycle)
     (define-key company-active-map (kbd "C-p")

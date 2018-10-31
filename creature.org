@@ -295,9 +295,6 @@
     (unless (string-equal (getenv "DESKTOP_SESSION") "awesome")
       (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
-    ;; turn off startup screen
-    (setq inhibit-splash-screen t)
-
     ;; Keep cursor at end of lines when prev
     ;; position of cursor is at the end.
     ;; Require line-move-visual is nil.

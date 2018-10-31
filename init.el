@@ -1,5 +1,8 @@
 ;; the config in this file work after frame created.
 
+;; turn off startup screen
+(setq inhibit-splash-screen t)
+
 (when (< emacs-major-version 27)
   (load-file (expand-file-name
               "early-init.el"

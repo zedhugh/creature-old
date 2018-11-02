@@ -193,13 +193,9 @@
 
     ;; enable paredit mode
     (require-package 'paredit)
-    (add-hook 'lisp-mode-hook 'enable-paredit-mode)
-    (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
-    (add-hook 'lisp-interaction-mode-hook 'enable-paredit-mode)
     (dolist (hook '(lisp-mode-hook
                     emacs-lisp-mode-hook
-                    lisp-interaction-mode-hook
-                    text-mode-hook))
+                    lisp-interaction-mode-hook))
       (add-hook hook 'enable-paredit-mode))
 
     ;; there are some performance problem when involve both "paredit" and
@@ -207,8 +203,8 @@
     (require-package 'paredit-everywhere)
     (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
     (with-eval-after-load 'paredit-everywhere
-      (define-key paredit-everywhere-mode-map
-        (kbd "C-k") 'paredit-kill))
+      (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
+      (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete))
 
     ;; smartparens
     ;; (require-package 'smartparens)

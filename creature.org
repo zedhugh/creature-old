@@ -1096,3 +1096,31 @@
                 (when (derived-mode-p 'c-mode 'c++-mode)
                   (ggtags-mode 1))))
   #+END_SRC
+
+* command remap
+  kill buffer when calling quit-window.
+  #+BEGIN_SRC emacs-lisp
+    (defun quit-window-and-kill-buffer ()
+      "Kill buffer when quit-window."
+      (interactive)
+      (quit-window 'kill))
+
+    (define-key special-mode-map
+      [remap quit-window]
+      'quit-window-and-kill-buffer)
+    (define-key youdao-dictionary-mode-map
+      [remap quit-window]
+      'quit-window-and-kill-buffer)
+    (with-eval-after-load 'magit-status
+      (define-key magit-status-mode-map
+        [remap magit-mode-bury-buffer]
+        'quit-window-and-kill-buffer))
+    (with-eval-after-load 'magit-mode
+      (define-key magit-mode-map
+        [remap magit-mode-bury-buffer]
+        'quit-window-and-kill-buffer))
+    (with-eval-after-load 'magit-log
+      (define-key magit-log-mode-map
+        [remap magit-log-bury-buffer]
+        'quit-window-and-kill-buffer))
+  #+END_SRC

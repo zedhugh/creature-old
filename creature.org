@@ -1108,9 +1108,14 @@
     (define-key special-mode-map
       [remap quit-window]
       'quit-window-and-kill-buffer)
-    (define-key youdao-dictionary-mode-map
+    (define-key global-map [remap list-buffers] 'ibuffer)
+    (define-key package-menu-mode-map
       [remap quit-window]
       'quit-window-and-kill-buffer)
+    (with-eval-after-load 'youdao-dictionary
+      (define-key youdao-dictionary-mode-map
+        [remap quit-window]
+        'quit-window-and-kill-buffer))
     (with-eval-after-load 'magit-status
       (define-key magit-status-mode-map
         [remap magit-mode-bury-buffer]

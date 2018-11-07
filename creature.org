@@ -564,8 +564,8 @@
 
 * javascript
   #+BEGIN_SRC emacs-lisp
-    (install-packages '(js2-mode
-                        rjsx-mode
+    (install-packages '(;; js2-mode
+                        ;; rjsx-mode
                         json-mode
                         tern
                         tide
@@ -574,12 +574,12 @@
                         typescript-mode))
 
     ;; mode for files
-    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
-    (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
-    (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
+    ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
+    ;; (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
+    ;; (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
     (add-to-list 'magic-mode-alist
-                 '("import\s+.*+\s+from\s+['\"]react['\"]" . rjsx-mode))
+                 '("import\s+.*+\s+from\s+['\"]react['\"]" . js-jsx-mode))
 
     (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
     (add-to-list 'auto-mode-alist '("\\.widget\\'" . json-mode))
@@ -616,7 +616,7 @@
       "Emmet config for jsx."
       (emmet-mode)
       (set (make-local-variable 'emmet-expand-jsx-className?) t))
-    (add-hook 'js2-jsx-mode-hook 'emmet-setup-for-jsx)
+    (add-hook 'js-jsx-mode-hook 'emmet-setup-for-jsx)
   #+END_SRC
 
 * ivy

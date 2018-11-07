@@ -550,10 +550,7 @@
     (evil-define-key '(insert emacs) emmet-mode-keymap
       (kbd "<tab>") 'creature/emmet-expand)
 
-    (defun css-setup ()
-      (emmet-mode 1)
-      (setq css-indent-offset 2))
-    (add-hook 'css-mode-hook 'css-setup)
+    (add-hook 'css-mode-hook 'emmet-mode)
 
     (defun web-mode-setup ()
       (emmet-mode)
@@ -591,16 +588,13 @@
     (defun typescript-setup ()
       (tide-setup)
       (tide-hl-identifier-mode)
-      (setq typescript-indent-level 2)
       (setq tide-hl-identifier-idle-time 0.01))
 
     (add-hook 'typescript-mode-hook 'typescript-setup)
 
     ;; indentation
     (with-eval-after-load 'js
-      (setq js-chain-indent t)
-      (setq js-indent-level 2)
-      (setq js-switch-indent-offset js-indent-level))
+      (setq js-chain-indent t))
 
     ;; tern
     ;; 1. don't create tern port file
@@ -689,9 +683,8 @@
 * indent
   #+BEGIN_SRC emacs-lisp
     ;; indent offset
-    (let ((offset (if sys/win32p 4 2)))
-      (setq-default c-basic-offset offset)
-      (setq-default tab-width offset))
+    (setq c-default-style "linux")
+    (setq c-basic-offset 4)
     (setq-default indent-tabs-mode nil)
 
     ;; remap function of indentation, indent region when

@@ -315,6 +315,7 @@
     (defun creature/fontset (&optional frame)
       "Font sets for default and multi-byte code."
       ;; single-byte code
+      (setq inhibit-compacting-font-caches t)
       (let ((family (car creature/default-font))
             (size (cdr creature/default-font)))
         (set-face-attribute 'default frame

@@ -191,44 +191,44 @@
                  (ignore-errors (backward-up-list))
                  (funcall fn)))))
 
-    ;; enable paredit mode
-    (require-package 'paredit)
-    (dolist (hook '(lisp-mode-hook
-                    emacs-lisp-mode-hook
-                    lisp-interaction-mode-hook))
-      (add-hook hook 'enable-paredit-mode))
+    ;; ;; enable paredit mode
+    ;; (require-package 'paredit)
+    ;; (dolist (hook '(lisp-mode-hook
+    ;;                 emacs-lisp-mode-hook
+    ;;                 lisp-interaction-mode-hook))
+    ;;   (add-hook hook 'enable-paredit-mode))
 
-    ;; there are some performance problem when involve both "paredit" and
-    ;; "ggtags", finally "paredit-everywhere" resolveed this problem
-    (require-package 'paredit-everywhere)
-    (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
-    (with-eval-after-load 'paredit-everywhere
-      (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
-      (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete))
+    ;; ;; there are some performance problem when involve both "paredit" and
+    ;; ;; "ggtags", finally "paredit-everywhere" resolveed this problem
+    ;; (require-package 'paredit-everywhere)
+    ;; (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
+    ;; (with-eval-after-load 'paredit-everywhere
+    ;;   (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
+    ;;   (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete))
 
     ;; smartparens
-    ;; (require-package 'smartparens)
-    ;; (require 'smartparens)
-    ;; (smartparens-global-strict-mode)
-    ;; (show-smartparens-global-mode)
-    ;; (require 'smartparens-config)
-    ;; (remove-hook 'post-self-insert-hook 'sp--post-self-insert-hook-handler)
-    ;; (define-key smartparens-strict-mode-map (kbd "C-d") 'sp-delete-char)
-    ;; (define-key smartparens-strict-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
-    ;; (define-key smartparens-strict-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
-    ;; (defun creature/backward-kill-word-or-region (&optional arg)
-    ;;   "Call `kill-region' when a region is active.
-    ;; and `backward-kill-word' otherwise.  ARG is passed to
-    ;; `backward-kill-word' if no region is active."
-    ;;   (interactive "p")
-    ;;   (if (featurep 'smartparens)
-    ;;       (if (region-active-p)
-    ;;           (call-interactively #'sp-kill-region)
-    ;;         (sp-backward-kill-word arg))
-    ;;     (if (region-active-p)
-    ;;         (call-interactively #'kill-region)
-    ;;       (backward-kill-word arg))))
-    ;; (global-set-key (kbd "C-w") 'creature/backward-kill-word-or-region)
+    (require-package 'smartparens)
+    (require 'smartparens)
+    (smartparens-global-strict-mode)
+    (show-smartparens-global-mode)
+    (require 'smartparens-config)
+    (remove-hook 'post-self-insert-hook 'sp--post-self-insert-hook-handler)
+    (define-key smartparens-strict-mode-map (kbd "C-d") 'sp-delete-char)
+    (define-key smartparens-strict-mode-map (kbd "C-M-a") 'sp-beginning-of-sexp)
+    (define-key smartparens-strict-mode-map (kbd "C-M-e") 'sp-end-of-sexp)
+    (defun creature/backward-kill-word-or-region (&optional arg)
+      "Call `kill-region' when a region is active.
+    and `backward-kill-word' otherwise.  ARG is passed to
+    `backward-kill-word' if no region is active."
+      (interactive "p")
+      (if (featurep 'smartparens)
+          (if (region-active-p)
+              (call-interactively #'sp-kill-region)
+            (sp-backward-kill-word arg))
+        (if (region-active-p)
+            (call-interactively #'kill-region)
+          (backward-kill-word arg))))
+    (global-set-key (kbd "C-w") 'creature/backward-kill-word-or-region)
   #+END_SRC
 
 * company
@@ -564,8 +564,8 @@
 
 * javascript
   #+BEGIN_SRC emacs-lisp
-    (install-packages '(;; js2-mode
-                        ;; rjsx-mode
+    (install-packages '(js2-mode
+                        rjsx-mode
                         json-mode
                         tern
                         tide
@@ -574,12 +574,12 @@
                         typescript-mode))
 
     ;; mode for files
-    ;; (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . js-jsx-mode))
-    ;; (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
-    ;; (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
+    (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+    (add-to-list 'auto-mode-alist '("\\.jsx\\'" . rjsx-mode))
+    (add-to-list 'interpreter-mode-alist '("node"   . js2-mode))
+    (add-to-list 'interpreter-mode-alist '("nodejs" . js2-mode))
     (add-to-list 'magic-mode-alist
-                 '("import\s+.*+\s+from\s+['\"]react['\"]" . js-jsx-mode))
+                 '("import\s+.*+\s+from\s+['\"]react['\"]" . rjsx-mode))
 
     (add-to-list 'auto-mode-alist '("\\.cfg\\'"    . json-mode))
     (add-to-list 'auto-mode-alist '("\\.widget\\'" . json-mode))
@@ -616,7 +616,7 @@
       "Emmet config for jsx."
       (emmet-mode)
       (set (make-local-variable 'emmet-expand-jsx-className?) t))
-    (add-hook 'js-jsx-mode-hook 'emmet-setup-for-jsx)
+    (add-hook 'rjsx-mode-hook 'emmet-setup-for-jsx)
   #+END_SRC
 
 * ivy
@@ -685,6 +685,7 @@
     ;; indent offset
     (setq c-default-style "linux")
     (setq c-basic-offset 4)
+    (setq-default tab-width 4)
     (setq-default indent-tabs-mode nil)
 
     ;; remap function of indentation, indent region when

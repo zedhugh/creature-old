@@ -1130,3 +1130,10 @@
     (require-package 'hungry-delete)
     (global-hungry-delete-mode)
   #+END_SRC
+
+* projectile
+  #+BEGIN_SRC emacs-lisp
+    (install-packages '(ripgrep projectile))
+    (projectile-mode)
+    (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+  #+END_SRC

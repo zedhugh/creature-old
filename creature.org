@@ -1163,3 +1163,26 @@
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
     (rg-enable-default-bindings)
   #+END_SRC
+
+* tramp
+  #+BEGIN_SRC emacs-lisp
+    (defun creature/sudo-edit (&optional arg)
+      (interactive "P")
+      (let ((fname (if (or arg (not buffer-file-name))
+                       (read-file-name "File: ")
+                     buffer-file-name)))
+        (find-file
+         (cond ((string-match-p "^/ssh:" fname)
+                (with-temp-buffer
+                  (insert fname)
+                  (search-backward ":")
+                  (let ((last-match-end nil)
+                        (last-ssh-hostname nil))
+                    (while (string-match "@\\\([^:|]+\\\)" fname last-match-end)
+                      (setq last-ssh-hostname (or (match-string 1 fname)
+                                                  last-ssh-hostname))
+                      (setq last-match-end (match-end 0)))
+                    (insert (format "|sudo:%s" (or last-ssh-hostname "localhost"))))
+                  (buffer-string)))
+               (t (concat "/sudo:root@localhost:" fname))))))
+  #+END_SRC

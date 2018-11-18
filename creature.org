@@ -1158,7 +1158,8 @@
 
 * projectile
   #+BEGIN_SRC emacs-lisp
-    (install-packages '(ripgrep projectile))
+    (install-packages '(rg projectile))
     (projectile-mode)
     (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+    (rg-enable-default-bindings)
   #+END_SRC

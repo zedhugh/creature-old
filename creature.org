@@ -550,6 +550,10 @@
     (evil-define-key '(insert emacs) emmet-mode-keymap
       (kbd "<tab>") 'creature/emmet-expand)
 
+    (with-eval-after-load 'emmet-mode
+      (setq emmet-preview-default t)
+      (setq emmet-self-closing-tag-style " /"))
+
     (add-hook 'css-mode-hook 'emmet-mode)
 
     (defun web-mode-setup ()

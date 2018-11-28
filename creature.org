@@ -486,15 +486,15 @@
     (when (featurep 'pyim-basedict)
       (pyim-basedict-enable))
     ;; Enable a big dict for pyim.
-    (let ((greatdict
-           (concat creature-dir
-                   "pyim-dicts/pyim-greatdict.pyim.gz")))
-      (when (featurep 'pyim)
-        (pyim-extra-dicts-add-dict
-         `(:name "Greatdict-elpa"
-                 :file ,greatdict
-                 :coding utf-8-lang
-                 :dict-type pinyin-dict))))
+    ;; (let ((greatdict
+    ;;        (concat creature-dir
+    ;;                "pyim-dicts/pyim-greatdict.pyim.gz")))
+    ;;   (when (featurep 'pyim)
+    ;;     (pyim-extra-dicts-add-dict
+    ;;      `(:name "Greatdict-elpa"
+    ;;              :file ,greatdict
+    ;;              :coding utf-8-lang
+    ;;              :dict-type pinyin-dict))))
   #+END_SRC
 
 * ediff

@@ -1,12 +1,14 @@
 ;; evil mode keybindings
 (require 'evil)
 (add-hook 'find-file-hook 'evil-local-mode)
+(evil-local-mode)
+
 ;; (evil-mode)
 (setcdr evil-insert-state-map nil)
 (evil-global-set-key 'insert [escape] 'evil-normal-state)
-(evil-global-set-key 'insert (kbd "<ESC>") 'evil-normal-state)
+(evil-global-set-key 'insert (kbd "ESC") 'evil-normal-state)
 (evil-global-set-key 'motion (kbd "TAB") nil)
-(evil-global-set-key 'motion (kbd "<SPC>") nil)
+(evil-global-set-key 'motion (kbd "SPC") nil)
 (evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
 
 ;; initial state for modes

@@ -8,7 +8,7 @@
 (with-eval-after-load 'dired
   (creature/set-keys dired-mode-map
     "K" 'dired-narrow
-    "q" 'kill-current-buffer
+    "SPC" 'creature-map
     "C-x C-q" 'creature/dired-toggle-read-only))
 (with-eval-after-load 'wdired
   (creature/set-keys wdired-mode-map
@@ -25,7 +25,7 @@
     (company-complete-common-or-cycle -1)))
 
 (with-eval-after-load 'paredit-everywhere
-  (define-key paredit-mode-map (kbd ";") nil)
+  ;; (define-key paredit-mode-map (kbd ";") nil)
   (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
   (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete))
 

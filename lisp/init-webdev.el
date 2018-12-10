@@ -14,9 +14,6 @@
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil)))
 
-(with-eval-after-load 'emmet-mode
-  (define-key emmet-mode-keymap (kbd "<tab>") 'creature/emmet-expand))
-
 (setq emmet-preview-default t)
 (setq emmet-self-closing-tag-style " /")
 

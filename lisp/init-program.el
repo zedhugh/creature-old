@@ -5,8 +5,6 @@
 
 (add-hook 'lua-mode-hook
           (lambda ()
-            (set (make-local-variable) 'paredit-mode-map
-                 (define-key paredit-mode-map (kbd ";") nil))
             (set (make-local-variable 'company-backends)
                  (push 'company-lua company-backends))))
 

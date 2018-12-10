@@ -5,8 +5,6 @@
 (setq ivy-use-selectable-prompt t)
 (setq enable-recursive-minibuffers t)
 
-(global-set-key (kbd "C-s") 'swiper)
-
 ;; smex freq file keep in cache directory
 (unless (file-exists-p creature-cache)
   (make-directory creature-cache))

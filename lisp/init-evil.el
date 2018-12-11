@@ -6,9 +6,9 @@
 ;; (evil-mode)
 (setcdr evil-insert-state-map nil)
 (evil-global-set-key 'insert [escape] 'evil-normal-state)
-(evil-global-set-key 'insert (kbd "ESC") 'evil-normal-state)
-(evil-global-set-key 'motion (kbd "TAB") nil)
-(evil-global-set-key 'motion (kbd "SPC") nil)
+;; (evil-global-set-key 'insert (kbd "<ESC>") 'evil-normal-state)
+(evil-global-set-key 'motion (kbd "<tab>") nil)
+(evil-global-set-key 'motion (kbd "<SPC>") nil)
 (evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
 
 ;; initial state for modes
@@ -41,8 +41,8 @@
 ;; evil surround
 (global-evil-surround-mode)
 (evil-define-key 'visual evil-surround-mode-map
-                 "cc" 'evil-surround-change
-                 "cd" 'evil-surround-delete
-                 "cs" 'evil-surround-region)
+  "cc" 'evil-surround-change
+  "cd" 'evil-surround-delete
+  "cs" 'evil-surround-region)
 
 (provide 'init-evil)

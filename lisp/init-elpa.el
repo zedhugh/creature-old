@@ -107,12 +107,11 @@ otherwise, install `PACKAGES'."
                     projectile
                     symbol-overlay
 
-		    mwim
-		    evil
-		    evil-leader
-		    evil-matchit
-		    evil-surround
-		    evil-nerd-commenter
+                    mwim
+                    ;; evil
+                    ;; evil-matchit
+                    ;; evil-surround
+                    evil-nerd-commenter
                     ))
 
 (provide 'init-elpa)

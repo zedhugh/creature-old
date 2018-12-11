@@ -16,6 +16,9 @@
 ;; notice cursor position when it changed
 (beacon-mode)
 
+;; cursor style
+(setq-default cursor-type 'bar)
+
 ;; which key
 (which-key-mode)
 (setq which-key-idle-delay 0.4)

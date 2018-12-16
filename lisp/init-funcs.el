@@ -61,18 +61,21 @@
 (defun creature/dired-toggle-read-only ()
   "Turn off icons in dired mode before edit file name."
   (interactive)
-  (all-the-icons-dired-mode 'toggle)
+  (unless sys/win32p
+    (all-the-icons-dired-mode 'toggle))
   (dired-toggle-read-only))
 (defun creature/wdired-finish-edit ()
   "Turn on icons in wdired after finish editing file name."
   (interactive)
   (wdired-finish-edit)
-  (all-the-icons-dired-mode))
+  (unless sys/win32p
+    (all-the-icons-dired-mode)))
 (defun creature/wdired-exit ()
   "Turn on icons in wdired after abort editing file name."
   (interactive)
   (wdired-exit)
-  (all-the-icons-dired-mode))
+  (unless sys/win32p
+    (all-the-icons-dired-mode)))
 
 ;;; flycheck
 (defun setup-flycheck ()

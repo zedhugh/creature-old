@@ -58,6 +58,7 @@
 
 (define-prefix-command 'creature-map)
 (global-set-key (kbd "S-<SPC>") 'creature-map)
+(define-key special-mode-map (kbd "S-<SPC>") 'creature-map)
 
 (creature/set-keys creature-map
   "ac" 'avy-goto-char

@@ -1,3 +1,4 @@
+(require 'pyim)
 (setq default-input-method 'pyim)
 (setq pyim-page-style 'one-line)
 (setq pyim-page-tooltip 'popup)
@@ -6,7 +7,7 @@
 (setq pyim-punctuation-half-width-functions
       '(pyim-probe-punctuation-line-beginning
         pyim-probe-punctuation-after-punctuation))
-(when (featurep 'pyim-basedict)
+(when (featurep 'pyim)
   (pyim-basedict-enable))
 ;; Enable a big dict for pyim.
 ;; (let ((greatdict

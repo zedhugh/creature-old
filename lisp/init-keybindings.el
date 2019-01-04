@@ -8,7 +8,6 @@
 (with-eval-after-load 'dired
   (creature/set-keys dired-mode-map
     "K" 'dired-narrow
-    "SPC" 'creature-map
     "C-x C-q" 'creature/dired-toggle-read-only))
 (with-eval-after-load 'wdired
   (creature/set-keys wdired-mode-map
@@ -56,11 +55,11 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "RET") 'org-return-indent))
 
-(define-prefix-command 'creature-map)
-(global-set-key (kbd "S-<SPC>") 'creature-map)
-(define-key special-mode-map (kbd "S-<SPC>") 'creature-map)
+;; (define-prefix-command 'creature-map)
+;; (global-set-key (kbd "S-<SPC>") 'creature-map)
+;; (define-key special-mode-map (kbd "S-<SPC>") 'creature-map)
 
-(creature/set-keys creature-map
+(evil-leader/set-key
   "ac" 'avy-goto-char
   "aw" 'avy-goto-word-1
   "al" 'avy-goto-line
@@ -138,9 +137,5 @@
 
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "<tab>") 'creature/emmet-expand))
-
-(when (featurep 'evil)
-  (evil-global-set-key 'normal (kbd "<SPC>") 'creature-map)
-  (evil-global-set-key 'motion (kbd "<SPC>") 'creature-map))
 
 (provide 'init-keybindings)

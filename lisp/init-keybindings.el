@@ -110,6 +110,23 @@
 
   "SPC" 'execute-extended-command)
 
+(creature/which-key-declare-prefixes
+  "a"  "avy"
+  "b"  "buffer"
+  "c"  "comments"
+  "e"  "errors"
+  "el" "lines"
+  "ex" "error message"
+  "f"  "files"
+  "g"  "magit"
+  "gf" "magit files"
+  "h"  "help"
+  "q"  "quit option"
+  "s"  "evil surround"
+  "y"  "youdao"
+  "yp" "pronunciation"
+  "ys" "translate")
+
 ;;; kill buffer when quit-window.
 (define-key special-mode-map
   [remap quit-window]

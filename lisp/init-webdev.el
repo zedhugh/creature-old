@@ -41,7 +41,7 @@
 
 ;; indentation
 (with-eval-after-load 'js
-  (setq js-chain-indent t))
+  (setq js-chain-indent nil))
 
 ;; tern
 ;; 1. don't create tern port file

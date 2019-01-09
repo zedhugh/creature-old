@@ -58,8 +58,10 @@
        (mapcar 'creature/show-snippets-in-company company-backends)))
 
 ;;; flycheck
+;; flycheck is good at elisp
+;; flycheck has some performance issue in Windows
 (defun setup-flycheck ()
-  (if (derived-mode-p 'emacs-lisp-mode)
+  (if (or sys/win32p (derived-mode-p 'emacs-lisp-mode))
       (flycheck-mode -1)
     (flycheck-mode)))
 

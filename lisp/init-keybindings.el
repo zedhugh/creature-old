@@ -4,17 +4,6 @@
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
 
-;;; dired
-(with-eval-after-load 'dired
-  (creature/set-keys dired-mode-map
-    "K" 'dired-narrow
-    "C-x C-q" 'creature/dired-toggle-read-only))
-(with-eval-after-load 'wdired
-  (creature/set-keys wdired-mode-map
-    "C-c ESC" 'creature/wdired-exit
-    "C-c C-k" 'creature/wdired-exit
-    "C-c C-c" 'creature/wdired-finish-edit))
-
 ;;; company
 (define-key company-active-map (kbd "C-n")
   #'company-complete-common-or-cycle)

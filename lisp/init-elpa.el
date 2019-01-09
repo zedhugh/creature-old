@@ -91,9 +91,6 @@ otherwise, install `PACKAGES'."
                     org-pomodoro
                     ;; org-plus-contrib
 
-                    dired-narrow
-                    all-the-icons-dired
-
                     lua-mode
                     company-lua
 

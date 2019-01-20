@@ -55,7 +55,6 @@
   (tern-mode)
   (set (make-local-variable 'company-backends)
        (push 'company-tern company-backends)))
-(add-hook 'js-mode-hook 'tern-setup)
 
 ;; enable emmet mode when edit jsx file
 (defun jsx-setup ()
@@ -65,11 +64,14 @@
   (set (make-local-variable 'emmet-expand-jsx-className?) t))
 (add-hook 'js-jsx-mode-hook 'jsx-setup)
 
-;;; typescript
-(defun typescript-setup ()
+;;; tide
+(defun setup-tide-mode ()
   (tide-setup)
   (tide-hl-identifier-mode)
   (setq tide-hl-identifier-idle-time 0.01))
-(add-hook 'typescript-mode-hook 'typescript-setup)
+
+(add-hook 'js-mode-hook 'setup-tide-mode)
+(add-hook 'js-mode-hook 'tern-setup)
+(add-hook 'typescript-mode-hook 'setup-tide-mode)
 
 (provide 'init-webdev)

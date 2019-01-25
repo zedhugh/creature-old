@@ -42,7 +42,6 @@ otherwise, install `PACKAGES'."
                     yasnippet
                     yasnippet-snippets
 
-                    beacon
                     monokai-theme
                     molokai-theme
                     rainbow-delimiters
@@ -64,7 +63,6 @@ otherwise, install `PACKAGES'."
                     exec-path-from-shell
 
                     pyim
-                    iedit
 
                     tern
                     web-mode
@@ -98,11 +96,7 @@ otherwise, install `PACKAGES'."
                     lua-mode
                     company-lua
 
-                    avy
-
                     ggtags
-
-                    hungry-delete
 
                     rg
                     projectile

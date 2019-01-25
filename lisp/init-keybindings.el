@@ -1,5 +1,4 @@
 (global-set-key (kbd "C-s") 'swiper)
-(global-set-key (kbd "C-;") 'iedit-mode)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
@@ -49,10 +48,6 @@
 ;; (define-key special-mode-map (kbd "S-<SPC>") 'creature-map)
 
 (evil-leader/set-key
-  "ac" 'avy-goto-char
-  "aw" 'avy-goto-word-1
-  "al" 'avy-goto-line
-
   "bb" 'switch-to-buffer
   "bd" 'kill-current-buffer
   "be" 'eval-buffer
@@ -100,7 +95,6 @@
   "SPC" 'execute-extended-command)
 
 (creature/which-key-declare-prefixes
-  "a"  "avy"
   "b"  "buffer"
   "c"  "comments"
   "e"  "errors"

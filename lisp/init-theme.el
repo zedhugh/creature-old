@@ -13,9 +13,6 @@
 (add-hook 'text-mode-hook 'goto-address-mode)
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
-;; notice cursor position when it changed
-(beacon-mode)
-
 ;; cursor style
 (setq-default cursor-type 'bar)
 

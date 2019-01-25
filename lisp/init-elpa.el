@@ -72,6 +72,10 @@ otherwise, install `PACKAGES'."
                     company-web
                     company-tern
 
+                    irony
+                    irony-eldoc
+                    company-irony
+
                     json-mode
                     tide
                     typescript-mode

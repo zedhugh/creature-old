@@ -1,7 +1,13 @@
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode)
-              (ggtags-mode 1))))
+              (ggtags-mode 1)
+              (set (make-local-variable 'company-backends)
+                   (push 'company-irony company-backends))
+              (irony-mode))))
+
+(add-hook 'irony-mode-hook #'irony-eldoc)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
 (add-hook 'lua-mode-hook
           (lambda ()

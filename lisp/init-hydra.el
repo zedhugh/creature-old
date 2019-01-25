@@ -1,5 +1,4 @@
-(defhydra hydra-window (:hint nil
-                              :foreign-keys warn)
+(defhydra hydra-window (:hint nil)
   "
 ^Jump^       ^Operator^
 ------------------------------------------------

@@ -3,7 +3,8 @@
             (when (derived-mode-p 'c-mode 'c++-mode)
               (ggtags-mode 1)
               (set (make-local-variable 'company-backends)
-                   (push 'company-irony company-backends))
+                   (add-to-list 'company-backends
+                                '(company-c-headers company-irony)))
               (irony-mode))))
 
 (add-hook 'irony-mode-hook #'irony-eldoc)

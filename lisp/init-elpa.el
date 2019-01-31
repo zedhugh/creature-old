@@ -73,6 +73,7 @@ otherwise, install `PACKAGES'."
                     irony
                     irony-eldoc
                     company-irony
+                    company-c-headers
 
                     json-mode
                     tide

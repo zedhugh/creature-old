@@ -15,10 +15,10 @@
                     (`errored "!")
                     (`finished
                      (let-alist (flycheck-count-errors flycheck-current-errors)
-                       (if (or .error .warning)
+                       (if (or .error .warning .info)
                            (concat (propertize (format "•%s" (or .error 0))
                                                'face `(:foreground "#ff0000"))
-                                   (propertize (format " •%s" (or .warning 0))
+                                   (propertize (format " •%s" (+ (or .warning 0) (or .info 0)))
                                                'face `(:foreground "#00ff00")))
                          ;; (format "•%s •%s" (or .error 0) (or .warning 0))
                          "")))

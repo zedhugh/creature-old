@@ -54,7 +54,7 @@
   "Add tern to company backends."
   (tern-mode)
   (set (make-local-variable 'company-backends)
-       (push 'company-tern company-backends)))
+       (add-to-list 'company-backends 'company-tern)))
 
 ;; enable emmet mode when edit jsx file
 (defun jsx-setup ()
@@ -70,7 +70,7 @@
   (tide-hl-identifier-mode)
   (setq tide-hl-identifier-idle-time 0.01))
 
-(add-hook 'js-mode-hook 'setup-tide-mode)
+;; (add-hook 'js-mode-hook 'setup-tide-mode)
 (add-hook 'js-mode-hook 'tern-setup)
 (add-hook 'typescript-mode-hook 'setup-tide-mode)
 

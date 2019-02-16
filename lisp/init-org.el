@@ -1,7 +1,8 @@
 ;;; code block
 ;; customize mode for src lang
 (defconst creature/org-src-lang-modes
-  '(("js"   . js2)
+  '(("js"   . js)
+    ("ts"   . typescript)
     ("html" . web))
   "Better src lang reflex to mode.")
 

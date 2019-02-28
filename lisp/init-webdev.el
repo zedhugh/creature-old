@@ -21,9 +21,9 @@
 
 (defun web-mode-setup ()
   (emmet-mode)
-  (tern-mode)
+  (setup-tide-mode)
   (set (make-local-variable 'company-backends)
-       (push '(company-web-html company-css company-tern)
+       (push '(company-web-html company-css company-tide)
              company-backends)))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
@@ -43,19 +43,6 @@
 (with-eval-after-load 'js
   (setq js-chain-indent nil))
 
-;; tern
-;; 1. don't create tern port file
-;; 2. add company tern backend to "company-backends"
-(with-eval-after-load 'tern
-  (add-to-list 'tern-command "--no-port-file" 'append))
-
-;; company tern
-(defun tern-setup ()
-  "Add tern to company backends."
-  (tern-mode)
-  (set (make-local-variable 'company-backends)
-       (add-to-list 'company-backends 'company-tern)))
-
 ;; enable emmet mode when edit jsx file
 (defun jsx-setup ()
   "Config for jsx."
@@ -68,10 +55,10 @@
 (defun setup-tide-mode ()
   (tide-setup)
   (tide-hl-identifier-mode)
-  (setq tide-hl-identifier-idle-time 0.01))
+  (unless (tide-current-server)
+    (tide-restart-server)))
 
-;; (add-hook 'js-mode-hook 'setup-tide-mode)
-(add-hook 'js-mode-hook 'tern-setup)
+(add-hook 'js-mode-hook 'setup-tide-mode)
 (add-hook 'typescript-mode-hook 'setup-tide-mode)
 
 (provide 'init-webdev)

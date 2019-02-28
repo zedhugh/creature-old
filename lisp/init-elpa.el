@@ -64,11 +64,9 @@ otherwise, install `PACKAGES'."
 
                     pyim
 
-                    tern
                     web-mode
                     emmet-mode
                     company-web
-                    company-tern
 
                     irony
                     irony-eldoc

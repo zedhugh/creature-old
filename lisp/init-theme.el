@@ -25,14 +25,16 @@
 
 ;; font config
 (defconst creature/default-font
-  '("Operator Mono Book" . 16)
+  ;; '("Operator Mono Book" . 16)
+  '("Sarasa Mono SC" . 16)
   ;; '("Source Code Pro" . 16)
   "Default font for single-byte code.")
 
 (defconst creature/chinese-font
-  (if sys/win32p
-      '("SimSun" . 18)
-    '("Emacs SimSun" . 18))
+  '("Sarasa Mono SC" . 16)
+  ;; (if sys/win32p
+  ;;     '("SimSun" . 18)
+  ;;   '("Emacs SimSun" . 18))
   "Default font for multi-byte code.")
 
 (defun creature/fontset (&optional frame)

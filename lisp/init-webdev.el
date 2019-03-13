@@ -22,6 +22,8 @@
 (defun web-mode-setup ()
   (emmet-mode)
   (setup-tide-mode)
+  (dolist (check '(jsx-tide tsx-tide typescript-tide))
+    (setq-local flycheck-checkers (delete check flycheck-checkers)))
   (set (make-local-variable 'company-backends)
        (push '(company-web-html company-css company-tide)
              company-backends)))

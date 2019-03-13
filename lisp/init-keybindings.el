@@ -1,6 +1,7 @@
 (global-set-key (kbd "C-s") 'swiper)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
+(global-set-key (kbd "DEL") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
 
 ;;; company
@@ -14,7 +15,8 @@
 (with-eval-after-load 'paredit-everywhere
   ;; (define-key paredit-mode-map (kbd ";") nil)
   (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
-  (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete))
+  (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete)
+  (define-key paredit-everywhere-mode-map (kbd "DEL") 'paredit-backward-delete))
 
 ;;; symbol-overlay-map
 ;; "i" -> symbol-overlay-put

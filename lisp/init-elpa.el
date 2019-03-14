@@ -84,6 +84,7 @@ otherwise, install `PACKAGES'."
                     pinyinlib
 
                     magit
+                    forge
                     gitattributes-mode
                     gitconfig-mode
                     gitignore-mode

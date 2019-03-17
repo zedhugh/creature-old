@@ -1,6 +1,7 @@
 (unless (featurep 'package)
   (package-initialize))
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(dolist (dir '("lisp" "site-lisp/awesome-pair"))
+  (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
 ;; define variales to keep environment
 (defconst sys/win32p

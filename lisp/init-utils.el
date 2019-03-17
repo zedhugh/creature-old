@@ -27,8 +27,8 @@
             (setq-local smooth-scroll-margin 0)))
 
 ;;; magit
-(with-eval-after-load 'magit
-  (require 'forge))
+;; (with-eval-after-load 'magit
+;;   (require 'forge))
 (setq magit-revision-show-gravatars
       '("^Author:     " . "^Commit:     "))
 

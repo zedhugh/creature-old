@@ -12,11 +12,11 @@
     (interactive)
     (company-complete-common-or-cycle -1)))
 
-(with-eval-after-load 'paredit-everywhere
-  ;; (define-key paredit-mode-map (kbd ";") nil)
-  (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
-  (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete)
-  (define-key paredit-everywhere-mode-map (kbd "DEL") 'paredit-backward-delete))
+;; (with-eval-after-load 'paredit-everywhere
+;;   ;; (define-key paredit-mode-map (kbd ";") nil)
+;;   (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
+;;   (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete)
+;;   (define-key paredit-everywhere-mode-map (kbd "DEL") 'paredit-backward-delete))
 
 ;;; symbol-overlay-map
 ;; "i" -> symbol-overlay-put

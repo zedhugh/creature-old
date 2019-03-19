@@ -36,6 +36,9 @@
   ;; don't prompt before eval code
   (setq org-confirm-babel-evaluate nil)
 
+  ;; sub-superscripts
+  (setq org-export-with-sub-superscripts '{})
+
   ;; make options configged before work
   (org-babel-do-load-languages
    'org-babel-load-languages

@@ -91,7 +91,7 @@ otherwise, install `PACKAGES'."
 
                     htmlize
                     org-pomodoro
-                    ;; org-plus-contrib
+                    org-plus-contrib
 
                     lua-mode
                     company-lua

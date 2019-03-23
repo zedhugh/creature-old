@@ -57,7 +57,7 @@
   "cl" 'evilnc-comment-or-uncomment-lines
   "cp" 'evilnc-comment-or-uncomment-paragraphs
 
-  "el" 'flycheck-list-errors
+  "el" 'creature/toggle-flycheck-error-list
   "ex" 'flycheck-display-error-at-point
 
   "fi" 'creature/open-init-file

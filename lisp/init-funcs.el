@@ -129,4 +129,13 @@
           doc (pop bind))))
 (put 'creature/which-key-declare-prefixes 'lisp-indent-function 'defun)
 
+(defun creature/toggle-flycheck-error-list ()
+  "Toggle flycheck's error list window.
+If the error list is visible, hide it.  Otherwise, show and focus on it."
+  (interactive)
+  (-if-let (window (flycheck-get-error-list-window))
+      (quit-window nil window)
+    (flycheck-list-errors)
+    (switch-to-buffer-other-window flycheck-error-list-buffer)))
+
 (provide 'init-funcs)

@@ -37,6 +37,14 @@
 
 (setq gc-cons-threshold most-positive-fixnum)
 
+(defconst creature/scratch-message
+  (concat ";; Happy hacking "
+          (or (user-login-name) "user")
+          " - Emacs loves you.\n\n")
+  "Customized initial scratch buffer message.")
+
+(setq-default initial-scratch-message creature/scratch-message)
+
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)

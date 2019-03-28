@@ -35,15 +35,15 @@ otherwise, install `PACKAGES'."
         ;; ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
         ))
 
-(install-packages '(paredit
-                    paredit-everywhere
+(install-packages '(;; paredit
+                    ;; paredit-everywhere
 
                     company
                     yasnippet
                     yasnippet-snippets
 
-                    monokai-theme
-                    molokai-theme
+                    ;; monokai-theme
+                    ;; molokai-theme
                     rainbow-delimiters
                     rainbow-identifiers
                     page-break-lines
@@ -83,7 +83,7 @@ otherwise, install `PACKAGES'."
                     smex
                     pinyinlib
 
-                    magit
+                    ;; magit
                     forge
                     gitattributes-mode
                     gitconfig-mode
@@ -106,7 +106,7 @@ otherwise, install `PACKAGES'."
                     evil
                     evil-leader
                     evil-matchit
-                    evil-surround
+                    ;; evil-surround
                     evil-nerd-commenter
                     ))
 

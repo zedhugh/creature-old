@@ -43,11 +43,11 @@
 ;; enable evil matchit mode
 (global-evil-matchit-mode)
 
-;; evil surround
-(global-evil-surround-mode)
-(evil-define-key 'visual evil-surround-mode-map
-  "cc" 'evil-surround-change
-  "cd" 'evil-surround-delete
-  "cs" 'evil-surround-region)
+;; ;; evil surround
+;; (global-evil-surround-mode)
+;; (evil-define-key 'visual evil-surround-mode-map
+;;   "cc" 'evil-surround-change
+;;   "cd" 'evil-surround-delete
+;;   "cs" 'evil-surround-region)
 
 (provide 'init-evil)

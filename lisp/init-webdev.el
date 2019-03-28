@@ -57,6 +57,7 @@
 (defun setup-tide-mode ()
   (tide-setup)
   (tide-hl-identifier-mode)
+  (add-to-list 'ivy-ignore-buffers "*tide-server*")
   (unless (tide-current-server)
     (tide-restart-server)))
 

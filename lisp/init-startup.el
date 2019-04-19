@@ -50,4 +50,10 @@
             (creature/fontset)
             (setq gc-cons-threshold best-gc-cons-threshold)))
 
+(desktop-read creature-dir)
+
+(run-with-idle-timer 5 nil '(lambda ()
+                              (desktop-save-mode)
+                              (setq desktop-save t)))
+
 (provide 'init-startup)

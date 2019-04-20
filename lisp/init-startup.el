@@ -4,11 +4,6 @@
 ;; turn off startup screen
 (setq inhibit-splash-screen t)
 
-;; disable menu, toolbar and scroll bar.
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-
 ;; disable bell
 (setq ring-bell-function 'ignore)
 (setq visible-bell nil)

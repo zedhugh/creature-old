@@ -3,9 +3,6 @@
 (dolist (dir '("lisp" "site-lisp/awesome-pair"))
   (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
-(when (< emacs-major-version 27)
-  (load-file (expand-file-name "early-init.el" creature-dir)))
-
 ;; define variales to keep environment
 (defconst sys/win32p
   (eq system-type 'windows-nt)
@@ -17,6 +14,9 @@
 (defconst creature-cache
   (expand-file-name ".cache" creature-dir)
   "Cache directory.")
+
+(when (< emacs-major-version 27)
+  (load-file (expand-file-name "early-init.el" creature-dir)))
 
 (require 'init-startup)
 (require 'init-elpa)

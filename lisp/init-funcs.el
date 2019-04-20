@@ -138,4 +138,18 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
     (flycheck-list-errors)
     (switch-to-buffer-other-window flycheck-error-list-buffer)))
 
+(defun creature/desktop-read ()
+  "Wrapper for `desktop-read'."
+  (interactive)
+  (unless (featurep 'desktop)
+    (require 'desktop))
+  (desktop-read creature-cache))
+
+(defun creature/desktop-save ()
+  "Wrapper for `desktop-save'."
+  (interactive)
+  (unless (featurep 'desktop)
+    (require 'desktop))
+  (desktop-save creature-cache))
+
 (provide 'init-funcs)

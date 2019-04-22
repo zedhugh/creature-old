@@ -24,9 +24,7 @@
   (setup-tide-mode)
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
-  (set (make-local-variable 'company-backends)
-       (push '(company-web-html company-css company-tide)
-             company-backends)))
+  (push '(company-web-html company-css company-tide) company-backends))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
 
@@ -55,6 +53,7 @@
 
 ;;; tide
 (defun setup-tide-mode ()
+  (make-local-variable 'company-backends)
   (tide-setup)
   (tide-hl-identifier-mode)
   (add-to-list 'ivy-ignore-buffers "*tide-server*")

@@ -73,8 +73,10 @@
     ")"
     " "
     creature/mode-line-evil-state
-    " (%m" ; major mode
+    " ("
+    mode-name ; major mode
     mode-line-process
+    company-lighter
     ")"
     (vc-mode vc-mode)
     ;; (flycheck-mode flycheck-mode-line)

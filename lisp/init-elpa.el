@@ -97,7 +97,6 @@ otherwise, install `PACKAGES'."
                     ggtags
 
                     rg
-                    projectile
                     symbol-overlay
 
                     mwim

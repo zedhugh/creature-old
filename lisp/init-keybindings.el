@@ -33,9 +33,6 @@
 (global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
 
-;;; projectile
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-
 ;;; mwim
 (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
 (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)

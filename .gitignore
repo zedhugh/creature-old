@@ -19,3 +19,4 @@ transient/
 /forge-database.sqlite
 .emacs.desktop.lock
 .emacs.desktop
+/eshell/lastdir

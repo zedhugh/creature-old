@@ -53,7 +53,6 @@
 
 ;;; tide
 (defun setup-tide-mode ()
-  (make-local-variable 'company-backends)
   (tide-setup)
   (tide-hl-identifier-mode)
   (add-to-list 'ivy-ignore-buffers "*tide-server*")

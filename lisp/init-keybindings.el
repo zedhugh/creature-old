@@ -110,29 +110,7 @@
   "ys" "translate")
 
 ;;; kill buffer when quit-window.
-(define-key special-mode-map
-  [remap quit-window]
-  'quit-window-and-kill-buffer)
 (define-key global-map [remap list-buffers] 'ibuffer)
-(define-key package-menu-mode-map
-  [remap quit-window]
-  'quit-window-and-kill-buffer)
-(with-eval-after-load 'youdao-dictionary
-  (define-key youdao-dictionary-mode-map
-    [remap quit-window]
-    'quit-window-and-kill-buffer))
-(with-eval-after-load 'magit-status
-  (define-key magit-status-mode-map
-    [remap magit-mode-bury-buffer]
-    'quit-window-and-kill-buffer))
-(with-eval-after-load 'magit-mode
-  (define-key magit-mode-map
-    [remap magit-mode-bury-buffer]
-    'quit-window-and-kill-buffer))
-(with-eval-after-load 'magit-log
-  (define-key magit-log-mode-map
-    [remap magit-log-bury-buffer]
-    'quit-window-and-kill-buffer))
 
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "<tab>") 'creature/emmet-expand))

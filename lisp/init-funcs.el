@@ -74,12 +74,6 @@
         (buffer-list)))
 
 ;;; misc
-;; kill buffer when calling quit-window.
-(defun quit-window-and-kill-buffer ()
-  "Kill buffer when quit-window."
-  (interactive)
-  (quit-window 'kill))
-
 (defun creature/sudo-edit (&optional arg)
   (interactive "P")
   (let ((fname (if (or arg (not buffer-file-name))

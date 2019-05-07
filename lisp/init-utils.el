@@ -20,12 +20,6 @@
 ;;              :coding utf-8-lang
 ;;              :dict-type pinyin-dict))))
 
-(smooth-scrolling-mode)
-
-(add-hook 'special-mode-hook
-          (lambda ()
-            (setq-local smooth-scroll-margin 0)))
-
 ;;; magit
 ;; (with-eval-after-load 'magit
 ;;   (require 'forge))

@@ -56,8 +56,6 @@ otherwise, install `PACKAGES'."
 
                     youdao-dictionary
 
-                    smooth-scrolling
-
                     expand-region
 
                     exec-path-from-shell

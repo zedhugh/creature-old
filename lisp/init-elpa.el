@@ -105,6 +105,8 @@ otherwise, install `PACKAGES'."
                     evil-matchit
                     ;; evil-surround
                     evil-nerd-commenter
+
+                    editorconfig
                     ))
 
 (provide 'init-elpa)

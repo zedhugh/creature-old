@@ -31,5 +31,6 @@
   (exec-path-from-shell-initialize))
 
 (rg-enable-default-bindings)
+(editorconfig-mode)
 
 (provide 'init-utils)

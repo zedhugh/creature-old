@@ -146,4 +146,9 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
     (require 'desktop))
   (desktop-save creature-cache))
 
+(defun creature/editorconfig-enable ()
+  "Enable `editorconfig-mode' once after open file."
+  (editorconfig-mode)
+  (delete 'creature/editorconfig-enable find-file-hook))
+
 (provide 'init-funcs)

@@ -72,7 +72,6 @@ otherwise, install `PACKAGES'."
                     company-c-headers
 
                     json-mode
-                    tide
                     typescript-mode
 
                     counsel

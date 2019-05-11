@@ -1,6 +1,6 @@
 (unless (featurep 'package)
   (package-initialize))
-(dolist (dir '("lisp" "site-lisp/awesome-pair"))
+(dolist (dir '("lisp" "site-lisp/awesome-pair" "site-lisp/tide"))
   (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
 ;; define variales to keep environment

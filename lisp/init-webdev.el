@@ -53,6 +53,7 @@
 
 ;;; tide
 (defun setup-tide-mode ()
+  (require 'tide)
   (tide-setup)
   (tide-hl-identifier-mode)
   (add-to-list 'ivy-ignore-buffers "*tide-server*")

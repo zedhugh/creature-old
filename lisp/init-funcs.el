@@ -1,3 +1,19 @@
+(defun creature/fontset (&optional frame)
+  "Font sets for default and multi-byte code."
+  ;; single-byte code
+  (setq inhibit-compacting-font-caches t)
+  (let ((family (car creature/default-font))
+        (size (cdr creature/default-font)))
+    (set-face-attribute 'default frame
+                        :font (font-spec :family family :size size)))
+  ;; multi-byte code
+  (let ((family (car creature/chinese-font))
+        (size (cdr creature/chinese-font)))
+    (dolist (charset '(kana han cjk-misc bopomofo))
+      (set-fontset-font t ;; (frame-parameter nil 'font)
+                        charset
+                        (font-spec :family family :size size) frame))))
+
 (defun creature/open-init-file ()
   "Open init file."
   (interactive)

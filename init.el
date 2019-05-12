@@ -1,19 +1,10 @@
 (unless (featurep 'package)
   (package-initialize))
+
 (dolist (dir '("lisp" "site-lisp/awesome-pair" "site-lisp/tide"))
   (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
-;; define variales to keep environment
-(defconst sys/win32p
-  (eq system-type 'windows-nt)
-  "If system is Windows return t, therwise return nil.")
-(defconst creature-dir
-  (file-name-directory (or load-file-name buffer-file-name))
-  "Root directory of creature.")
-
-(defconst creature-cache
-  (expand-file-name ".cache" creature-dir)
-  "Cache directory.")
+(require 'init-options)
 
 (when (< emacs-major-version 27)
   (load-file (expand-file-name "early-init.el" creature-dir)))

@@ -22,21 +22,6 @@
 (setq-default tab-width 4)
 (setq-default indent-tabs-mode nil)
 
-(defconst creature/indent-sensitive-modes
-  '(asm-mode
-    coffee-mode
-    elm-mode
-    haml-mode
-    haskell-mode
-    slim-mode
-    makefile-mode
-    makefile-bsdmake-mode
-    makefile-gmake-mode
-    makefile-imake-mode
-    python-mode
-    yaml-mode)
-  "Modes which disable auto-indenting.")
-
 ;;; flycheck
 (add-hook 'prog-mode-hook 'setup-flycheck)
 

@@ -1,21 +1,3 @@
-;;; code block
-;; customize mode for src lang
-(defconst creature/org-src-lang-modes
-  '(("js"   . js)
-    ("ts"   . typescript)
-    ("html" . web))
-  "Better src lang reflex to mode.")
-
-;; enable code block in org file
-(defconst creature/org-src-enable-lang
-  '((C          . t)
-    (js         . t)
-    (latex      . t)
-    (shell      . t)
-    (python     . t)
-    (emacs-lisp . t))
-  "Enabled lang in org src code block.")
-
 ;;; org pomodoro
 (when sys/win32p
   (with-eval-after-load 'org-pomodoro

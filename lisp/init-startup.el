@@ -21,29 +21,14 @@
 ;; disable gtk tooltips
 (setq x-gtk-use-system-tooltips nil)
 
-;; make gc threshold to a big value to reduce initialize
-;; time, and when emacs session startup, make gc threshold
-;; to be a best value.
-(defconst best-gc-cons-threshold
-  (if sys/win32p
-      (* 512 1024 1024)
-    4000000)
-  "Best default gc threshold value. Should't be to big.")
-
 (setq gc-cons-threshold most-positive-fixnum)
-
-(defconst creature/scratch-message
-  (concat ";; Happy hacking "
-          (or (user-login-name) "user")
-          " - Emacs loves you.\n\n")
-  "Customized initial scratch buffer message.")
 
 (setq-default initial-scratch-message creature/scratch-message)
 
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)
-            (setq gc-cons-threshold best-gc-cons-threshold)))
+            (setq gc-cons-threshold creature/best-gc-cons-threshold)))
 
 ;; (desktop-read creature-dir)
 

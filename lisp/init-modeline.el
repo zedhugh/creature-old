@@ -31,14 +31,17 @@
 ;; evil state
 (defvar creature/mode-line-evil-state
   '(:eval
-    (cond
-     ((eq evil-state 'emacs) "[E]")
-     ((eq evil-state 'insert) "[I]")
-     ((eq evil-state 'motion) "[M]")
-     ((eq evil-state 'normal) "[N]")
-     ((eq evil-state 'visual) "[V]")
-     ((eq evil-state 'replace) "[R]")
-     ((eq evil-state 'operator) "[O]")))
+    (require 'evil)
+    (when (or (member 'evil-mode minor-mode-list)
+              (member 'evil-local-mode minor-mode-list))
+      (cond
+       ((eq evil-state 'emacs) "[E]")
+       ((eq evil-state 'insert) "[I]")
+       ((eq evil-state 'motion) "[M]")
+       ((eq evil-state 'normal) "[N]")
+       ((eq evil-state 'visual) "[V]")
+       ((eq evil-state 'replace) "[R]")
+       ((eq evil-state 'operator) "[O]"))))
   "Evil state indicator.")
 (put 'creature/mode-line-evil-state 'risky-local-variable t)
 
@@ -71,7 +74,6 @@
     "}("
     "%l,%c" ; line and column
     ")"
-    " "
     creature/mode-line-evil-state
     " ("
     mode-name ; major mode

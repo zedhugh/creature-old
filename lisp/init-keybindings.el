@@ -42,11 +42,12 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "RET") 'org-return-indent))
 
-;; (define-prefix-command 'creature-map)
-;; (global-set-key (kbd "S-<SPC>") 'creature-map)
-;; (define-key special-mode-map (kbd "S-<SPC>") 'creature-map)
+(define-prefix-command 'creature-map)
+(global-set-key (kbd "C-;") 'creature-map)
+(define-key special-mode-map (kbd "C-;") 'creature-map)
 
-(evil-leader/set-key
+(creature/set-keys creature-map
+  ;; evil-leader/set-key
   "bb" 'switch-to-buffer
   "bd" 'kill-current-buffer
   "be" 'eval-buffer
@@ -93,7 +94,7 @@
 
   "SPC" 'execute-extended-command)
 
-(creature/which-key-declare-prefixes
+(creature/which-key-declare-prefixes "C-;"
   "b"  "buffer"
   "c"  "comments"
   "e"  "errors"

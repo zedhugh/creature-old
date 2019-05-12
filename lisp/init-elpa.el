@@ -99,9 +99,9 @@ otherwise, install `PACKAGES'."
                     symbol-overlay
 
                     mwim
-                    evil
-                    evil-leader
-                    evil-matchit
+                    ;; evil
+                    ;; evil-leader
+                    ;; evil-matchit
                     ;; evil-surround
                     evil-nerd-commenter
 

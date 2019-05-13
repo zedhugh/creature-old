@@ -106,6 +106,7 @@ otherwise, install `PACKAGES'."
                     evil-nerd-commenter
 
                     editorconfig
+                    undo-tree
                     ))
 
 (provide 'init-elpa)

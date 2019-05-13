@@ -26,6 +26,8 @@
 (setq magit-revision-show-gravatars
       '("^Author:     " . "^Commit:     "))
 
+(global-undo-tree-mode)
+
 (unless sys/win32p
   (setq exec-path-from-shell-check-startup-files nil)
   (exec-path-from-shell-initialize))

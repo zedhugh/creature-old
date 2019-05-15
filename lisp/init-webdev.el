@@ -56,6 +56,7 @@
   (require 'tide)
   (tide-setup)
   (tide-hl-identifier-mode)
+  (setq tide-allow-other-backend-for-string t)
   (add-to-list 'ivy-ignore-buffers "*tide-server*")
   (unless (tide-current-server)
     (tide-restart-server)))

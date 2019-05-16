@@ -74,5 +74,8 @@
     (emacs-lisp . t))
   "Enabled lang in org src code block.")
 
+(defconst creature/prefix-key "C-;"
+  "Prefix key for `creature-map'.")
+
 (provide 'init-options)
 ;;; init-options.el ends here

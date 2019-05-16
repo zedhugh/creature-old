@@ -43,8 +43,8 @@
   (define-key org-mode-map (kbd "RET") 'org-return-indent))
 
 (define-prefix-command 'creature-map)
-(global-set-key (kbd "C-;") 'creature-map)
-(define-key special-mode-map (kbd "C-;") 'creature-map)
+(global-set-key (kbd creature/prefix-key) 'creature-map)
+;; (define-key special-mode-map (kbd creature/prefix-key) 'creature-map)
 
 (creature/set-keys creature-map
   ;; evil-leader/set-key
@@ -94,7 +94,7 @@
 
   "SPC" 'execute-extended-command)
 
-(creature/which-key-declare-prefixes "C-;"
+(creature/which-key-declare-prefixes creature/prefix-key
   "b"  "buffer"
   "c"  "comments"
   "e"  "errors"

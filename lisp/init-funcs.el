@@ -164,4 +164,16 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
   (editorconfig-mode)
   (delete 'creature/editorconfig-enable find-file-hook))
 
+(defun creature/cursor-style ()
+  "Set `cursor-type' to `bar' with buffer local."
+  (set (make-local-variable 'cursor-type)
+       (if buffer-read-only t 'bar))
+  (setq-local read-only-mode-hook
+              (add-hook 'read-only-mode-hook
+                        #'(lambda ()
+                            (setq-local cursor-type
+                                        (if buffer-read-only
+                                            t
+                                          'bar))))))
+
 (provide 'init-funcs)

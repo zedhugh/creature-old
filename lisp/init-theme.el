@@ -14,12 +14,9 @@
 (add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
 ;; cursor style - box for readonly buffer, bar for others
-;; (add-hook 'read-only-mode-hook
-;;           #'(lambda ()
-;;               (set (make-local-variable 'cursor-type)
-;;                    (if buffer-read-only
-;;                        'box
-;;                      'bar))))
+(dolist (hook '(prog-mode-hook
+                text-mode-hook))
+  (add-hook hook #'creature/cursor-style))
 
 ;; which key
 (which-key-mode)

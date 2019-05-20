@@ -11,6 +11,7 @@
   (defun creature/company-select-prev ()
     (interactive)
     (company-complete-common-or-cycle -1)))
+(define-key company-mode-map (kbd "C-'") #'company-files)
 
 ;; (with-eval-after-load 'paredit-everywhere
 ;;   ;; (define-key paredit-mode-map (kbd ";") nil)

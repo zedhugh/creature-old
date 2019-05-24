@@ -25,6 +25,7 @@
 
 (setq-default initial-scratch-message creature/scratch-message)
 
+(add-hook 'after-make-frame-functions #'creature/fontset)
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)

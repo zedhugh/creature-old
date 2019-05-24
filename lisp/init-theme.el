@@ -15,7 +15,9 @@
 
 ;; cursor style - box for readonly buffer, bar for others
 (dolist (hook '(prog-mode-hook
-                text-mode-hook))
+                text-mode-hook
+                conf-unix-mode-hook
+                conf-windows-mode-hook))
   (add-hook hook #'creature/cursor-style))
 
 ;; which key

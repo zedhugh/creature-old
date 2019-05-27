@@ -61,6 +61,8 @@
 
 ;; auto save file
 (setq auto-save-default t)
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 ;; don't create lockfiles named ".#file-name" in Windows OS
 (if sys/win32p

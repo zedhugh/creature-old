@@ -159,11 +159,6 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
     (require 'desktop))
   (desktop-save creature-cache))
 
-(defun creature/editorconfig-enable ()
-  "Enable `editorconfig-mode' once after open file."
-  (editorconfig-mode)
-  (delete 'creature/editorconfig-enable find-file-hook))
-
 (defun creature/cursor-style ()
   "Set `cursor-type' to `bar' with buffer local."
   (set (make-local-variable 'cursor-type)

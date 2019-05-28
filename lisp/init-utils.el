@@ -34,6 +34,6 @@
 
 (rg-enable-default-bindings)
 
-(add-hook 'find-file-hook 'creature/editorconfig-enable)
+(editorconfig-mode)
 
 (provide 'init-utils)

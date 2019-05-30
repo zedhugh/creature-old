@@ -53,6 +53,18 @@
 (set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 (put 'creature/mode-line-buffer-name 'risky-local-variable t)
 
+;; marker region info
+(defvar creature/mode-line-region-info
+  '(:eval
+    (when (region-active-p)
+      (let ((length (- (region-end) (region-beginning)))
+            (line (- (line-number-at-pos (region-end))
+                     (line-number-at-pos (region-beginning))
+                     -1)))
+        (format " [%d|%d]" length line))))
+  "Length of marked string.")
+(put 'creature/mode-line-region-info 'risky-local-variable t)
+
 ;; combin mode line fromat
 (defvar creature/mode-line-format
   '("%e"
@@ -79,6 +91,7 @@
     mode-line-process
     company-lighter
     ")"
+    creature/mode-line-region-info
     (vc-mode vc-mode)
     ;; (flycheck-mode flycheck-mode-line)
     creature/flycheck-errors

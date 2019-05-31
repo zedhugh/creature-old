@@ -61,7 +61,10 @@
   (unless (tide-current-server)
     (tide-restart-server)))
 
-(add-hook 'js-mode-hook 'setup-tide-mode)
+(add-hook 'js-mode-hook
+          #'(lambda ()
+              (unless (derived-mode-p 'json-mode)
+                (setup-tide-mode))))
 (add-hook 'typescript-mode-hook 'setup-tide-mode)
 
 (provide 'init-webdev)

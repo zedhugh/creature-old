@@ -71,6 +71,7 @@ otherwise, install `PACKAGES'."
                     company-irony
                     company-c-headers
 
+                    tide
                     json-mode
                     typescript-mode
 

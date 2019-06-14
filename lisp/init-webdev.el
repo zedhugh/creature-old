@@ -53,7 +53,6 @@
 
 ;;; tide
 (defun setup-tide-mode ()
-  (require 'tide)
   (tide-setup)
   (tide-hl-identifier-mode)
   (setq tide-allow-other-backend-for-string t)

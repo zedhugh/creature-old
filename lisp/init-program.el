@@ -3,12 +3,7 @@
             (when (derived-mode-p 'c-mode 'c++-mode)
               (ggtags-mode 1)
               (set (make-local-variable 'company-backends)
-                   (add-to-list 'company-backends
-                                '(company-c-headers company-irony)))
-              (irony-mode))))
-
-(add-hook 'irony-mode-hook #'irony-eldoc)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+                   (add-to-list 'company-backends 'company-c-headers)))))
 
 (add-hook 'lua-mode-hook
           (lambda ()

@@ -66,9 +66,6 @@ otherwise, install `PACKAGES'."
                     emmet-mode
                     company-web
 
-                    irony
-                    irony-eldoc
-                    company-irony
                     company-c-headers
 
                     tide

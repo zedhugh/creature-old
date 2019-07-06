@@ -1,4 +1,4 @@
-(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "C-s") 'swiper-isearch-thing-at-point)
 (global-set-key (kbd "s-v") 'clipboard-yank)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "DEL") 'backward-delete-char-untabify)

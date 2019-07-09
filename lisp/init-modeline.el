@@ -54,9 +54,14 @@
 (put 'creature/mode-line-buffer-name 'risky-local-variable t)
 
 ;; marker region info
+(defvar creature/focus-window nil
+  "Current focus window.")
+(add-hook 'post-command-hook
+          (lambda ()
+            (setq creature/focus-window (selected-window))))
 (defvar creature/mode-line-region-info
   '(:eval
-    (when (region-active-p)
+    (when (and (region-active-p) (eq creature/focus-window (selected-window)))
       (let ((length (- (region-end) (region-beginning)))
             (line (- (line-number-at-pos (region-end))
                      (line-number-at-pos (region-beginning))

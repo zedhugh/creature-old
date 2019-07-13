@@ -70,6 +70,13 @@
   "Length of marked string.")
 (put 'creature/mode-line-region-info 'risky-local-variable t)
 
+(defvar creature/mode-line-company-info
+  '(:eval
+    (when (or company-mode global-company-mode)
+      company-lighter))
+  "Customize company lighter.")
+(put 'creature/mode-line-company-info 'risky-local-variable t)
+
 ;; combin mode line fromat
 (defvar creature/mode-line-format
   '("%e"
@@ -94,7 +101,7 @@
     " ("
     mode-name ; major mode
     mode-line-process
-    company-lighter
+    creature/mode-line-company-info
     ")"
     creature/mode-line-region-info
     (vc-mode vc-mode)

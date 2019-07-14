@@ -28,5 +28,6 @@
 (window-numbering-mode)
 
 (set-face-attribute font-lock-comment-face nil :slant 'italic)
+(global-hl-line-mode)
 
 (provide 'init-theme)

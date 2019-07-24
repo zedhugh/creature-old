@@ -9,6 +9,18 @@
         pyim-probe-punctuation-after-punctuation))
 (when (featurep 'pyim)
   (pyim-basedict-enable))
+
+;;; rime input method
+(cond
+ ((eq system-type 'gnu/linux)
+  (add-to-list 'load-path (expand-file-name "libs" user-emacs-directory))
+  (require 'liberime)
+  (liberime-start (expand-file-name "/usr/share/rime-data")
+                  (expand-file-name "pyim/rime" creature-dir))
+  (liberime-select-schema "luna_pinyin_simp")
+  (setq pyim-default-scheme 'rime))
+ (t nil))
+
 ;; Enable a big dict for pyim.
 ;; (let ((greatdict
 ;;        (concat creature-dir

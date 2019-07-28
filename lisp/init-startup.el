@@ -33,8 +33,8 @@
 
 ;; (desktop-read creature-dir)
 
-;; (run-with-idle-timer 5 nil '(lambda ()
-;;                               (desktop-save-mode)
-;;                               (setq desktop-save t)))
+(run-with-idle-timer 10 nil
+                     '(lambda ()
+                        (creature/enable-rime)))
 
 (provide 'init-startup)

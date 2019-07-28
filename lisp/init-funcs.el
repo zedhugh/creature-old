@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t -*-
+
 (defun creature/fontset (&optional frame)
   "Font sets for default and multi-byte code."
   ;; single-byte code
@@ -170,5 +172,19 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                                         (if buffer-read-only
                                             t
                                           'bar))))))
+
+(defun creature/enable-rime ()
+  (interactive)
+  (when (and (not (featurep 'liberime))
+             (fboundp 'module-load)
+             (eq system-type 'gnu/linux))
+    (module-load (expand-file-name "libs/liberime.so" creature-dir))
+    (require 'liberime)
+    (liberime-start (expand-file-name "/usr/share/rime-data")
+                    (expand-file-name "pyim/rime" creature-dir))
+    (liberime-select-schema "luna_pinyin_simp")
+    (setq pyim-default-scheme 'rime)
+    (advice-remove 'toggle-input-method 'creature/enable-rime)
+    (message "rime enabled.")))
 
 (provide 'init-funcs)

@@ -72,7 +72,8 @@
 
 (defvar creature/mode-line-company-info
   '(:eval
-    (when (or company-mode global-company-mode)
+    (when (and (not buffer-read-only)
+               (or company-mode global-company-mode))
       company-lighter))
   "Customize company lighter.")
 (put 'creature/mode-line-company-info 'risky-local-variable t)

@@ -69,4 +69,28 @@
     (setq create-lockfiles nil)
   (setq create-lockfiles t))
 
+;;; ibuffer
+(setq ibuffer-saved-filter-groups
+      '(("Default"
+         ("ERC" (mode . erc-mode))
+         ("Org" (mode . org-mode))
+         ("Elisp" (mode . emacs-lisp-mode))
+         ("Magit" (name . "^magit[:-].*$"))
+         ("TypeScript" (mode . typescript-mode))
+         ("JavaScript" (or
+                        (mode . js-mode)
+                        (mode . js-jsx-mode)))
+         )))
+(add-hook 'ibuffer-mode-hook
+          (lambda ()
+            (ibuffer-auto-mode)
+            (ibuffer-switch-to-saved-filter-groups "Default")
+            ))
+
+;; don't show filter groups if there are no buffers in that group
+(setq ibuffer-show-empty-filter-groups nil)
+
+;; don't ask for confirmation to delete marked buffers
+(setq ibuffer-expert t)
+
 (provide 'init-misc)

@@ -2,11 +2,13 @@
 (setq default-input-method 'pyim)
 (setq pyim-page-style 'one-line)
 (setq pyim-page-tooltip 'popup)
-(setq pyim-english-input-switch-functions
-      '(pyim-probe-program-mode))
-(setq pyim-punctuation-half-width-functions
-      '(pyim-probe-punctuation-line-beginning
-        pyim-probe-punctuation-after-punctuation))
+(setq-default pyim-english-input-switch-functions
+              '(pyim-probe-auto-english
+                pyim-probe-program-mode
+                pyim-probe-org-structure-template))
+(setq-default pyim-punctuation-half-width-functions
+              '(pyim-probe-punctuation-line-beginning
+                pyim-probe-punctuation-after-punctuation))
 (when (featurep 'pyim)
   (pyim-basedict-enable))
 

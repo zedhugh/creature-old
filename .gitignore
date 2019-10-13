@@ -20,3 +20,4 @@ transient/
 .emacs.desktop.lock
 .emacs.desktop
 /eshell/lastdir
+/.lsp-session-v1

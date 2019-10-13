@@ -66,8 +66,6 @@ otherwise, install `PACKAGES'."
                     emmet-mode
                     company-web
 
-                    company-c-headers
-
                     tide
                     json-mode
                     typescript-mode
@@ -91,8 +89,6 @@ otherwise, install `PACKAGES'."
                     lua-mode
                     company-lua
 
-                    ggtags
-
                     rg
                     symbol-overlay
 
@@ -105,6 +101,11 @@ otherwise, install `PACKAGES'."
 
                     editorconfig
                     undo-tree
+
+                    ;; lsp
+                    lsp-ui
+                    lsp-mode
+                    company-lsp
                     ))
 
 (provide 'init-elpa)

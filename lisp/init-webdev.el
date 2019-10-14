@@ -21,10 +21,12 @@
 
 (defun web-mode-setup ()
   (emmet-mode)
-  (setup-tide-mode)
+  (setup-ts/js-mode)
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
-  (push '(company-web-html company-css company-tide) company-backends))
+  (set (make-local-variable 'company-backends)
+       '(company-web-html company-css company-lsp))
+  (add-yas))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
 
@@ -52,18 +54,17 @@
 (add-hook 'js-jsx-mode-hook 'jsx-setup)
 
 ;;; tide
-(defun setup-tide-mode ()
-  (tide-setup)
-  (tide-hl-identifier-mode)
-  (setq tide-allow-other-backend-for-string t)
-  (add-to-list 'ivy-ignore-buffers "*tide-server*")
-  (unless (tide-current-server)
-    (tide-restart-server)))
+(defun setup-ts/js-mode ()
+  (lsp)
+  (set (make-local-variable 'company-backends)
+       '(company-lsp))
+  (add-yas))
 
 (add-hook 'js-mode-hook
           #'(lambda ()
               (unless (derived-mode-p 'json-mode)
-                (setup-tide-mode))))
-(add-hook 'typescript-mode-hook 'setup-tide-mode)
+                (setup-ts/js-mode)
+                (define-key js-mode-map (kbd "M-.") nil))))
+(add-hook 'typescript-mode-hook 'setup-ts/js-mode)
 
 (provide 'init-webdev)

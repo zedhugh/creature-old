@@ -115,6 +115,6 @@
 (define-key global-map [remap list-buffers] 'ibuffer)
 
 (with-eval-after-load 'emmet-mode
-  (define-key emmet-mode-keymap (kbd "<tab>") 'creature/emmet-expand))
+  (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))
 
 (provide 'init-keybindings)

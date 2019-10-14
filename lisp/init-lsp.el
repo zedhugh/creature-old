@@ -10,11 +10,14 @@
 
 (with-eval-after-load 'lsp-mode
   (setq lsp-prefer-flymake nil)
+  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-hook 'lsp-mode-hook #'lsp-ui-mode))
 
 (add-hook 'c-mode-common-hook
           (lambda ()
             (lsp)
-            (set (make-local-variable 'company-backends) '(company-lsp))))
+            (set (make-local-variable 'company-backends)
+                 '(company-lsp))
+            (add-yas)))
 
 (provide 'init-lsp)

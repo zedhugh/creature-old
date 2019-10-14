@@ -66,7 +66,6 @@ otherwise, install `PACKAGES'."
                     emmet-mode
                     company-web
 
-                    tide
                     json-mode
                     typescript-mode
 

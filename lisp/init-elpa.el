@@ -101,6 +101,8 @@ otherwise, install `PACKAGES'."
                     editorconfig
                     undo-tree
 
+                    vimrc-mode
+
                     ;; lsp
                     lsp-ui
                     lsp-mode

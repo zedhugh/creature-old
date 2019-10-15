@@ -5,6 +5,7 @@
   (setq lsp-ui-flycheck-list-position 'right)
   (setq lsp-ui-doc-position 'at-point)
   (setq lsp-ui-doc-alignment 'window)
+  (set-face-attribute 'lsp-ui-sideline-code-action nil :foreground "dark cyan")
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
@@ -13,6 +14,10 @@
   (setq lsp-auto-guess-root t)
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-hook 'lsp-mode-hook #'lsp-ui-mode))
+
+(with-eval-after-load 'company
+  ;; sort candidates
+  (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
 (add-hook 'c-mode-common-hook
           (lambda ()

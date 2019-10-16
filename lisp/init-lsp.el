@@ -12,6 +12,7 @@
 (with-eval-after-load 'lsp-mode
   (setq lsp-prefer-flymake nil)
   (setq lsp-auto-guess-root t)
+  (setq lsp-enable-indentation nil)
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-hook 'lsp-mode-hook #'lsp-ui-mode))
 

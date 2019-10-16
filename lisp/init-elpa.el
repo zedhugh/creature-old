@@ -8,7 +8,9 @@ otherwise, install `PACKAGES'."
         (unless (member package package-selected-packages)
           (push package package-selected-packages))
       (if (or (assoc package package-archive-contents) no-refresh)
-          (package-install package t)
+          (progn
+            (package-install package t)
+            (add-to-list 'package-selected-packages package))
         (progn
           (package-refresh-contents)
           (require-package package min-version t)))))
@@ -107,6 +109,7 @@ otherwise, install `PACKAGES'."
                     lsp-ui
                     lsp-mode
                     company-lsp
+                    projectile
                     ))
 
 (provide 'init-elpa)

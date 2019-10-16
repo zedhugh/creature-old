@@ -26,4 +26,6 @@
                  '(company-lsp))
             (add-yas)))
 
+(projectile-mode)
+
 (provide 'init-lsp)

@@ -80,7 +80,12 @@
          ("JavaScript" (or
                         (mode . js-mode)
                         (mode . js-jsx-mode)))
-         )))
+         ("Lsp" (or
+                 (name . "^\\*lsp-log\\*$")
+                 (name . "^\\*clangd\\*$")
+                 (name . "^\\*clangd::stderr\\*$")
+                 (name . "^\\*.*-ls\\*$")
+                 (name . "^\\*.*-ls::stderr\\*$"))))))
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-auto-mode)

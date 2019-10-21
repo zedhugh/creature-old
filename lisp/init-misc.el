@@ -98,4 +98,7 @@
 ;; don't ask for confirmation to delete marked buffers
 (setq ibuffer-expert t)
 
+;; kill custom buffer when quit
+(setq custom-buffer-done-kill t)
+
 (provide 'init-misc)

@@ -21,11 +21,10 @@
 
 (defun web-mode-setup ()
   (emmet-mode)
-  (setup-ts/js-mode)
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
-  (set (make-local-variable 'company-backends)
-       '(company-web-html company-css company-lsp))
+  (make-local-variable 'company-backends)
+  (add-to-list 'company-backends '(company-web-html company-css company-lsp))
   (add-yas))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
@@ -53,18 +52,9 @@
   (set (make-local-variable 'emmet-expand-jsx-className?) t))
 (add-hook 'js-jsx-mode-hook 'jsx-setup)
 
-;;; tide
-(defun setup-ts/js-mode ()
-  (lsp)
-  (set (make-local-variable 'company-backends)
-       '(company-lsp))
-  (add-yas))
-
 (add-hook 'js-mode-hook
           #'(lambda ()
               (unless (derived-mode-p 'json-mode)
-                (setup-ts/js-mode)
                 (define-key js-mode-map (kbd "M-.") nil))))
-(add-hook 'typescript-mode-hook 'setup-ts/js-mode)
 
 (provide 'init-webdev)

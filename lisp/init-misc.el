@@ -101,4 +101,19 @@
 ;; kill custom buffer when quit
 (setq custom-buffer-done-kill t)
 
+;; gpg config
+(with-eval-after-load 'epa-file
+  ;; gpg password input method
+  (setq epg-pinentry-mode 'loopback)
+  ;; gpg password cache
+  ;; don't use this config, trust public key and use `gpg-agent' is fine
+  ;; (setq epa-file-cache-passphrase-for-symmetric-encryption t)
+  )
+
+(defun creature/kill-gpg-agent ()
+  "Kill `gpg-agent' for security when Emacs be killed."
+  (when (boundp 'epg-gpgconf-program)
+    (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
+(add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
+
 (provide 'init-misc)

@@ -102,13 +102,8 @@
 (setq custom-buffer-done-kill t)
 
 ;; gpg config
-(with-eval-after-load 'epa-file
-  ;; gpg password input method
-  (setq epg-pinentry-mode 'loopback)
-  ;; gpg password cache
-  ;; don't use this config, trust public key and use `gpg-agent' is fine
-  ;; (setq epa-file-cache-passphrase-for-symmetric-encryption t)
-  )
+(epa-file-enable)
+(setq epg-pinentry-mode 'loopback)
 
 (defun creature/kill-gpg-agent ()
   "Kill `gpg-agent' for security when Emacs be killed."

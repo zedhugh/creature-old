@@ -102,9 +102,6 @@
 (setq custom-buffer-done-kill t)
 
 ;; gpg config
-(epa-file-enable)
-(setq epg-pinentry-mode 'loopback)
-
 (defun creature/kill-gpg-agent ()
   "Kill `gpg-agent' for security when Emacs be killed."
   (when (boundp 'epg-gpgconf-program)

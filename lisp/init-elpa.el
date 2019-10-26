@@ -110,6 +110,9 @@ otherwise, install `PACKAGES'."
                     lsp-mode
                     company-lsp
                     projectile
+
+                    ;; gnupg pinentry for magit
+                    pinentry
                     ))
 
 (provide 'init-elpa)

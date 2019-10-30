@@ -26,17 +26,18 @@
   ;; sort candidates
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (lsp)
-;;             (set (make-local-variable 'company-backends)
-;;                  '(company-lsp))
-;;             (add-yas)))
 (defun lsp-setup ()
-  "Setup lsp in `prog-mode' except `emacs-lisp-mode'."
-  (unless (derived-mode-p 'emacs-lisp-mode)
+  "Setup lsp in `prog-mode' except `emacs-lisp-mode' and `json-mode'."
+  (unless (derived-mode-p 'emacs-lisp-mode 'json-mode)
     (lsp-deferred)))
 (add-hook 'prog-mode-hook #'lsp-setup)
+
+(defun eslint-checker ()
+  "Use eslint as ts/js file syntax and code style checker."
+  (when (and (derived-mode-p 'js-mode 'typescript-mode)
+             (not (derived-mode-p 'json-mode)))
+    (flycheck-select-checker 'javascript-eslint)))
+(add-hook 'flycheck-mode-hook #'eslint-checker)
 
 (projectile-mode)
 

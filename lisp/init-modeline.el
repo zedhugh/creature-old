@@ -112,13 +112,14 @@
     mode-line-end-spaces
     )
   "Customized mode line format.")
-(setq-default mode-line-format creature/mode-line-format)
 
 ;; 1. define a variable to keep origin mode-line
 ;; 2. make customized mode-line worked for exist buffers.
 (defvar creature/origin-mode-line-format
   mode-line-format
   "Keep origin `mode-line-format'")
+
+(setq-default mode-line-format creature/mode-line-format)
 
 (creature/set-mode-line-format-for-exist-buffers)
 

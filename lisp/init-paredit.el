@@ -25,6 +25,8 @@
 
 (require 'awesome-pair)
 (add-hook 'prog-mode-hook #'awesome-pair-mode)
+(add-hook 'conf-unix-mode-hook #'awesome-pair-mode)
+(add-hook 'conf-windows-mode-hook #'awesome-pair-mode)
 
 (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
 (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)

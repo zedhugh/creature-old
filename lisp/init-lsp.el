@@ -26,9 +26,18 @@
   ;; sort candidates
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
+(defvar creature/lsp-setup-modes
+  '(c-mode
+    c++-mode
+    html-mode
+    js-mode
+    web-mode
+    typescript-mode)
+  "Major mode setup with `lsp-mode' enabled.")
+
 (defun lsp-setup ()
-  "Setup lsp in `prog-mode' except `emacs-lisp-mode' and `json-mode'."
-  (unless (derived-mode-p 'emacs-lisp-mode 'json-mode)
+  "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
+  (when (member major-mode creature/lsp-setup-modes)
     (lsp-deferred)))
 (add-hook 'prog-mode-hook #'lsp-setup)
 

@@ -42,8 +42,11 @@
 (add-hook 'prog-mode-hook #'lsp-setup)
 
 (defun eslint-checker ()
-  "Use eslint as ts/js file syntax and code style checker."
-  (when (and (derived-mode-p 'js-mode 'typescript-mode)
+  "Use eslint as ts/js file syntax and code style checker.
+if a buffer's context not from a file, not setup eslint.
+because eslint only work with file."
+  (when (and (buffer-file-name)
+             (derived-mode-p 'js-mode 'typescript-mode)
              (not (derived-mode-p 'json-mode)))
     (flycheck-select-checker 'javascript-eslint)))
 (add-hook 'flycheck-mode-hook #'eslint-checker)

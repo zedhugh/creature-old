@@ -29,7 +29,9 @@
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)
-            (pinentry-start)
+            (condition-case nil
+                (pinentry-start)
+              (error nil))
             (setq gc-cons-threshold creature/best-gc-cons-threshold)))
 
 ;; (desktop-read creature-dir)

@@ -103,8 +103,10 @@
 
 ;; gpg config
 (defun creature/kill-gpg-agent ()
-  "Kill `gpg-agent' for security when Emacs be killed."
-  (when (boundp 'epg-gpgconf-program)
+  "Kill `gpg-agent' for security when Emacs be killed.
+This works only when `pinentry-mode' is running."
+  (when (and pinentry--server-process
+             (boundp 'epg-gpgconf-program))
     (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
 (add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
 

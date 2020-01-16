@@ -31,6 +31,7 @@
     c++-mode
     html-mode
     js-mode
+    js-jsx-mode
     web-mode
     typescript-mode)
   "Major mode setup with `lsp-mode' enabled.")

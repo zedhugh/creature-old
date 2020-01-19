@@ -49,7 +49,8 @@ because eslint only work with file."
   (when (and (buffer-file-name)
              (derived-mode-p 'js-mode 'typescript-mode)
              (not (derived-mode-p 'json-mode)))
-    (flycheck-select-checker 'javascript-eslint)))
+    (when (featurep 'lsp-ui)
+      (flycheck-disable-checker 'lsp-ui))))
 (add-hook 'flycheck-mode-hook #'eslint-checker)
 
 (projectile-mode)

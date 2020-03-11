@@ -1,7 +1,7 @@
 (unless (featurep 'package)
   (package-initialize))
 
-(dolist (dir '("lisp" "site-lisp/awesome-pair" "site-lisp/tide"))
+(dolist (dir '("lisp" "site-lisp/awesome-pair" "site-lisp/liberime"))
   (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
 
 (require 'init-options)

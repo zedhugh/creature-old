@@ -21,3 +21,4 @@ transient/
 .emacs.desktop
 /eshell/lastdir
 /.lsp-session-v1
+/rime/

@@ -24,7 +24,7 @@
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
   (make-local-variable 'company-backends)
-  (add-to-list 'company-backends '(company-web-html company-css company-lsp))
+  (add-to-list 'company-backends '(company-web-html company-css))
   (add-yas))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
@@ -51,6 +51,7 @@
   (set (make-local-variable 'js-indent-level) 2)
   (set (make-local-variable 'emmet-expand-jsx-className?) t))
 (add-hook 'js-jsx-mode-hook 'jsx-setup)
+(advice-add 'js-jsx-enable :after 'jsx-setup)
 
 (add-hook 'js-mode-hook
           #'(lambda ()

@@ -108,7 +108,6 @@ otherwise, install `PACKAGES'."
                     ;; lsp
                     lsp-ui
                     lsp-mode
-                    company-lsp
                     projectile
 
                     ;; gnupg pinentry for magit

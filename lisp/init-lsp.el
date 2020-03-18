@@ -1,7 +1,6 @@
 (with-eval-after-load 'lsp-ui
   ;; (require 'lsp-ui)
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-flycheck-enable t)
+  (setq lsp-ui-doc-enable nil)
   (setq lsp-ui-flycheck-list-position 'right)
   (setq lsp-ui-doc-position 'top)
   (setq lsp-ui-doc-alignment 'frame)
@@ -11,7 +10,6 @@
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (with-eval-after-load 'lsp-mode
-  (setq lsp-prefer-flymake nil)
   (setq lsp-auto-guess-root t)
   (setq lsp-enable-indentation nil)
   (dolist (lsp-buffer '("::stderr\\*"
@@ -20,6 +18,7 @@
                         "-ls\\*"))
     (add-to-list 'ivy-ignore-buffers lsp-buffer))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
+  (add-hook 'lsp-on-idle-hook #'add-yas)
   (add-hook 'lsp-mode-hook #'lsp-ui-mode))
 
 (with-eval-after-load 'company

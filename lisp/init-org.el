@@ -6,7 +6,19 @@
 ;; show inline image when open org file
 (add-hook 'org-mode-hook 'org-display-inline-images)
 
+;; 保存链接
+(require 'org-capture)
+(require 'org-protocol)
+(setq org-capture-templates
+      '(("" "org-protocol" entry (file "~/org/bookmarks.org")
+         "* TODO Review %a\n  %T:initial\n" :immediate-finish t)
+        ))
+(setq org-protocol-default-template-key "")
+
 (with-eval-after-load 'org
+  ;; org agenda
+  (setq org-agenda-files '("~/org"))
+  (global-set-key (kbd "C-c a") 'org-agenda)
   ;; enable scale image
   (setq org-image-actual-width nil)
 

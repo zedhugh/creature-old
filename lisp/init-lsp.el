@@ -10,6 +10,9 @@
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (with-eval-after-load 'lsp-mode
+  (setq lsp-diagnostic-package :none)
+  (setq lsp-restart 'auto-restart)
+
   (setq lsp-auto-guess-root t)
   (setq lsp-enable-indentation nil)
   (dolist (lsp-buffer '("::stderr\\*"
@@ -40,17 +43,6 @@
   (when (member major-mode creature/lsp-setup-modes)
     (lsp-deferred)))
 (add-hook 'prog-mode-hook #'lsp-setup)
-
-(defun eslint-checker ()
-  "Use eslint as ts/js file syntax and code style checker.
-if a buffer's context not from a file, not setup eslint.
-because eslint only work with file."
-  (when (and (buffer-file-name)
-             (derived-mode-p 'js-mode 'typescript-mode)
-             (not (derived-mode-p 'json-mode)))
-    (when (featurep 'lsp-ui)
-      (flycheck-disable-checker 'lsp-ui))))
-(add-hook 'flycheck-mode-hook #'eslint-checker)
 
 (projectile-mode)
 

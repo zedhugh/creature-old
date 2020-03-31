@@ -21,8 +21,7 @@
                         "-ls\\*"))
     (add-to-list 'ivy-ignore-buffers lsp-buffer))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-hook 'lsp-on-idle-hook #'add-yas)
-  (add-hook 'lsp-mode-hook #'lsp-ui-mode))
+  (add-hook 'lsp-on-idle-hook #'add-yas))
 
 (with-eval-after-load 'company
   ;; sort candidates

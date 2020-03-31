@@ -4,12 +4,11 @@
 (global-set-key (kbd "DEL") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
 
-(defun creature/escape-insert-backquote (n)
+(defun creature/escape-insert-backquote ()
   "Escape key in Emacs is useless.
 Replace by `backquote' is a better way with my mini keyboard."
-  (interactive "p")
-  (self-insert-command n ?`))
-(global-set-key (kbd "<escape>") 'creature/escape-insert-backquote)
+  (global-set-key (kbd "<escape>") (kbd "`")))
+(creature/escape-insert-backquote)
 
 ;;; company
 (define-key company-active-map (kbd "C-n")
@@ -123,5 +122,8 @@ Replace by `backquote' is a better way with my mini keyboard."
 
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))
+
+(with-eval-after-load 'projectile
+  (global-set-key (kbd "C-c p") #'projectile-command-map))
 
 (provide 'init-keybindings)

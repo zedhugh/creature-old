@@ -175,9 +175,13 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                                           'bar))))))
 
 (defun creature/enable-rime ()
+  "Rime only enable in GNU/Linux."
   (interactive)
-  (let* ((word-length 10000))
-    (unless (featurep 'liberime)
+  (let* ((word-length 10000)
+         (is-gnu/linux (eq system-type 'gnu/linux))
+         (librime-enable (file-exists-p "/usr/share/rime-data")))
+    (when (and is-gnu/linux librime-enable
+               (not (featurep 'liberime)))
       (require 'liberime)
       (liberime-set-page-size word-length)
       (setq pyim-liberime-search-limit word-length)

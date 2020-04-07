@@ -39,7 +39,10 @@
 
 (defun lsp-setup ()
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
-  (when (member major-mode creature/lsp-setup-modes)
+  (when (and
+         (buffer-file-name)
+         (not (tramp-tramp-file-p (buffer-file-name)))
+         (member major-mode creature/lsp-setup-modes))
     (lsp-deferred)))
 (add-hook 'prog-mode-hook #'lsp-setup)
 

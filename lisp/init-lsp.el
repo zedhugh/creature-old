@@ -39,6 +39,8 @@
 
 (defun lsp-setup ()
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
+  (unless (featurep 'tramp)
+    (require 'tramp))
   (when (and
          (buffer-file-name)
          (not (tramp-tramp-file-p (buffer-file-name)))

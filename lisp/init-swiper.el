@@ -46,4 +46,14 @@
 ;; remove "pinyin" match with this
 ;; (defun pinyin-to-utf8 (str) nil)
 
+(defun creature/counsel-grep-or-swiper ()
+  (interactive)
+  (if (region-active-p)
+      (let* ((begin (region-beginning))
+             (end (region-end))
+             (string (buffer-substring begin end)))
+        (set-mark-command end)
+        (counsel-grep-or-swiper string))
+    (counsel-grep-or-swiper)))
+
 (provide 'init-swiper)

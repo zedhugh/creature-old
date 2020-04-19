@@ -11,7 +11,7 @@
 (setq company-dabbrev-code-other-buffers 'all)
 (setq company-dabbrev-downcase nil)
 
-(add-hook 'company-mode-hook 'yas-minor-mode)
+(yas-global-mode)
 (add-hook 'yas-minor-mode-hook 'add-yas)
 
 (provide 'init-company)

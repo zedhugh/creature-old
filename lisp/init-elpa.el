@@ -45,7 +45,7 @@ otherwise, install `PACKAGES'."
                     yasnippet-snippets
 
                     ;; monokai-theme
-                    ;; molokai-theme
+                    molokai-theme
                     rainbow-delimiters
                     rainbow-identifiers
                     page-break-lines

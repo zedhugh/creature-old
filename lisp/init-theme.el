@@ -1,4 +1,4 @@
-;; (load-theme 'molokai t)
+(load-theme 'molokai t)
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))

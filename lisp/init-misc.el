@@ -77,6 +77,10 @@
          ("Elisp" (mode . emacs-lisp-mode))
          ("Magit" (name . "^magit[:-].*$"))
          ("TypeScript" (mode . typescript-mode))
+         ("CSS" (or
+                 (mode . css-mode)
+                 (mode . scss-mode)
+                 (mode . less-css-mode)))
          ("JavaScript" (or
                         (mode . js-mode)
                         (mode . js-jsx-mode)))

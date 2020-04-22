@@ -95,6 +95,7 @@ otherwise, install `PACKAGES'."
 
                     mwim
                     evil
+                    evil-escape
                     ;; evil-leader
                     evil-matchit
                     evil-surround

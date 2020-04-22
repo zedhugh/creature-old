@@ -94,10 +94,10 @@ otherwise, install `PACKAGES'."
                     symbol-overlay
 
                     mwim
-                    ;; evil
+                    evil
                     ;; evil-leader
-                    ;; evil-matchit
-                    ;; evil-surround
+                    evil-matchit
+                    evil-surround
                     evil-nerd-commenter
 
                     editorconfig

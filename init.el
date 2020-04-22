@@ -24,7 +24,7 @@
 (require 'init-dired)
 (require 'init-program)
 (require 'init-lsp)
-;; (require 'init-evil)
+(require 'init-evil)
 (require 'init-modeline)
 (require 'init-keybindings)
 (with-eval-after-load 'gnus

@@ -2,17 +2,19 @@
 
 ;; evil-leader should enable before evil,
 ;; otherwise evil-leader will not work.
-(global-evil-leader-mode)
-(setq evil-leader/in-all-states t)
-(setq evil-leader/non-normal-prefix "S-")
-(evil-leader/set-leader "<SPC>")
+;; (global-evil-leader-mode)
+;; (setq evil-leader/in-all-states t)
+;; (setq evil-leader/non-normal-prefix "S-")
+;; (evil-leader/set-leader "<SPC>")
 
 (evil-mode)
 (setcdr evil-insert-state-map nil)
 (evil-global-set-key 'insert [escape] 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "<ESC>") 'evil-normal-state)
 (evil-global-set-key 'motion (kbd "TAB") nil)
-(evil-global-set-key 'motion (kbd "<SPC>") nil)
+(evil-global-set-key 'motion (kbd "<SPC>") #'creature-map)
+(evil-global-set-key 'normal (kbd "<SPC>") #'creature-map)
+(evil-global-set-key 'visual (kbd "<SPC>") #'creature-map)
 (evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
 
 ;; initial state for modes
@@ -26,6 +28,14 @@
 (evil-set-initial-state 'youdao-dictionary-mode 'motion)
 (evil-set-initial-state 'flycheck-error-list-mode 'emacs)
 (evil-change-to-initial-state "*Messages*")
+
+(defun creature/magit-commit-buffer-state ()
+  (run-with-idle-timer 0.01 nil
+                       (lambda ()
+                         (ignore-errors
+                           (with-current-buffer "COMMIT_EDITMSG"
+                             (evil-insert-state))))))
+(add-hook 'text-mode-hook #'creature/magit-commit-buffer-state)
 
 (define-advice about-emacs (:after nil)
   (with-current-buffer "*About GNU Emacs*"
@@ -44,10 +54,10 @@
 (global-evil-matchit-mode)
 
 ;; ;; evil surround
-;; (global-evil-surround-mode)
-;; (evil-define-key 'visual evil-surround-mode-map
-;;   "cc" 'evil-surround-change
-;;   "cd" 'evil-surround-delete
-;;   "cs" 'evil-surround-region)
+(global-evil-surround-mode)
+(evil-define-key 'visual evil-surround-mode-map
+  "cc" 'evil-surround-change
+  "cd" 'evil-surround-delete
+  "cs" 'evil-surround-region)
 
 (provide 'init-evil)

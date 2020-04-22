@@ -4,6 +4,8 @@
                 rainbow-identifiers-mode))
   (add-hook 'prog-mode-hook mode))
 
+(global-display-line-numbers-mode)
+
 ;; page break lines
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?=)

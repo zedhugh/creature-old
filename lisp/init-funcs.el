@@ -80,7 +80,7 @@
 ;; flycheck is good at elisp
 ;; flycheck has some performance issue in Windows
 (defun setup-flycheck ()
-  (if (or sys/win32p (derived-mode-p 'emacs-lisp-mode))
+  (if (derived-mode-p 'emacs-lisp-mode)
       (flycheck-mode -1)
     (flycheck-mode)))
 

@@ -1,8 +1,8 @@
 (global-company-mode)
-(setq company-idle-delay 0.3)
+(setq company-idle-delay 0)
 (setq company-show-numbers t)
 (setq company-require-match nil)
-(setq company-minimum-prefix-length 3)
+(setq company-minimum-prefix-length 2)
 (setq company-clang-insert-arguments t)
 
 (add-hook 'text-mode-hook 'enable-ispell)

@@ -42,6 +42,7 @@ otherwise, install `PACKAGES'."
 
                     company
                     yasnippet
+                    auto-yasnippet
                     yasnippet-snippets
 
                     ;; monokai-theme

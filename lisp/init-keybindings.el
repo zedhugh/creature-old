@@ -7,7 +7,7 @@
 (defun creature/escape-insert-backquote ()
   "Escape key in Emacs is useless.
 Replace by `backquote' is a better way with my mini keyboard."
-  (global-set-key (kbd "<escape>") (kbd "`")))
+  (define-key key-translation-map (kbd "ESC") (kbd "`")))
 (creature/escape-insert-backquote)
 
 ;;; company
@@ -18,6 +18,10 @@ Replace by `backquote' is a better way with my mini keyboard."
     (interactive)
     (company-complete-common-or-cycle -1)))
 (define-key company-mode-map (kbd "C-'") #'company-files)
+
+(global-set-key (kbd "s-w") #'aya-create)
+(global-set-key (kbd "s-y") #'aya-expand)
+(global-set-key (kbd "C-o") #'aya-open-line)
 
 ;; (with-eval-after-load 'paredit-everywhere
 ;;   ;; (define-key paredit-mode-map (kbd ";") nil)

@@ -91,7 +91,8 @@ Replace by `backquote' is a better way with my mini keyboard."
   "hv" 'describe-variable
   "hk" 'describe-key
   "hp" 'describe-package
-  "qq" 'save-buffers-kill-emacs
+  "qk" 'save-buffers-kill-emacs
+  "qq" 'save-buffers-kill-terminal
 
   "sc" 'evil-surround-change
   "sd" 'evil-surround-delete

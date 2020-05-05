@@ -1,4 +1,6 @@
 ;; window numbering
+(unless (fboundp #'window-numbering-get-number-string)
+  (require 'window-numbering))
 (defvar creature/mode-line-window-number
   '(:eval (window-numbering-get-number-string))
   "Get window number by window-numbering.")

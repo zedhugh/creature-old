@@ -174,7 +174,7 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                                             t
                                           'bar))))))
 
-(defun creature/enable-rime ()
+(defun creature/enable-rime (&optional arg interactive)
   "Rime only enable in GNU/Linux."
   (interactive)
   (let* ((word-length 10000)

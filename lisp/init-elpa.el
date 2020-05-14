@@ -54,6 +54,7 @@ otherwise, install `PACKAGES'."
                     hydra
                     which-key
                     window-numbering
+                    avy
 
                     flycheck
 

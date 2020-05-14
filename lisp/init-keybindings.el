@@ -104,6 +104,10 @@ Replace by `backquote' is a better way with my mini keyboard."
   "ys" 'youdao-dictionary-search-at-point
   "yp" 'youdao-dictionary-play-voice-at-point
 
+  ;; jump by avy
+  "jl" 'avy-goto-line
+  "jw" 'avy-goto-word-1
+
   "SPC" 'execute-extended-command)
 
 (creature/which-key-declare-prefixes creature/prefix-key
@@ -119,11 +123,17 @@ Replace by `backquote' is a better way with my mini keyboard."
   "q"  "quit option"
   "s"  "evil surround"
   "y"  "youdao"
+  "j"  "jump"
   "yp" "pronunciation"
   "ys" "translate")
 
 ;;; kill buffer when quit-window.
 (define-key global-map [remap list-buffers] 'ibuffer)
+
+;; jump by avy
+(define-key global-map [remap goto-line] #'avy-goto-line)
+(define-key global-map (kbd "M-g w") #'avy-goto-word-1)
+(define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
 
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))

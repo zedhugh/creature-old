@@ -7,13 +7,9 @@
 ;; (setq evil-leader/non-normal-prefix "S-")
 ;; (evil-leader/set-leader "<SPC>")
 
-(evil-escape-mode)
-(setq-default evil-escape-delay 0.2)
-(setq-default evil-escape-key-sequence "jk")
-
 (evil-mode)
 (setcdr evil-insert-state-map nil)
-;; (evil-global-set-key 'insert (kbd "<ESC>") 'evil-normal-state)
+(evil-global-set-key 'insert [Control-Bracketleft] 'evil-normal-state)
 (evil-global-set-key 'motion (kbd "TAB") nil)
 (evil-global-set-key 'motion (kbd "<SPC>") #'creature-map)
 (evil-global-set-key 'normal (kbd "<SPC>") #'creature-map)

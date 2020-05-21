@@ -131,7 +131,6 @@ Replace by `backquote' is a better way with my mini keyboard."
 (define-key global-map [remap list-buffers] 'ibuffer)
 
 ;; jump by avy
-(define-key global-map [remap goto-line] #'avy-goto-line)
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
 

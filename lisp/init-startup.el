@@ -25,7 +25,17 @@
 
 (setq-default initial-scratch-message creature/scratch-message)
 
-(add-hook 'server-after-make-frame-hook #'creature/fontset)
+(add-hook 'server-after-make-frame-hook
+          (lambda ()
+            (creature/fontset)
+
+            ;; release C-[ keybindings from escape
+            ;; reference https://emacs.stackexchange.com/questions/7832/how-to-bind-c-for-real
+            ;; only work for gui, so launch Emacs with `emacs --daemon' is not work
+            ;; so this config only can put here
+            (define-key input-decode-map
+              (kbd "C-[")
+              [Control-Bracketleft])))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
@@ -33,6 +43,7 @@
             (condition-case nil
                 (pinentry-start)
               (error nil))
+
             (setq gc-cons-threshold creature/best-gc-cons-threshold)))
 
 ;; (desktop-read creature-dir)

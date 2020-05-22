@@ -6,16 +6,19 @@
   (setq inhibit-compacting-font-caches t)
   (let ((family (car creature/default-font))
         (size (cdr creature/default-font)))
-    (when (member family (font-family-list))
-      (set-face-attribute 'default frame
-                          :font (font-spec :family family :size size))))
+    (condition-case nil
+        (set-face-attribute 'default frame
+                            :font (font-spec :family family :size size))
+      (error nil)))
   ;; multi-byte code
   (let ((family (car creature/chinese-font))
         (size (cdr creature/chinese-font)))
     (when (member family (font-family-list))
       (dolist (charset '(kana han cjk-misc bopomofo unicode))
-        (set-fontset-font t charset
-                          (font-spec :family family :size size) frame)))))
+        (condition-case nil
+            (set-fontset-font t charset
+                              (font-spec :family family :size size) frame)
+          (error nil))))))
 
 (defun creature/open-init-file ()
   "Open init file."

@@ -62,8 +62,6 @@ otherwise, install `PACKAGES'."
 
                     expand-region
 
-                    exec-path-from-shell
-
                     pyim
 
                     web-mode
@@ -88,6 +86,7 @@ otherwise, install `PACKAGES'."
                     htmlize
                     org-pomodoro
                     org-plus-contrib
+                    ox-hugo
 
                     lua-mode
                     company-lua

@@ -40,4 +40,7 @@
   (dolist (src2mode creature/org-src-lang-modes)
     (add-to-list 'org-src-lang-modes src2mode)))
 
+(with-eval-after-load 'ox
+  (require 'ox-hugo))
+
 (provide 'init-org)

@@ -35,10 +35,6 @@
 
 (global-undo-tree-mode)
 
-(unless sys/win32p
-  (setq exec-path-from-shell-check-startup-files nil)
-  (exec-path-from-shell-initialize))
-
 (rg-enable-default-bindings)
 
 (editorconfig-mode)

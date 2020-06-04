@@ -113,4 +113,15 @@
     (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
 (add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
 
+(keyfreq-mode)
+(keyfreq-autosave-mode)
+(setq keyfreq-file
+      (expand-file-name ".keyfreq" creature-cache))
+(setq keyfreq-excluded-commands
+      '(self-insert-command
+        forward-char
+        backward-char
+        previous-line
+        next-line))
+
 (provide 'init-misc)

@@ -113,6 +113,9 @@ otherwise, install `PACKAGES'."
 
                     ;; gnupg pinentry for magit
                     pinentry
+
+                    ;; key frequency
+                    keyfreq
                     ))
 
 (provide 'init-elpa)

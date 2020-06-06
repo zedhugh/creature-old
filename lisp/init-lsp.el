@@ -41,6 +41,8 @@
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
   (unless (featurep 'tramp)
     (require 'tramp))
+  (when (derived-mode-p 'c-mode 'c++-mode)
+    (setq-local lsp-diagnostic-package :auto))
   (when (and
          (buffer-file-name)
          (not (tramp-tramp-file-p (buffer-file-name)))

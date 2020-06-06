@@ -28,18 +28,13 @@
 (add-hook 'server-after-make-frame-hook
           (lambda ()
             (creature/fontset)
-
-            ;; release C-[ keybindings from escape
-            ;; reference https://emacs.stackexchange.com/questions/7832/how-to-bind-c-for-real
-            ;; only work for gui, so launch Emacs with `emacs --daemon' is not work
-            ;; so this config only can put here
-            (define-key input-decode-map
-              (kbd "C-[")
-              [Control-Bracketleft])))
+            (creature/extention-escape)
+            ))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)
+            (creature/extention-escape)
             (condition-case nil
                 (pinentry-start)
               (error nil))

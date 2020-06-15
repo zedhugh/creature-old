@@ -53,7 +53,7 @@ otherwise, install `PACKAGES'."
 
                     hydra
                     which-key
-                    window-numbering
+                    winum
                     avy
 
                     flycheck

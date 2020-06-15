@@ -28,7 +28,7 @@
 (setq which-key-idle-delay 0.4)
 
 ;; window number
-(window-numbering-mode)
+(winum-mode)
 
 (set-face-attribute font-lock-comment-face nil :slant 'italic)
 (global-hl-line-mode)

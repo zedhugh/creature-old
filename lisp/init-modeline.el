@@ -1,9 +1,9 @@
 ;; window numbering
-(unless (fboundp #'window-numbering-get-number-string)
-  (require 'window-numbering))
+(unless (fboundp #'winum-get-number-string)
+  (require 'winum))
 (defvar creature/mode-line-window-number
-  '(:eval (window-numbering-get-number-string))
-  "Get window number by window-numbering.")
+  '(:eval (winum-get-number-string))
+  "Get window number by winum.")
 (put 'creature/mode-line-window-number 'risky-local-variable t)
 
 ;; flycheck
@@ -84,7 +84,6 @@
 (defvar creature/mode-line-format
   '("%e"
     creature/mode-line-window-number
-    ;; (:eval (window-numbering-get-number-string))
     " "
     current-input-method-title
     "%Z" ; coding system and eol type

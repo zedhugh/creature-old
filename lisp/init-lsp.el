@@ -51,5 +51,6 @@
 (add-hook 'prog-mode-hook #'lsp-setup)
 
 (projectile-mode)
+(counsel-projectile-mode)
 
 (provide 'init-lsp)

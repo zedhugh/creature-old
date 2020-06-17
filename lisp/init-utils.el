@@ -1,7 +1,7 @@
 (require 'pyim)
 (setq default-input-method 'pyim)
 (setq pyim-page-style 'one-line)
-(setq pyim-page-tooltip 'popup)
+(setq pyim-page-tooltip 'posframe)
 ;; (setq-default pyim-english-input-switch-functions
 ;;               '(pyim-probe-auto-english
 ;;                 pyim-probe-program-mode

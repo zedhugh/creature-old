@@ -110,12 +110,16 @@ otherwise, install `PACKAGES'."
                     lsp-ui
                     lsp-mode
                     projectile
+                    counsel-projectile
 
                     ;; gnupg pinentry for magit
                     pinentry
 
                     ;; key frequency
                     keyfreq
+
+                    posframe
+                    company-posframe
                     ))
 
 (provide 'init-elpa)

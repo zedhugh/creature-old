@@ -14,4 +14,10 @@
 (yas-global-mode)
 (add-hook 'yas-minor-mode-hook 'add-yas)
 
+(company-posframe-mode)
+(setq company-posframe-show-indicator nil)
+(setq company-posframe-show-metadata nil)
+(require 'desktop)
+(push '(company-posframe-mode . nil)
+      desktop-minor-mode-table)
 (provide 'init-company)

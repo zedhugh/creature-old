@@ -19,4 +19,10 @@
 (with-eval-after-load 'flycheck
   (setq flycheck-emacs-lisp-load-path load-path))
 
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (font-lock-add-keywords
+             nil '(("\\<\\(FIXME\\|DEBUG\\|TODO\\):"
+                    1 font-lock-warning-face prepend)))))
+
 (provide 'init-program)

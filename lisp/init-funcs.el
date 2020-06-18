@@ -177,21 +177,6 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                                             t
                                           'bar))))))
 
-(defun creature/enable-rime (&optional arg interactive)
-  "Rime only enable in GNU/Linux."
-  (interactive)
-  (let* ((word-length 10000)
-         (is-gnu/linux (eq system-type 'gnu/linux))
-         (librime-enable (file-exists-p "/usr/share/rime-data")))
-    (when (and is-gnu/linux librime-enable
-               (not (featurep 'liberime)))
-      (require 'liberime)
-      (liberime-set-page-size word-length)
-      (setq pyim-liberime-search-limit word-length)
-      (liberime-select-schema "luna_pinyin_simp")
-      (setq pyim-default-scheme 'rime-quanpin)
-      (advice-remove 'toggle-input-method 'creature/enable-rime))))
-
 (defun creature/extention-escape ()
   ;; release C-[ keybindings from escape
   ;; reference https://emacs.stackexchange.com/questions/7832/how-to-bind-c-for-real

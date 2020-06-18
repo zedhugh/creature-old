@@ -62,8 +62,6 @@ otherwise, install `PACKAGES'."
 
                     expand-region
 
-                    pyim
-
                     web-mode
                     emmet-mode
                     company-web

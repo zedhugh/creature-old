@@ -1,31 +1,17 @@
-(require 'pyim)
-(setq default-input-method 'pyim)
-(setq pyim-page-style 'one-line)
-(setq pyim-page-tooltip 'posframe)
-;; (setq-default pyim-english-input-switch-functions
-;;               '(pyim-probe-auto-english
-;;                 pyim-probe-program-mode
-;;                 pyim-probe-org-structure-template))
-(setq-default pyim-punctuation-half-width-functions
-              '(pyim-probe-punctuation-line-beginning
-                pyim-probe-punctuation-after-punctuation))
-(when (featurep 'pyim)
-  (pyim-basedict-enable))
+;; rime
+(install-packages 'rime)
+(setq rime-emacs-module-header-root "/usr/include/emacs-28-vcs")
+(setq default-input-method "rime")
+(with-eval-after-load 'rime
+  (setq rime-show-candidate 'minibuffer)
+  (setq rime-posframe-style 'simple)
+  (setq rime-disable-predicates
+        '(rime-predicate-prog-in-code-p
+          rime-predicate-evil-mode-p
+          rime-predicate-hydra-p))
 
-;;; rime input method
-(advice-add 'toggle-input-method
-            :before 'creature/enable-rime)
-
-;; Enable a big dict for pyim.
-;; (let ((greatdict
-;;        (concat creature-dir
-;;                "pyim-dicts/pyim-greatdict.pyim.gz")))
-;;   (when (featurep 'pyim)
-;;     (pyim-extra-dicts-add-dict
-;;      `(:name "Greatdict-elpa"
-;;              :file ,greatdict
-;;              :coding utf-8-lang
-;;              :dict-type pinyin-dict))))
+  (define-key rime-mode-map (kbd "M-i") 'rime-force-enable)
+  (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))
 
 ;;; magit
 ;; (with-eval-after-load 'magit

@@ -43,8 +43,4 @@
 
 ;; (desktop-read creature-dir)
 
-(run-with-idle-timer 10 nil
-                     '(lambda ()
-                        (creature/enable-rime)))
-
 (provide 'init-startup)

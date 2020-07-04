@@ -9,7 +9,8 @@
 ;; page break lines
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?=)
-(add-to-list 'page-break-lines-modes 'web-mode)
+(dolist (mode '(web-mode css-mode js-mode))
+  (add-to-list 'page-break-lines-modes mode))
 
 ;; address style
 (add-hook 'erc-mode-hook 'goto-address-mode)

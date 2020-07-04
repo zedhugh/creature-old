@@ -4,7 +4,9 @@
 (setq default-input-method "rime")
 (with-eval-after-load 'rime
   (setq rime-show-candidate 'minibuffer)
+  (setq rime-show-candidate 'posframe)
   (setq rime-posframe-style 'simple)
+  (setq rime-posframe-fixed-position t)
   (setq rime-disable-predicates
         '(rime-predicate-prog-in-code-p
           rime-predicate-evil-mode-p

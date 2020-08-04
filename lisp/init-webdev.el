@@ -1,5 +1,6 @@
 ;;; web-mode
 (add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
 
 (with-eval-after-load 'web-mode
   ;; indent
@@ -19,12 +20,19 @@
 
 (add-hook 'css-mode-hook 'emmet-mode)
 
+(defun creature/vue-indent ()
+  (when (string-suffix-p ".vue" (buffer-name) t)
+    (setq-local web-mode-style-padding 0
+                web-mode-script-padding 0
+                web-mode-block-padding 0)))
+
 (defun web-mode-setup ()
   (emmet-mode)
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
   (make-local-variable 'company-backends)
   (add-to-list 'company-backends '(company-web-html company-css))
+  (creature/vue-indent)
   (add-yas))
 
 (add-hook 'web-mode-hook 'web-mode-setup)

@@ -12,6 +12,7 @@
 (require 'init-startup)
 (require 'init-elpa)
 (require 'init-funcs)
+(require 'init-evil)
 (require 'init-paredit)
 (require 'init-company)
 (require 'init-theme)
@@ -24,7 +25,6 @@
 (require 'init-dired)
 (require 'init-program)
 (require 'init-lsp)
-(require 'init-evil)
 (require 'init-modeline)
 (require 'init-keybindings)
 (with-eval-after-load 'gnus

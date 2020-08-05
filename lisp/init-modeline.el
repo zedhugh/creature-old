@@ -124,4 +124,20 @@
 
 (creature/set-mode-line-format-for-exist-buffers)
 
+(defun creature/toggle-mode-line ()
+  "Switch `mode-line-format' between customized and the origin.
+Customized is save in `creature/mode-line-format',
+orgiin is in `creature/origin-mode-line-format'."
+
+  (let ((tmp-mode-line
+         (if (eq mode-line-format creature/mode-line-format)
+             creature/origin-mode-line-format
+           creature/mode-line-format)))
+    (mapc (lambda (buffer)
+            (with-current-buffer buffer
+              (setq mode-line-format tmp-mode-line)))
+          (buffer-list))
+    (setq-default mode-line-format tmp-mode-line)
+    nil))
+
 (provide 'init-modeline)

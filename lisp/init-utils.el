@@ -8,9 +8,12 @@
   (setq rime-posframe-style 'simple)
   (setq rime-posframe-fixed-position t)
   (setq rime-disable-predicates
-        '(rime-predicate-prog-in-code-p
-          rime-predicate-evil-mode-p
-          rime-predicate-hydra-p))
+        (if (featurep 'evil)
+            '(rime-predicate-prog-in-code-p
+              rime-predicate-evil-mode-p
+              rime-predicate-hydra-p)
+          '(rime-predicate-prog-in-code-p
+            rime-predicate-hydra-p)))
 
   (define-key rime-mode-map (kbd "M-i") 'rime-force-enable)
   (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))

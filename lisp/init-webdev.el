@@ -1,6 +1,7 @@
 ;;; web-mode
-(add-to-list 'auto-mode-alist '("\\.html\\'" . web-mode))
-(add-to-list 'auto-mode-alist '("\\.vue\\'" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html\\'"    . web-mode))
+(add-to-list 'auto-mode-alist '("\\.vue\\'"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'"     . web-mode))
 
 (with-eval-after-load 'web-mode
   ;; indent
@@ -26,6 +27,11 @@
                 web-mode-script-padding 0
                 web-mode-block-padding 0)))
 
+(defun creature/tsx-quote ()
+  (when (string-suffix-p ".tsx" (buffer-name) t)
+    (setq web-mode-enable-auto-quoting nil)
+    (setq web-mode-auto-quote-style 2)))
+
 (defun web-mode-setup ()
   (emmet-mode)
   (dolist (check '(jsx-tide tsx-tide typescript-tide))
@@ -33,6 +39,7 @@
   (make-local-variable 'company-backends)
   (add-to-list 'company-backends '(company-web-html company-css))
   (creature/vue-indent)
+  (creature/tsx-quote)
   (add-yas))
 
 (add-hook 'web-mode-hook 'web-mode-setup)
@@ -40,7 +47,6 @@
 ;;; javascript
 (add-to-list 'auto-mode-alist '("\\.js\\'"      . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'"     . js-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.tsx\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.cfg\\'"     . json-mode))
 (add-to-list 'auto-mode-alist '("\\.eslint"     . json-mode))
 (add-to-list 'auto-mode-alist '("\\.widget\\'"  . json-mode))

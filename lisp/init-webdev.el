@@ -40,13 +40,12 @@
 ;;; javascript
 (add-to-list 'auto-mode-alist '("\\.js\\'"      . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'"     . js-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.tsx\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.cfg\\'"     . json-mode))
 (add-to-list 'auto-mode-alist '("\\.eslint"     . json-mode))
 (add-to-list 'auto-mode-alist '("\\.widget\\'"  . json-mode))
 (add-to-list 'interpreter-mode-alist '("node"   . js-mode))
 (add-to-list 'interpreter-mode-alist '("nodejs" . js-mode))
-(add-to-list 'magic-mode-alist
-             '("import\s+.*+\s+from\s+['\"]react['\"]"  . js-jsx-mode))
 
 ;; indentation
 (with-eval-after-load 'js

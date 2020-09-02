@@ -25,6 +25,26 @@
 
 (defun creature/awesome-pair-setup ()
   (require 'awesome-pair)
+
+  (defun creature/awesome-pair-in-template-string-p ()
+    (and (awesome-pair-in-string-p)
+         (consp (awesome-pair-string-start+end-points))
+
+         (let* ((pos_cons (awesome-pair-string-start+end-points))
+                (start (car pos_cons))
+                (end (cdr pos_cons)))
+           (and (char-equal ?` (char-after start))
+                (char-equal ?` (char-after end))))))
+
+  (defun creature/awesome-pair-kill ()
+    (interactive)
+    (cond ((and (derived-mode-p 'js-mode 'typescript-mode 'web-mode)
+                (creature/awesome-pair-in-template-string-p)
+                (awesome-pair-in-curly-p))
+           (awesome-pair-kill-sexps-on-line))
+          (t
+           (awesome-pair-kill))))
+
   (add-hook 'prog-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-unix-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-windows-mode-hook #'awesome-pair-mode)
@@ -42,7 +62,7 @@
   (define-key awesome-pair-mode-map (kbd "SPC") 'awesome-pair-space)
   (define-key awesome-pair-mode-map (kbd "M-o") 'awesome-pair-backward-delete)
   (define-key awesome-pair-mode-map (kbd "C-d") 'awesome-pair-forward-delete)
-  (define-key awesome-pair-mode-map (kbd "C-k") 'awesome-pair-kill)
+  (define-key awesome-pair-mode-map (kbd "C-k") 'creature/awesome-pair-kill)
 
   (define-key awesome-pair-mode-map (kbd "M-\"") 'awesome-pair-wrap-double-quote)
   (define-key awesome-pair-mode-map (kbd "M-[") 'awesome-pair-wrap-bracket)
@@ -52,7 +72,8 @@
 
   (define-key awesome-pair-mode-map (kbd "M-N") 'awesome-pair-jump-right)
   (define-key awesome-pair-mode-map (kbd "M-P") 'awesome-pair-jump-left)
-  (define-key awesome-pair-mode-map (kbd "M-RET") 'awesome-pair-jump-out-pair-and-newline))
+  (define-key awesome-pair-mode-map (kbd "M-RET") 'awesome-pair-jump-out-pair-and-newline)
+  nil)
 
 (defun creature/smartparens-setup ()
   (install-packages 'smartparens)
@@ -60,7 +81,7 @@
     (require 'smartparens-config)
     (define-key smartparens-mode-map (kbd "C-k") 'sp-kill-hybrid-sexp)
     (define-key smartparens-mode-map (kbd "C-d") 'sp-delete-char)
-    (define-key smartparens-mode-map (kbd "M-d") 'sp-delete-word)
+    (define-key smartparens-mode-map (kbd "M-D") 'sp-delete-word)
     (define-key smartparens-mode-map (kbd "M-{") 'sp-wrap-curly)
     (define-key smartparens-mode-map (kbd "M-[") 'sp-wrap-square)
     (define-key smartparens-mode-map (kbd "M-(") 'sp-wrap-round)
@@ -68,6 +89,7 @@
 
   (smartparens-global-mode))
 
-(creature/smartparens-setup)
+;; (creature/smartparens-setup)
+(creature/awesome-pair-setup)
 
 (provide 'init-paredit)

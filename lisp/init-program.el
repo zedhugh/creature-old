@@ -17,7 +17,8 @@
 (add-hook 'prog-mode-hook 'hs-minor-mode)
 
 (with-eval-after-load 'flycheck
-  (setq flycheck-emacs-lisp-load-path load-path))
+  (setq flycheck-emacs-lisp-load-path load-path)
+  (flycheck-add-mode 'javascript-eslint 'web-mode))
 
 (add-hook 'prog-mode-hook
           (lambda ()

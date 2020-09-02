@@ -24,7 +24,10 @@
 ;; (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
 
 (defun creature/awesome-pair-setup ()
+  (install-packages 'smartparens)
   (require 'awesome-pair)
+  (require 'smartparens)
+  (require 'smartparens-config)
 
   (defun creature/awesome-pair-in-template-string-p ()
     (and (awesome-pair-in-string-p)
@@ -41,13 +44,14 @@
     (cond ((and (derived-mode-p 'js-mode 'typescript-mode 'web-mode)
                 (creature/awesome-pair-in-template-string-p)
                 (awesome-pair-in-curly-p))
-           (awesome-pair-kill-sexps-on-line))
+           (call-interactively #'sp-kill-hybrid-sexp))
           (t
            (awesome-pair-kill))))
 
   (add-hook 'prog-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-unix-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-windows-mode-hook #'awesome-pair-mode)
+  (add-hook 'web-mode-hook #'turn-on-smartparens-mode)
 
   (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
   (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)

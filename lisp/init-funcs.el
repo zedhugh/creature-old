@@ -47,9 +47,7 @@
         (message "No file associated to this buffer")))))
 
 ;;; indentation
-(defun creature/indent-region-or-buffer ()
-  "Indent a region if selected, otherwise the whole buffer."
-  (interactive)
+(defun creature/fallback-indent-func ()
   (unless (member major-mode creature/indent-sensitive-modes)
     (save-excursion
       (if (region-active-p)
@@ -60,6 +58,16 @@
           (indent-region (point-min) (point-max))
           (message "Indented buffer.")))
       (whitespace-cleanup))))
+
+(defun creature/indent-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (if (bound-and-true-p prettier-mode)
+      (if (region-active-p)
+          (creature/fallback-indent-func)
+        (prettier-prettify)
+        (message "Indented prettier buffer."))
+    (creature/fallback-indent-func)))
 
 ;;; company
 (defun enable-ispell ()

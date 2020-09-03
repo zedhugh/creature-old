@@ -14,7 +14,11 @@
   (add-to-list 'web-mode-indentation-params '("lineup-args" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-calls" . nil))
   (add-to-list 'web-mode-indentation-params '("lineup-concats" . nil))
-  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil)))
+  (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil))
+
+  (creature/set-keys web-mode-map
+    "C-M-b" #'sp-backward-sexp
+    "C-M-f" #'sp-forward-sexp))
 
 (setq emmet-preview-default t)
 (setq emmet-self-closing-tag-style " /")
@@ -45,13 +49,13 @@
 (add-hook 'web-mode-hook 'web-mode-setup)
 
 ;;; javascript
-(add-to-list 'auto-mode-alist '("\\.js\\'"      . js-mode))
-(add-to-list 'auto-mode-alist '("\\.jsx\\'"     . js-jsx-mode))
-(add-to-list 'auto-mode-alist '("\\.cfg\\'"     . json-mode))
-(add-to-list 'auto-mode-alist '("\\.eslint"     . json-mode))
-(add-to-list 'auto-mode-alist '("\\.widget\\'"  . json-mode))
-(add-to-list 'interpreter-mode-alist '("node"   . js-mode))
-(add-to-list 'interpreter-mode-alist '("nodejs" . js-mode))
+(add-to-list 'auto-mode-alist '("\\.js\\'"          . js-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'"         . js-jsx-mode))
+(add-to-list 'auto-mode-alist '("\\.cfg\\'"         . json-mode))
+(add-to-list 'auto-mode-alist '("\\.widget\\'"      . json-mode))
+(add-to-list 'auto-mode-alist '("\\.eslintrc\\'"    . json-mode))
+(add-to-list 'interpreter-mode-alist '("node"       . js-mode))
+(add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
 
 ;; indentation
 (with-eval-after-load 'js
@@ -70,5 +74,8 @@
           #'(lambda ()
               (unless (derived-mode-p 'json-mode)
                 (define-key js-mode-map (kbd "M-.") nil))))
+
+(install-packages 'prettier)
+(add-hook 'typescript-mode-hook 'prettier-mode)
 
 (provide 'init-webdev)

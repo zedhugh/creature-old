@@ -45,6 +45,8 @@
                 (creature/awesome-pair-in-template-string-p)
                 (awesome-pair-in-curly-p))
            (call-interactively #'sp-kill-hybrid-sexp))
+          ((derived-mode-p 'web-mode)
+           (call-interactively #'sp-kill-hybrid-sexp))
           (t
            (awesome-pair-kill))))
 

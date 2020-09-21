@@ -76,6 +76,18 @@
                 (define-key js-mode-map (kbd "M-.") nil))))
 
 (install-packages 'prettier)
-(add-hook 'typescript-mode-hook 'prettier-mode)
+(dolist (hook '(typescript-mode-hook web-mode-hook css-mode-hook scss-mode-hook))
+  (add-hook hook 'prettier-mode))
+(with-eval-after-load 'prettier
+  (setq prettier-web-mode-content-type-parsers
+        '((nil html)
+          ("javascript" . prettier--guess-js-ish)
+          ("jsx" typescript)
+          ("typescript" typescript)
+          ("css" css)
+          ("json" json json5)
+          ("markdown" markdown)
+          ("ruby" ruby)
+          ("sql" postgresql))))
 
 (provide 'init-webdev)

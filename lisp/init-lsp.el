@@ -1,3 +1,5 @@
+(install-packages 'lsp-treemacs)
+
 (with-eval-after-load 'lsp-ui
   ;; (require 'lsp-ui)
   (setq lsp-ui-doc-enable nil)
@@ -10,7 +12,6 @@
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (with-eval-after-load 'lsp-mode
-  (setq lsp-diagnostic-package :none)
   (setq lsp-restart 'auto-restart)
   (setq lsp-modeline-code-actions-enable nil)
 
@@ -42,13 +43,20 @@
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
   (unless (featurep 'tramp)
     (require 'tramp))
-  (when (derived-mode-p 'c-mode 'c++-mode)
-    (setq-local lsp-diagnostic-package :auto))
   (when (and
          (buffer-file-name)
          (not (tramp-tramp-file-p (buffer-file-name)))
          (member major-mode creature/lsp-setup-modes))
-    (lsp-deferred)))
+    (lsp-deferred)
+    (lsp-diagnostics-mode)))
+
+(defun creature/lsp-eslint-checker-init ()
+  (make-local-variable 'flycheck-checkers)
+  (when (and (flycheck-valid-checker-p 'lsp)
+             (flycheck-valid-checker-p 'javascript-eslint))
+    (flycheck-add-next-checker 'lsp 'javascript-eslint)))
+
+(add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
 (add-hook 'prog-mode-hook #'lsp-setup)
 
 (projectile-mode)

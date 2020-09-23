@@ -185,13 +185,4 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                                             t
                                           'bar))))))
 
-(defun creature/extention-escape ()
-  ;; release C-[ keybindings from escape
-  ;; reference https://emacs.stackexchange.com/questions/7832/how-to-bind-c-for-real
-  ;; only work for gui, so launch Emacs with `emacs --daemon' is not work
-  ;; so this config only can put here
-  (define-key input-decode-map
-    (kbd "C-[")
-    [Control-Bracketleft]))
-
 (provide 'init-funcs)

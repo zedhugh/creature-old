@@ -3,12 +3,7 @@
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
 (global-set-key (kbd "DEL") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
-
-(defun creature/escape-insert-backquote ()
-  "Escape key in Emacs is useless.
-Replace by `backquote' is a better way with my mini keyboard."
-  (define-key key-translation-map (kbd "ESC") (kbd "`")))
-(creature/escape-insert-backquote)
+(global-set-key  (kbd "C-c '") (kbd "`"))
 
 ;;; company
 (define-key company-active-map (kbd "C-n")

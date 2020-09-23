@@ -27,14 +27,11 @@
 
 (add-hook 'server-after-make-frame-hook
           (lambda ()
-            (creature/fontset)
-            (creature/extention-escape)
-            ))
+            (creature/fontset)))
 
 (add-hook 'emacs-startup-hook
           (lambda ()
             (creature/fontset)
-            (creature/extention-escape)
             (condition-case nil
                 (pinentry-start)
               (error nil))

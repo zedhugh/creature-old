@@ -33,6 +33,8 @@
   '(c-mode
     c++-mode
     html-mode
+    css-mode
+    scss-mode
     js-mode
     js-jsx-mode
     web-mode

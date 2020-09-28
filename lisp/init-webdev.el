@@ -33,6 +33,7 @@
 
 (defun creature/tsx-quote ()
   (when (string-suffix-p ".tsx" (buffer-name) t)
+    (set (make-local-variable 'emmet-expand-jsx-className?) t)
     (setq web-mode-enable-auto-quoting nil)
     (setq web-mode-auto-quote-style 2)))
 
@@ -42,6 +43,8 @@
     (setq-local flycheck-checkers (delete check flycheck-checkers)))
   (make-local-variable 'company-backends)
   (add-to-list 'company-backends '(company-web-html company-css))
+  (when (member web-mode-content-type '("typescript" "jsx" "javascript"))
+    (flycheck-add-mode 'javascript-eslint 'web-mode))
   (creature/vue-indent)
   (creature/tsx-quote)
   (add-yas))

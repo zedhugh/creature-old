@@ -84,6 +84,9 @@
          ("JavaScript" (or
                         (mode . js-mode)
                         (mode . js-jsx-mode)))
+         ("TSX" (and (mode . web-mode)
+                     (basename . "^.*\\.tsx$")))
+
          ("Lsp" (or
                  (name . "^\\*lsp-log\\*$")
                  (name . "^\\*clangd\\*$")

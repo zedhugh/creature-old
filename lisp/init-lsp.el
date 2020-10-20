@@ -50,7 +50,9 @@
          (not (tramp-tramp-file-p (buffer-file-name)))
          (member major-mode creature/lsp-setup-modes))
     (lsp-deferred)
-    (lsp-diagnostics-mode)))
+    (lsp-diagnostics-mode))
+  (when (derived-mode-p 'css-mode 'scss-mode 'less-css-mode)
+    (setq-local lsp-overlay-document-color-char "")))
 
 (defun creature/lsp-eslint-checker-init ()
   (make-local-variable 'flycheck-checkers)

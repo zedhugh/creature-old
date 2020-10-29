@@ -1,4 +1,9 @@
-(load-theme 'molokai t)
+;; some beautifule theme built-in
+;; dark: modus-vivendi/wombat/misterioso/tango-dark/wheatgrass
+;; light: whiteboard
+(if (member 'modus-vivendi (custom-available-themes))
+    (load-theme 'modus-vivendi t)
+  (load-theme 'whiteboard t))
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))
@@ -31,7 +36,6 @@
 ;; window number
 (winum-mode)
 
-(set-face-attribute font-lock-comment-face nil :slant 'italic)
 (global-hl-line-mode)
 
 (provide 'init-theme)

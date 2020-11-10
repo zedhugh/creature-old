@@ -10,6 +10,8 @@
   (make-directory creature-cache))
 (setq smex-save-file
       (expand-file-name ".smex-items" creature-cache))
+(amx-mode)
+(setq amx-save-file (expand-file-name ".amx-items" creature-cache))
 
 ;; ivy pinyin search
 ;; let "ivy-read" support chinese pinyin

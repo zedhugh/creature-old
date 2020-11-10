@@ -32,7 +32,7 @@
                 web-mode-block-padding 0)))
 
 (defun creature/tsx-quote ()
-  (when (string-suffix-p ".tsx" (buffer-name) t)
+  (when (string-suffix-p ".tsx" (buffer-file-name) t)
     (set (make-local-variable 'emmet-expand-jsx-className?) t)
     (setq web-mode-enable-auto-quoting nil)
     (setq web-mode-auto-quote-style 2)))

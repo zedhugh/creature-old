@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: react function component template
-# key: rtf
+# name: react function component template in typescript
+# key: rft
 # --
 import React, { FC } from 'react';
 

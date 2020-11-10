@@ -70,7 +70,7 @@ otherwise, install `PACKAGES'."
                     counsel
                     ivy
                     swiper
-                    smex
+                    amx
                     pinyinlib
 
                     ;; magit

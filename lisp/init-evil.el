@@ -20,6 +20,7 @@
 (evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
 
 ;; initial state for modes
+(evil-set-initial-state 'Info-mode 'emacs)
 (evil-set-initial-state 'dired-mode 'emacs)
 (evil-set-initial-state 'image-mode 'emacs)
 (evil-set-initial-state 'Custom-mode 'emacs)

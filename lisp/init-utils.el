@@ -30,4 +30,14 @@
 
 (editorconfig-mode)
 
+;;; mingus/mpd (music)
+(install-packages 'mingus)
+(setq mingus-mode-line-separator " - ")
+(global-set-key (kbd "C-c m") #'mingus)
+(with-eval-after-load 'evil-core
+  (dolist (func '(mingus-help-mode
+                  mingus-browse-mode
+                  mingus-playlist-mode))
+    (advice-add func :after #'evil-emacs-state)))
+
 (provide 'init-utils)

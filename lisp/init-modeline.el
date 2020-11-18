@@ -80,6 +80,24 @@
   "Customize company lighter.")
 (put 'creature/mode-line-company-info 'risky-local-variable t)
 
+(defvar creature/mode-line-mingus-info
+  '(:eval
+    (when (and mingus-status
+               (or mingus-mode-always-modeline
+                   (member (buffer-name)
+                           '("*Mingus Browser*"
+                             "*Mingus Help*"
+                             "*Mingus*"
+                             "*Mingus Burns*"))))
+      (let ((str (mingus-make-mode-line-string)))
+        (when str
+          (format " %s"
+                  (replace-regexp-in-string
+                   "%" "%%"
+                   (mingus-make-mode-line-string)))))))
+  "Customize mingus info.")
+(put 'creature/mode-line-mingus-info 'risky-local-variable t)
+
 ;; combin mode line fromat
 (defvar creature/mode-line-format
   '("%e"
@@ -100,6 +118,7 @@
     "%l,%c" ; line and column
     ")"
     creature/mode-line-evil-state
+    creature/mode-line-mingus-info
     " ("
     mode-name ; major mode
     mode-line-process

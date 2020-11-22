@@ -82,7 +82,8 @@
 
 (defvar creature/mode-line-mingus-info
   '(:eval
-    (when (and mingus-status
+    (when (and (featurep 'mingus)
+               mingus-status
                (or mingus-mode-always-modeline
                    (member (buffer-name)
                            '("*Mingus Browser*"

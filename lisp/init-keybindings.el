@@ -1,52 +1,19 @@
-(global-set-key (kbd "C-s") #'creature/counsel-grep-or-swiper)
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
 (global-set-key (kbd "s-v") 'clipboard-yank)
 (global-set-key (kbd "s-c") 'clipboard-kill-ring-save)
-(global-set-key (kbd "DEL") 'backward-delete-char-untabify)
 (global-set-key (kbd "C-M-\\") 'creature/indent-region-or-buffer)
 (global-set-key  (kbd "C-c '") (kbd "`"))
 
-;;; company
-(define-key company-active-map (kbd "C-n")
-  #'company-complete-common-or-cycle)
-(define-key company-active-map (kbd "C-p")
-  (defun creature/company-select-prev ()
-    (interactive)
-    (company-complete-common-or-cycle -1)))
-(define-key company-mode-map (kbd "C-'") #'company-files)
-
-(global-set-key (kbd "s-w") #'aya-create)
-(global-set-key (kbd "s-y") #'aya-expand)
-(global-set-key (kbd "C-o") #'aya-open-line)
-
-;; (with-eval-after-load 'paredit-everywhere
-;;   ;; (define-key paredit-mode-map (kbd ";") nil)
-;;   (define-key paredit-everywhere-mode-map (kbd "C-k") 'paredit-kill)
-;;   (define-key paredit-everywhere-mode-map (kbd "C-d") 'paredit-forward-delete)
-;;   (define-key paredit-everywhere-mode-map (kbd "DEL") 'paredit-backward-delete))
-
-;;; symbol-overlay-map
-;; "i" -> symbol-overlay-put
-;; "n" -> symbol-overlay-jump-next
-;; "p" -> symbol-overlay-jump-prev
-;; "w" -> symbol-overlay-save-symbol
-;; "t" -> symbol-overlay-toggle-in-scope
-;; "e" -> symbol-overlay-echo-mark
-;; "d" -> symbol-overlay-jump-to-definition
-;; "s" -> symbol-overlay-isearch-literally
-;; "q" -> symbol-overlay-query-replace
-;; "r" -> symbol-overlay-rename
-(global-set-key (kbd "s-i") 'symbol-overlay-put)
-(global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
-(global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
+(setq backward-delete-char-untabify-method 'hungry)
+(global-set-key (kbd "DEL") 'backward-delete-char-untabify)
 
 ;;; mwim
 (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
 (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
 
-;;; org mode
-;; better behavior for "RET" key
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "RET") 'org-return-indent))
+(defconst creature/prefix-key "M-m"
+  "Prefix key for `creature-map'.")
 
 (define-prefix-command 'creature-map)
 (global-set-key (kbd creature/prefix-key) 'creature-map)
@@ -105,45 +72,12 @@
 
   "SPC" 'execute-extended-command)
 
-(creature/which-key-declare-prefixes creature/prefix-key
-  "b"  "buffer"
-  "c"  "comments"
-  "e"  "errors"
-  "el" "lines"
-  "ex" "error message"
-  "f"  "files"
-  "g"  "magit"
-  "gf" "magit files"
-  "h"  "help"
-  "q"  "quit option"
-  "s"  "evil surround"
-  "y"  "youdao"
-  "j"  "jump"
-  "yp" "pronunciation"
-  "ys" "translate")
-
-;;; kill buffer when quit-window.
-(define-key global-map [remap list-buffers] 'ibuffer)
-
-;; jump by avy
-(define-key global-map (kbd "M-g w") #'avy-goto-word-1)
-(define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
-
 (with-eval-after-load 'emmet-mode
   (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))
 
-(with-eval-after-load 'projectile
-  (global-set-key (kbd "C-c p") #'projectile-command-map))
-
-(define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
-(define-key winum-keymap (kbd "M-1") 'winum-select-window-1)
-(define-key winum-keymap (kbd "M-2") 'winum-select-window-2)
-(define-key winum-keymap (kbd "M-3") 'winum-select-window-3)
-(define-key winum-keymap (kbd "M-4") 'winum-select-window-4)
-(define-key winum-keymap (kbd "M-5") 'winum-select-window-5)
-(define-key winum-keymap (kbd "M-6") 'winum-select-window-6)
-(define-key winum-keymap (kbd "M-7") 'winum-select-window-7)
-(define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
-(define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
+;; (when sys/win32p
+;;   ;; (w32-register-hot-key [s-t])
+;;   (setq-default w32-apps-modifier 'hyper)
+;;   (setq-default w32-lwindow-modifier 'super))
 
 (provide 'init-keybindings)

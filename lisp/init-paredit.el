@@ -1,3 +1,7 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(delete-selection-mode)
+
 (electric-pair-mode)
 
 (show-paren-mode)
@@ -24,7 +28,11 @@
 ;; (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
 
 (defun creature/awesome-pair-setup ()
-  (install-packages 'smartparens)
+  (creature/install-packages 'smartparens)
+  (add-to-list 'load-path
+               (expand-file-name
+                "site-lisp/awesome-pair"
+                creature/config-dir))
   (require 'awesome-pair)
   (require 'smartparens)
   (require 'smartparens-config)
@@ -82,7 +90,7 @@
   nil)
 
 (defun creature/smartparens-setup ()
-  (install-packages 'smartparens)
+  (creature/install-packages 'smartparens)
   (with-eval-after-load 'smartparens
     (require 'smartparens-config)
     (define-key smartparens-mode-map (kbd "C-k") 'sp-kill-hybrid-sexp)

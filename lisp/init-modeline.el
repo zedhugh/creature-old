@@ -1,8 +1,19 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(defun creature/set-mode-line-format-for-exist-buffers ()
+  "Make customized mode line works in exist buffers."
+  (mapc (lambda (buffer)
+          (with-current-buffer buffer
+            (setq mode-line-format creature/mode-line-format)))
+        (buffer-list)))
+
 ;; window numbering
 (unless (fboundp #'winum-get-number-string)
-  (require 'winum))
+  (require 'winum nil t))
 (defvar creature/mode-line-window-number
-  '(:eval (winum-get-number-string))
+  '(:eval (when (and winum-mode
+                     (fboundp #'winum-get-number-string))
+            (winum-get-number-string)))
   "Get window number by winum.")
 (put 'creature/mode-line-window-number 'risky-local-variable t)
 
@@ -58,9 +69,14 @@
 ;; marker region info
 (defvar creature/focus-window nil
   "Current focus window.")
+
+(defun creature/save-current-window ()
+  "Save current window."
+  (setq creature/focus-window (selected-window)))
+
 (add-hook 'post-command-hook
-          (lambda ()
-            (setq creature/focus-window (selected-window))))
+          #'creature/save-current-window)
+
 (defvar creature/mode-line-region-info
   '(:eval
     (when (and (region-active-p) (eq creature/focus-window (selected-window)))
@@ -75,7 +91,8 @@
 (defvar creature/mode-line-company-info
   '(:eval
     (when (and (not buffer-read-only)
-               (or company-mode global-company-mode))
+               (or (bound-and-true-p company-mode)
+                   (bound-and-true-p global-company-mode)))
       company-lighter))
   "Customize company lighter.")
 (put 'creature/mode-line-company-info 'risky-local-variable t)

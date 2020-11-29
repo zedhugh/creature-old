@@ -1,3 +1,12 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(creature/install-packages
+  '(counsel
+    ivy
+    swiper
+    amx
+    pinyinlib))
+
 (ivy-mode)
 (counsel-mode)
 
@@ -6,12 +15,12 @@
 (setq enable-recursive-minibuffers t)
 
 ;; smex freq file keep in cache directory
-(unless (file-exists-p creature-cache)
-  (make-directory creature-cache))
+(unless (file-exists-p creature/cache-dir)
+  (make-directory creature/cache-dir))
 (setq smex-save-file
-      (expand-file-name ".smex-items" creature-cache))
+      (expand-file-name ".smex-items" creature/cache-dir))
 (amx-mode)
-(setq amx-save-file (expand-file-name ".amx-items" creature-cache))
+(setq amx-save-file (expand-file-name ".amx-items" creature/cache-dir))
 
 ;; ivy pinyin search
 ;; let "ivy-read" support chinese pinyin
@@ -23,7 +32,7 @@
 
 (setq ivy-re-builders-alist '((t . re-builder-pinyin)))
 
-(defun my-pinyinlib-build-regexp-string (str)
+(defun creature/pinyinlib-build-regexp-string (str)
   (progn
     (cond ((equal str ".*") ".*")
           (t (pinyinlib-build-regexp-string str t)))))
@@ -36,7 +45,7 @@
 (defun pinyin-to-utf8 (str)
   (cond ((equal 0 (length str))nil)
         ((equal (substring str 0 1) "?")
-         (mapconcat 'my-pinyinlib-build-regexp-string
+         (mapconcat 'creature/pinyinlib-build-regexp-string
                     (remove nil
                             (mapcar 'my-pinyin-regexp-helper
                                     (split-string
@@ -57,5 +66,7 @@
         (set-mark-command end)
         (counsel-grep-or-swiper string))
     (counsel-grep-or-swiper)))
+
+(global-set-key (kbd "C-s") #'creature/counsel-grep-or-swiper)
 
 (provide 'init-swiper)

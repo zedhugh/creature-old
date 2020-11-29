@@ -1,57 +1,41 @@
-;;; evil mode keybindings
+;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;; evil-leader should enable before evil,
-;; otherwise evil-leader will not work.
-;; (global-evil-leader-mode)
-;; (setq evil-leader/in-all-states t)
-;; (setq evil-leader/non-normal-prefix "S-")
-;; (evil-leader/set-leader "<SPC>")
+(creature/install-packages
+  '(mwim
+    evil
+    evil-matchit
+    evil-surround
+    evil-nerd-commenter))
 
+(setq evil-undo-system 'undo-redo)
 (evil-mode)
 (setcdr evil-insert-state-map nil)
-(evil-global-set-key 'insert [escape] 'evil-normal-state)
-(evil-global-set-key 'visual [escape] 'evil-normal-state)
-(evil-global-set-key 'normal [escape] 'evil-normal-state)
-(evil-global-set-key 'replace [escape] 'evil-normal-state)
+(evil-global-set-key 'insert [escape] #'evil-normal-state)
+(evil-global-set-key 'visual [escape] #'evil-normal-state)
+(evil-global-set-key 'normal [escape] #'evil-normal-state)
+(evil-global-set-key 'replace [escape] #'evil-normal-state)
 (evil-global-set-key 'motion (kbd "TAB") nil)
 (evil-global-set-key 'motion (kbd "<SPC>") #'creature-map)
 (evil-global-set-key 'normal (kbd "<SPC>") #'creature-map)
 (evil-global-set-key 'visual (kbd "<SPC>") #'creature-map)
-(evil-global-set-key 'normal (kbd "C-u") 'evil-scroll-up)
+(evil-global-set-key 'normal (kbd "C-u") #'evil-scroll-up)
 
-;; initial state for modes
-(evil-set-initial-state 'Info-mode 'emacs)
-(evil-set-initial-state 'dired-mode 'emacs)
-(evil-set-initial-state 'image-mode 'emacs)
-(evil-set-initial-state 'Custom-mode 'emacs)
-(evil-set-initial-state 'special-mode 'emacs)
-(evil-set-initial-state 'compilation-mode 'emacs)
-(evil-set-initial-state 'package-menu-mode 'emacs)
-(evil-set-initial-state 'messages-buffer-mode 'motion)
-(evil-set-initial-state 'youdao-dictionary-mode 'motion)
-(evil-set-initial-state 'flycheck-error-list-mode 'emacs)
+(dolist (mode '(Info-mode
+                dired-mode
+                image-mode
+                Custom-mode
+                special-mode
+                compilation-mode
+                package-menu-mode
+                flycheck-error-list-mode))
+  (evil-set-initial-state mode 'emacs))
+
+(dolist (mode '(messages-buffer-mode
+                youdao-dictionary-mode))
+  (evil-set-initial-state mode 'motion))
+(add-to-list 'evil-buffer-regexps '("^\\*About GNU Emacs\\*\\'" . motion))
+(add-to-list 'evil-buffer-regexps '("^COMMIT_EDITMSG\\'" . insert))
 (evil-change-to-initial-state "*Messages*")
-
-(defun creature/magit-commit-buffer-state ()
-  (run-with-idle-timer 0.01 nil
-                       (lambda ()
-                         (ignore-errors
-                           (with-current-buffer "COMMIT_EDITMSG"
-                             (evil-insert-state))))))
-(add-hook 'text-mode-hook #'creature/magit-commit-buffer-state)
-
-(define-advice about-emacs (:after nil)
-  (with-current-buffer "*About GNU Emacs*"
-    (evil-motion-state)))
-
-;;; evil cursor style
-(defun emacs-state-cursor-bar ()
-  "Change cursor for emacs state to bar."
-  (set (make-local-variable 'evil-emacs-state-cursor)
-       'bar))
-
-(add-hook 'text-mode-hook 'emacs-state-cursor-bar)
-(add-hook 'prog-mode-hook 'emacs-state-cursor-bar)
 
 ;; enable evil matchit mode
 (global-evil-matchit-mode)
@@ -62,5 +46,8 @@
   "cc" 'evil-surround-change
   "cd" 'evil-surround-delete
   "cs" 'evil-surround-region)
+
+(global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
+(global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
 
 (provide 'init-evil)

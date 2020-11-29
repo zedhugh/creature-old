@@ -1,18 +1,22 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(creature/install-packages
+  '(company
+    yasnippet
+    auto-yasnippet
+    posframe
+    company-posframe
+    yasnippet-snippets))
+
 (global-company-mode)
 (setq company-idle-delay 0)
 (setq company-show-numbers t)
 (setq company-require-match nil)
 (setq company-minimum-prefix-length 2)
 (setq company-clang-insert-arguments t)
-
-(add-hook 'text-mode-hook 'enable-ispell)
-
 (setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
 (setq company-dabbrev-code-other-buffers 'all)
 (setq company-dabbrev-downcase nil)
-
-(yas-global-mode)
-(add-hook 'yas-minor-mode-hook 'add-yas)
 
 (company-posframe-mode)
 (setq company-posframe-show-indicator nil)
@@ -20,4 +24,38 @@
 (require 'desktop)
 (push '(company-posframe-mode . nil)
       desktop-minor-mode-table)
+
+
+(defun creature/enable-ispell ()
+  "Turn on spell prompt local buffer."
+  (set (make-local-variable 'company-backends)
+       (add-to-list 'company-backends 'company-ispell 'append)))
+(add-hook 'text-mode-hook 'creature/enable-ispell)
+
+(yas-global-mode)
+
+(defun creature/show-snippets-in-company (backend)
+  (if (and (listp backend) (member 'company-yasnippet backend))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
+
+(defun creature/company-add-yas ()
+  "Add yasnippet to company popup menu."
+  (set (make-local-variable 'company-backends)
+       (mapcar 'creature/show-snippets-in-company company-backends)))
+(add-hook 'yas-minor-mode-hook 'creature/company-add-yas)
+
+(define-key company-active-map (kbd "C-n")
+  #'company-complete-common-or-cycle)
+(define-key company-active-map (kbd "C-p")
+  (defun creature/company-select-prev ()
+    (interactive)
+    (company-complete-common-or-cycle -1)))
+(define-key company-mode-map (kbd "C-'") #'company-files)
+
+(global-set-key (kbd "s-w") #'aya-create)
+(global-set-key (kbd "s-y") #'aya-expand)
+(global-set-key (kbd "C-o") #'aya-open-line)
+
 (provide 'init-company)

@@ -1,130 +1,47 @@
-(when sys/win32p
-  ;; (w32-register-hot-key [s-t])
-  (setq-default w32-apps-modifier 'hyper)
-  (setq-default w32-lwindow-modifier 'super))
+;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(require 'server)
-(if (server-running-p)
-    t
-  (server-start))
+(defconst creature/scratch-message
+  (concat ";; Happy hacking "
+          (or (user-login-name) "user")
+          " - Emacs loves you.\n\n")
+  "Customized initial scratch buffer message.")
+(setq-default initial-scratch-message creature/scratch-message)
 
-(delete-selection-mode)
+(global-display-line-numbers-mode)
 
-(setq backward-delete-char-untabify-method 'hungry)
+;;; folding
+(add-hook 'prog-mode-hook 'hs-minor-mode)
 
-;;; ediff
-(setq ediff-split-window-function 'split-window-horizontally)
-(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+;; address style
+(add-hook 'erc-mode-hook 'goto-address-mode)
+(add-hook 'text-mode-hook 'goto-address-mode)
+(add-hook 'prog-mode-hook 'goto-address-prog-mode)
 
-;;; recentf mode - record recently edit file
-(recentf-mode)
-(setq recentf-max-saved-items 1000)
-(add-to-list 'recentf-exclude (expand-file-name package-user-dir))
-(add-to-list 'recentf-exclude "bookmarks")
-(add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+;; cursor style - box for readonly buffer, bar for others
+(defun creature/cursor-style ()
+  "Set `cursor-type' to `bar' with buffer local."
+  (set (make-local-variable 'cursor-type)
+       (if buffer-read-only t 'bar))
+  (setq-local read-only-mode-hook
+              (add-hook 'read-only-mode-hook
+                        #'(lambda ()
+                            (setq-local cursor-type
+                                        (if buffer-read-only
+                                            t
+                                          'bar))))))
 
-;;; minibuffer history
-(savehist-mode)
-(setq enable-recursive-minibuffers t)
-(setq history-length 1000)
-(setq savehist-additional-variables
-      '(mark-ring
-        global-mark-ring
-        search-ring
-        regexp-search-ring
-        extended-command-history))
-(setq savehist-autosave-interval 60)
+(dolist (hook '(prog-mode-hook
+                text-mode-hook
+                conf-unix-mode-hook
+                conf-windows-mode-hook))
+  (add-hook hook #'creature/cursor-style))
 
-;;; save cursor position
-(save-place-mode)
-
-;;; don't show prompt when call function
-(fset 'yes-or-no-p 'y-or-n-p)
-(put 'erase-buffer 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disable nil)
-(put 'narrow-to-region 'disabled nil)
-
-;; automatically reload files which modified by external program
-(global-auto-revert-mode)
-
-;; show trailing whitespace
-(add-hook 'find-file-hook
-          (defun show-trailing-whitespace ()
-            (set (make-local-variable 'show-trailing-whitespace) t)))
-
-;; delete file directly
-(setq delete-by-moving-to-trash t)
-
-;; don't backup file
-(setq make-backup-files nil)
-
-;; auto save file
-(setq auto-save-default t)
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-;; don't create lockfiles named ".#file-name" in Windows OS
-(if sys/win32p
-    (setq create-lockfiles nil)
-  (setq create-lockfiles t))
-
-;;; ibuffer
-(setq ibuffer-saved-filter-groups
-      '(("Default"
-         ("ERC" (mode . erc-mode))
-         ("Org" (mode . org-mode))
-         ("Elisp" (mode . emacs-lisp-mode))
-         ("Magit" (name . "^magit[:-].*$"))
-         ("TypeScript" (mode . typescript-mode))
-         ("CSS" (or
-                 (mode . css-mode)
-                 (mode . scss-mode)
-                 (mode . less-css-mode)))
-         ("JavaScript" (or
-                        (mode . js-mode)
-                        (mode . js-jsx-mode)))
-         ("TSX" (and (mode . web-mode)
-                     (basename . "^.*\\.tsx$")))
-
-         ("Lsp" (or
-                 (name . "^\\*lsp-log\\*$")
-                 (name . "^\\*clangd\\*$")
-                 (name . "^\\*clangd::stderr\\*$")
-                 (name . "^\\*.*-ls\\*$")
-                 (name . "^\\*.*-ls::stderr\\*$"))))))
-(add-hook 'ibuffer-mode-hook
+(add-hook 'prog-mode-hook
           (lambda ()
-            (ibuffer-auto-mode)
-            (ibuffer-switch-to-saved-filter-groups "Default")
-            ))
+            (font-lock-add-keywords
+             nil '(("\\<\\(FIXME\\|DEBUG\\|TODO\\):"
+                    1 font-lock-warning-face prepend)))))
 
-;; don't show filter groups if there are no buffers in that group
-(setq ibuffer-show-empty-filter-groups nil)
-
-;; don't ask for confirmation to delete marked buffers
-(setq ibuffer-expert t)
-
-;; kill custom buffer when quit
-(setq custom-buffer-done-kill t)
-
-;; gpg config
-(defun creature/kill-gpg-agent ()
-  "Kill `gpg-agent' for security when Emacs be killed."
-  (when (and (bound-and-true-p epg-gpgconf-program)
-             (executable-find epg-gpgconf-program))
-    (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
-(add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
-
-(keyfreq-mode)
-(keyfreq-autosave-mode)
-(setq keyfreq-file
-      (expand-file-name ".keyfreq" creature-cache))
-(setq keyfreq-excluded-commands
-      '(self-insert-command
-        forward-char
-        backward-char
-        previous-line
-        next-line))
+(global-hl-line-mode)
 
 (provide 'init-misc)

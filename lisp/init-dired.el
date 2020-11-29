@@ -1,3 +1,5 @@
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
 (with-eval-after-load 'dired
   (require 'dired-x)
   (setq dired-dwim-target t)

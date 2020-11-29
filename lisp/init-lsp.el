@@ -1,4 +1,9 @@
-(install-packages 'lsp-treemacs)
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(creature/install-packages
+  '(lsp-mode
+    lsp-ui
+    lsp-treemacs))
 
 (with-eval-after-load 'lsp-ui
   ;; (require 'lsp-ui)
@@ -23,7 +28,7 @@
                         "-ls\\*"))
     (add-to-list 'ivy-ignore-buffers lsp-buffer))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-hook 'lsp-on-idle-hook #'add-yas))
+  (add-hook 'lsp-on-idle-hook #'creature/company-add-yas))
 
 (with-eval-after-load 'company
   ;; sort candidates
@@ -62,8 +67,5 @@
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
 (add-hook 'prog-mode-hook #'lsp-setup)
-
-(projectile-mode)
-(counsel-projectile-mode)
 
 (provide 'init-lsp)

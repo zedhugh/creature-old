@@ -1,5 +1,28 @@
-;;; org pomodoro
-(when sys/win32p
+;; -*- coding: utf-8; lexical-binding: t; -*-
+
+(creature/install-packages '(htmlize
+                             org-pomodoro
+                             org-plus-contrib
+                             ox-hugo))
+
+;; customize mode for src lang
+(defconst creature/org-src-lang-modes
+  '(("js"   . js)
+    ("ts"   . typescript)
+    ("html" . web))
+  "Better src lang reflex to mode.")
+
+;; enable code block in org file
+(defconst creature/org-src-enable-lang
+  '((C          . t)
+    (js         . t)
+    (latex      . t)
+    (shell      . t)
+    (python     . t)
+    (emacs-lisp . t))
+  "Enabled lang in org src code block.")
+
+(when creature/sys-win32p
   (with-eval-after-load 'org-pomodoro
     (setq org-pomodoro-audio-player "mplayer")))
 
@@ -25,7 +48,7 @@
   ;; config latex preview
   (setq org-preview-latex-default-process 'dvipng)
   (setq org-preview-latex-image-directory
-        (expand-file-name "ltximg/" creature-cache))
+        (expand-file-name "ltximg/" creature/cache-dir))
 
   ;; don't prompt before eval code
   (setq org-confirm-babel-evaluate nil)
@@ -38,7 +61,9 @@
    'org-babel-load-languages
    creature/org-src-enable-lang)
   (dolist (src2mode creature/org-src-lang-modes)
-    (add-to-list 'org-src-lang-modes src2mode)))
+    (add-to-list 'org-src-lang-modes src2mode))
+
+  (define-key org-mode-map (kbd "RET") 'org-return-indent))
 
 (with-eval-after-load 'ox
   (require 'ox-hugo))

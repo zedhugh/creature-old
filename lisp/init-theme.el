@@ -1,5 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/install-packages
+  '(rainbow-delimiters
+    rainbow-delimiters
+    rainbow-identifiers
+    page-break-lines))
+
 (defconst creature/font-config
   ;; '("Operator Mono Book" . 16)
   (if creature/sys-win32p
@@ -43,11 +49,6 @@ if FRAME is nil, setup for current frame."
 (if (member 'modus-vivendi (custom-available-themes))
     (load-theme 'modus-vivendi t)
   (load-theme 'whiteboard t))
-
-(creature/install-packages '(rainbow-delimiters
-                             rainbow-delimiters
-                             rainbow-identifiers
-                             page-break-lines))
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))

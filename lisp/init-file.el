@@ -1,5 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/install-packages
+  '(editorconfig
+    lua-mode
+    company-lua
+    vimrc-mode))
+
 (prefer-coding-system 'utf-8)
 
 ;;; indentation
@@ -69,12 +75,7 @@
     (setq create-lockfiles nil)
   (setq create-lockfiles t))
 
-(creature/install-packages 'editorconfig)
 (editorconfig-mode)
-
-(creature/install-packages '(lua-mode
-                             company-lua
-                             vimrc-mode))
 
 (defun creature/lua-company-setup ()
   (set (make-local-variable 'company-backends)

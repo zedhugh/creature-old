@@ -1,5 +1,23 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/install-packages
+  '(pinentry
+    keyfreq
+    rime
+    forge
+    gitattributes-mode
+    gitconfig-mode
+    gitignore-mode
+    rg
+    symbol-overlay
+    winum
+    projectile
+    counsel-projectile
+    avy
+    undo-tree
+    expand-region
+    youdao-dictionary))
+
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -12,14 +30,12 @@
     (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
 (add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
 
-(creature/install-packages 'pinentry)
 (defun creature/start-pinentry ()
   (condition-case nil
       (pinentry-start)
     (error nil)))
 (add-hook 'emacs-startup-hook #'creature/start-pinentry)
 
-(creature/install-packages 'keyfreq)
 (keyfreq-mode)
 (keyfreq-autosave-mode)
 (setq keyfreq-file
@@ -32,7 +48,6 @@
         next-line))
 
 ;; rime
-(creature/install-packages 'rime)
 (setq rime-emacs-module-header-root "/usr/include/emacs-28-vcs")
 (setq default-input-method "rime")
 (with-eval-after-load 'rime
@@ -52,19 +67,12 @@
   (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))
 
 ;;; magit
-(creature/install-packages '(forge
-                             gitattributes-mode
-                             gitconfig-mode
-                             gitignore-mode))
 ;; (with-eval-after-load 'magit
 ;;   (require 'forge))
 (setq magit-revision-show-gravatars
       '("^Author:     " . "^Commit:     "))
 
-(creature/install-packages '(rg
-                             symbol-overlay))
 
-(creature/install-packages 'rg)
 (rg-enable-default-bindings)
 
 ;;; symbol-overlay-map
@@ -83,7 +91,6 @@
 (global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
 
 ;; window number
-(creature/install-packages 'winum)
 (setq winum-auto-setup-mode-line nil)
 (winum-mode)
 (define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
@@ -97,18 +104,10 @@
 (define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
 (define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
 
-(creature/install-packages
-  '(projectile
-    counsel-projectile))
-(with-eval-after-load 'projectile
-  (global-set-key (kbd "C-c p") #'projectile-command-map))
+(projectile-mode)
+(global-set-key (kbd "C-c p") #'projectile-command-map)
 
-(creature/install-packages 'avy)
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
-
-(creature/install-packages '(undo-tree
-                             expand-region
-                             youdao-dictionary))
 
 (provide 'init-tools)

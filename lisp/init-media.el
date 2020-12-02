@@ -1,7 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;;; mingus/mpd (music)
 (creature/install-packages 'mingus)
+
+;;; mingus/mpd (music)
 (setq mingus-mode-line-separator " - ")
 (global-set-key (kbd "C-c m") #'mingus)
 (with-eval-after-load 'evil-core

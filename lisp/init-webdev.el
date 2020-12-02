@@ -99,7 +99,12 @@
 (add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
 
 ;; prettier-mode
-(dolist (hook '(typescript-mode-hook web-mode-hook css-mode-hook scss-mode-hook))
+(dolist (hook '(typescript-mode-hook
+                js-mode-hook
+                web-mode-hook
+                css-mode-hook
+                scss-mode-hook
+                less-css-mode-hook))
   (add-hook hook 'prettier-mode))
 (with-eval-after-load 'prettier
   (setq prettier-web-mode-content-type-parsers

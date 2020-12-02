@@ -56,7 +56,7 @@ otherwise, install `PACKAGES'."
   (find-file (expand-file-name "creature.org" creature/config-dir)))
 
 (defun creature/open-in-external-app (file-path)
-  (if sys/win32p
+  (if creature/sys-win32p
       (w32-shell-execute "open" (replace-regexp-in-string "/" "\\\\" file-path))
     (start-process "" nil "xdg-open" file-path)))
 

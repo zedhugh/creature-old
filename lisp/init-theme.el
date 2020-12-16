@@ -50,12 +50,16 @@ if FRAME is nil, setup for current frame."
 ;;     (load-theme 'modus-vivendi t)
 ;;   (load-theme 'whiteboard t))
 
-(run-with-idle-timer 2 nil
-                     (lambda ()
-                       (creature/fontset)
-                       (if (member 'modus-vivendi (custom-available-themes))
-                           (load-theme 'modus-vivendi t)
-                         (load-theme 'whiteboard t))))
+(defun creature/load-font-and-theme-idle ()
+  (run-with-idle-timer 2 nil
+                       (lambda ()
+                         (creature/fontset)
+                         (if (member 'modus-vivendi (custom-available-themes))
+                             (load-theme 'modus-vivendi t)
+                           (load-theme 'whiteboard t)))))
+
+(creature/load-font-and-theme-idle)
+(add-hook 'server-after-make-frame-hook #'creature/load-font-and-theme-idle)
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))

@@ -26,19 +26,21 @@
   (with-eval-after-load 'org-pomodoro
     (setq org-pomodoro-audio-player "mplayer")))
 
-;; show inline image when open org file
-(add-hook 'org-mode-hook 'org-display-inline-images)
-
 ;; 保存链接
-(require 'org-capture)
-(require 'org-protocol)
-(setq org-capture-templates
-      '(("" "org-protocol" entry (file "~/org/bookmarks.org")
-         "* TODO Review %a\n  %T:initial\n" :immediate-finish t)
-        ))
-(setq org-protocol-default-template-key "")
-
+(defun creature/org-capture-setup ()
+  (require 'org-capture)
+  (require 'org-protocol)
+  (setq org-capture-templates
+        '(("" "org-protocol" entry (file "~/org/bookmarks.org")
+           "* TODO Review %a\n  %T:initial\n" :immediate-finish t)
+          ))
+  (setq org-protocol-default-template-key ""))
+(run-with-idle-timer 10 nil #'creature/org-capture-setup)
 (with-eval-after-load 'org
+  ;; show inline image when open org file
+  (creature/org-capture-setup)
+  (add-hook 'org-mode-hook 'org-display-inline-images)
+
   ;; org agenda
   (setq org-agenda-files '("~/org"))
   (global-set-key (kbd "C-c a") 'org-agenda)

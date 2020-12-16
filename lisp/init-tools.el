@@ -134,7 +134,8 @@
       '("^Author:     " . "^Commit:     "))
 
 
-(rg-enable-default-bindings)
+;; (rg-enable-default-bindings)
+(run-with-idle-timer 2 nil #'rg-enable-default-bindings)
 
 ;;; symbol-overlay-map
 ;; "i" -> symbol-overlay-put

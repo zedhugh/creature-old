@@ -7,6 +7,12 @@
   "Customized initial scratch buffer message.")
 (setq-default initial-scratch-message creature/scratch-message)
 
+(setq initial-major-mode 'text-mode)
+(run-with-idle-timer 3 nil
+                     (lambda ()
+                       (with-current-buffer "*scratch*"
+                         (lisp-interaction-mode))))
+
 (global-display-line-numbers-mode)
 
 ;;; folding

@@ -8,7 +8,7 @@
     company-posframe
     yasnippet-snippets))
 
-(global-company-mode)
+;; (global-company-mode)
 (setq company-idle-delay 0)
 (setq company-show-numbers t)
 (setq company-require-match nil)
@@ -18,21 +18,36 @@
 (setq company-dabbrev-code-other-buffers 'all)
 (setq company-dabbrev-downcase nil)
 
-(company-posframe-mode)
+(add-hook 'prog-mode-hook #'company-mode)
+(run-with-idle-timer 10 nil #'global-company-mode)
+
+(with-eval-after-load 'company
+  (company-posframe-mode)
+  (yas-global-mode)
+
+  (define-key company-active-map (kbd "C-n")
+    #'company-complete-common-or-cycle)
+  (define-key company-active-map (kbd "C-p")
+    (defun creature/company-select-prev ()
+      (interactive)
+      (company-complete-common-or-cycle -1)))
+  (define-key company-mode-map (kbd "C-'") #'company-files)
+  )
+
 (setq company-posframe-show-indicator nil)
 (setq company-posframe-show-metadata nil)
-(require 'desktop)
-(push '(company-posframe-mode . nil)
-      desktop-minor-mode-table)
-
+(with-eval-after-load 'company-posframe
+  (require 'desktop)
+  (push '(company-posframe-mode . nil)
+        desktop-minor-mode-table))
 
 (defun creature/enable-ispell ()
   "Turn on spell prompt local buffer."
   (set (make-local-variable 'company-backends)
        (add-to-list 'company-backends 'company-ispell 'append)))
-(add-hook 'text-mode-hook 'creature/enable-ispell)
+;; (add-hook 'text-mode-hook 'creature/enable-ispell)
 
-(yas-global-mode)
+;; (yas-global-mode)
 
 (defun creature/show-snippets-in-company (backend)
   (if (and (listp backend) (member 'company-yasnippet backend))
@@ -45,14 +60,6 @@
   (set (make-local-variable 'company-backends)
        (mapcar 'creature/show-snippets-in-company company-backends)))
 (add-hook 'yas-minor-mode-hook 'creature/company-add-yas)
-
-(define-key company-active-map (kbd "C-n")
-  #'company-complete-common-or-cycle)
-(define-key company-active-map (kbd "C-p")
-  (defun creature/company-select-prev ()
-    (interactive)
-    (company-complete-common-or-cycle -1)))
-(define-key company-mode-map (kbd "C-'") #'company-files)
 
 (global-set-key (kbd "s-w") #'aya-create)
 (global-set-key (kbd "s-y") #'aya-expand)

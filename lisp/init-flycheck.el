@@ -4,8 +4,7 @@
 
 (defun creature/setup-flycheck ()
   "Do not setup flycheck for every mode."
-  (if (derived-mode-p 'emacs-lisp-mode 'c-mode 'c++-mode)
-      (flycheck-mode -1)
+  (unless (derived-mode-p 'emacs-lisp-mode 'c-mode 'c++-mode)
     (flycheck-mode)))
 
 (defun creature/toggle-flycheck-error-list ()

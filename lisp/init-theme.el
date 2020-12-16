@@ -40,15 +40,22 @@ if FRAME is nil, setup for current frame."
                                 (font-spec :family family :size size) frame)
             (error nil)))))))
 
-(add-hook 'emacs-startup-hook #'creature/fontset)
-(add-hook 'server-after-make-frame-hook #'creature/fontset)
+;; (add-hook 'emacs-startup-hook #'creature/fontset)
+;; (add-hook 'server-after-make-frame-hook #'creature/fontset)
 
 ;; some beautifule theme built-in
 ;; dark: modus-vivendi/wombat/misterioso/tango-dark/wheatgrass
 ;; light: whiteboard
-(if (member 'modus-vivendi (custom-available-themes))
-    (load-theme 'modus-vivendi t)
-  (load-theme 'whiteboard t))
+;; (if (member 'modus-vivendi (custom-available-themes))
+;;     (load-theme 'modus-vivendi t)
+;;   (load-theme 'whiteboard t))
+
+(run-with-idle-timer 2 nil
+                     (lambda ()
+                       (creature/fontset)
+                       (if (member 'modus-vivendi (custom-available-themes))
+                           (load-theme 'modus-vivendi t)
+                         (load-theme 'whiteboard t))))
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))
@@ -59,5 +66,7 @@ if FRAME is nil, setup for current frame."
 (setq page-break-lines-char ?=)
 (dolist (mode '(web-mode css-mode js-mode))
   (add-to-list 'page-break-lines-modes mode))
+
+(blink-cursor-mode -1)
 
 (provide 'init-theme)

@@ -48,14 +48,14 @@
 
 (defun lsp-setup ()
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
-  (unless (featurep 'tramp)
-    (require 'tramp))
   (when (and
          (buffer-file-name)
-         (not (tramp-tramp-file-p (buffer-file-name)))
          (member major-mode creature/lsp-setup-modes))
-    (lsp-deferred)
-    (lsp-diagnostics-mode))
+    (unless (featurep 'tramp)
+      (require 'tramp))
+    (when (not (tramp-tramp-file-p (buffer-file-name)))
+      (lsp-deferred)
+      (lsp-diagnostics-mode)))
   (when (derived-mode-p 'css-mode 'scss-mode 'less-css-mode)
     (setq-local lsp-overlay-document-color-char "")))
 

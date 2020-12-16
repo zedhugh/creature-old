@@ -41,11 +41,72 @@
 (setq keyfreq-file
       (expand-file-name ".keyfreq" creature/cache-dir))
 (setq keyfreq-excluded-commands
-      '(self-insert-command
+      '(backward-char
+        backward-sexp
+        backward-delete-char-untabify
+        backward-kill-word
+        backward-word
+        dired-next-line
+        electric-pair-delete-pair
+        end-of-buffer
         forward-char
-        backward-char
+        forward-word
+        forward-sexp
+        just-one-space
+        keyboard-quit
+        kill-current-buffer
+        kill-word
+        minibuffer-keyboard-quit
+        next-line
+        newline
         previous-line
-        next-line))
+        quit-window
+        save-buffer
+        self-insert-command
+        set-mark-command
+        toggle-input-method
+        yank
+
+        evil-append
+        evil-backward-char
+        evil-backward-word-begin
+        evil-delete
+        evil-forward-char
+        evil-forward-word-begin
+        evil-forward-word-end
+        evil-insert
+        evil-next-line
+        evil-normal-state
+        evil-open-below
+        evil-previous-line
+        evil-replace
+        evil-scroll-down
+        evil-scroll-page-down
+        evil-visual-line
+        mwim-beginning-of-code-or-line
+        mwim-end-of-code-or-line
+
+        awesome-pair-double-quote
+        awesome-pair-equal
+        awesome-pair-forward-delete
+        awesome-pair-kill
+        awesome-pair-open-bracket
+        awesome-pair-open-curly
+        awesome-pair-open-round
+        awesome-pair-space
+
+        winum-select-window-1
+        winum-select-window-2
+
+        symbol-overlay-jump-next
+        symbol-overlay-jump-prev
+
+        counsel-find-file
+        counsel-recentf
+
+        creature/awesome-pair-kill
+        creature/emmet-expand
+        creature/indent-region-or-buffer))
 
 ;; rime
 (setq rime-emacs-module-header-root "/usr/include/emacs-28-vcs")
@@ -109,5 +170,7 @@
 
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
+
+(global-undo-tree-mode)
 
 (provide 'init-tools)

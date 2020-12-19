@@ -44,8 +44,10 @@
 (defun creature/enable-ispell ()
   "Turn on spell prompt local buffer."
   (set (make-local-variable 'company-backends)
-       (add-to-list 'company-backends 'company-ispell 'append)))
-;; (add-hook 'text-mode-hook 'creature/enable-ispell)
+       '(company-capf
+         company-files
+         (company-dabbrev company-dabbrev-code company-ispell))))
+(add-hook 'text-mode-hook 'creature/enable-ispell)
 
 ;; (yas-global-mode)
 

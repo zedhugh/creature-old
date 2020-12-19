@@ -7,7 +7,7 @@
   "Customized initial scratch buffer message.")
 (setq-default initial-scratch-message creature/scratch-message)
 
-(setq initial-major-mode 'text-mode)
+(setq initial-major-mode 'fundamental-mode)
 (run-with-idle-timer 3 nil
                      (lambda ()
                        (with-current-buffer "*scratch*"
@@ -42,11 +42,12 @@
                 conf-windows-mode-hook))
   (add-hook hook #'creature/cursor-style))
 
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (font-lock-add-keywords
-             nil '(("\\<\\(FIXME\\|DEBUG\\|TODO\\):"
-                    1 font-lock-warning-face prepend)))))
+(defun creature/addition-hl-keyword ()
+  "Add serveral keywords in program comment."
+  (font-lock-add-keywords
+   nil '(("\\<\\(FIXME\\|DEBUG\\|TODO\\):"
+          1 font-lock-warning-face prepend))))
+(add-hook 'prog-mode-hook #'creature/addition-hl-keyword)
 
 (global-hl-line-mode)
 

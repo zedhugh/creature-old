@@ -19,6 +19,7 @@
 (with-eval-after-load 'lsp-mode
   (setq lsp-restart 'auto-restart)
   (setq lsp-modeline-code-actions-enable nil)
+  (setq lsp-headerline-breadcrumb-enable nil)
 
   (setq lsp-auto-guess-root t)
   (setq lsp-enable-indentation nil)

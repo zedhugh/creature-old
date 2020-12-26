@@ -9,7 +9,9 @@
 (defconst creature/font-config
   ;; '("Operator Mono Book" . 16)
   (if creature/sys-win32p
-      '(("等距更纱黑体 SC" . 16))
+      (if (> (frame-pixel-width) 2560)
+          '(("等距更纱黑体 SC" . 24))
+        '(("等距更纱黑体 SC" . 16)))
     '(("Sarasa Mono SC" . 16)))
   ;; '("Source Code Pro" . 16)
   "Font config.

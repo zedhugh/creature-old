@@ -8,9 +8,10 @@
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
 
-;; maximized window with alpha
+;; maximized(but follow the rule in awesome-wm) window with alpha
 (add-to-list 'default-frame-alist '(alpha . 90))
-(add-to-list 'default-frame-alist '(fullscreen .maximized))
+(unless (string= (getenv "DESKTOP_SESSION") "awesome")
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
 ;; turn off startup screen
 (setq inhibit-splash-screen t)

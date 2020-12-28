@@ -16,6 +16,7 @@
                         (mode . js-jsx-mode)))
          ("TSX" (and (mode . web-mode)
                      (basename . "^.*\\.tsx$")))
+         ("Web" (mode . web-mode))
 
          ("Lsp" (or
                  (name . "^\\*lsp-log\\*$")

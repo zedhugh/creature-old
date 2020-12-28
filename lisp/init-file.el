@@ -28,6 +28,7 @@
 (add-to-list 'recentf-exclude (expand-file-name package-user-dir))
 (add-to-list 'recentf-exclude "bookmarks")
 (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
+(add-to-list 'recentf-exclude "node_modules")
 
 ;;; minibuffer history
 (savehist-mode)

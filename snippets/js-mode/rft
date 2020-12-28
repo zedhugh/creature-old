@@ -2,12 +2,12 @@
 # name: react function component template in typescript
 # key: rft
 # --
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 const $1: FC = (${2:props}) => {
   return (
     $0
   );
-}
+};
 
 export default $1;

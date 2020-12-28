@@ -2,7 +2,7 @@
 # name: react class component template
 # key: rtc
 # --
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 class $1 extends Component {
   constructor(props) {

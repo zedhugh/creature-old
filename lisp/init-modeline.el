@@ -177,4 +177,10 @@ orgiin is in `creature/origin-mode-line-format'."
     (setq-default mode-line-format tmp-mode-line)
     nil))
 
+;; (setq display-time-interval 1)
+(setq display-time-format " %R %a %F")
+(setq display-time-load-average nil)
+(setq display-time-default-load-average nil)
+(display-time-mode)
+
 (provide 'init-modeline)

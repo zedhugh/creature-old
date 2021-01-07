@@ -64,9 +64,9 @@
   (add-hook 'conf-windows-mode-hook #'awesome-pair-mode)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode)
 
-  (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
-  (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
-  (define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
+  ;; (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
+  ;; (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)
+  ;; (define-key awesome-pair-mode-map (kbd "{") 'awesome-pair-open-curly)
   (define-key awesome-pair-mode-map (kbd ")") 'awesome-pair-close-round)
   (define-key awesome-pair-mode-map (kbd "]") 'awesome-pair-close-bracket)
   (define-key awesome-pair-mode-map (kbd "}") 'awesome-pair-close-curly)

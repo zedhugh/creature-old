@@ -124,11 +124,14 @@ otherwise, install `PACKAGES'."
 (defun creature/indent-region-or-buffer ()
   "Indent a region if selected, otherwise the whole buffer."
   (interactive)
-  (if (bound-and-true-p prettier-mode)
-      (if (region-active-p)
-          (creature/fallback-indent-func)
+  (if (and (bound-and-true-p prettier-mode)
+           (bound-and-true-p prettier-version)
+           (not (region-active-p)))
+
+      (progn
         (prettier-prettify)
         (message "Indented prettier buffer."))
+
     (creature/fallback-indent-func)))
 
 

@@ -9,19 +9,20 @@
     yasnippet-snippets))
 
 ;; (global-company-mode)
-(setq company-idle-delay 0)
-(setq company-show-numbers t)
-(setq company-require-match nil)
-(setq company-minimum-prefix-length 2)
-(setq company-clang-insert-arguments t)
-(setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
-(setq company-dabbrev-code-other-buffers 'all)
-(setq company-dabbrev-downcase nil)
 
 (add-hook 'prog-mode-hook #'company-mode)
 (run-with-idle-timer 10 nil #'global-company-mode)
 
 (with-eval-after-load 'company
+  (setq company-idle-delay 0)
+  (setq company-show-numbers t)
+  (setq company-require-match nil)
+  (setq company-minimum-prefix-length 2)
+  (setq company-clang-insert-arguments t)
+  (setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
+  (setq company-dabbrev-code-other-buffers 'all)
+  (setq company-dabbrev-downcase nil)
+
   (company-posframe-mode)
   (yas-global-mode)
 

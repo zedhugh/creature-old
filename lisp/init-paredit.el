@@ -20,15 +20,6 @@
              (ignore-errors (backward-up-list))
              (funcall fn)))))
 
-;; (dolist (hook '(lisp-mode-hook
-;;                 emacs-lisp-mode-hook
-;;                 lisp-interaction-mode-hook))
-;;   (add-hook hook 'enable-paredit-mode))
-
-;; ;; there are some performance problem when involve both "paredit" and
-;; ;; "ggtags", finally "paredit-everywhere" resolveed this problem
-;; (add-hook 'prog-mode-hook 'paredit-everywhere-mode)
-
 (defun creature/awesome-pair-setup ()
   (add-to-list 'load-path
                (expand-file-name

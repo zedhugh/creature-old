@@ -51,4 +51,14 @@
 
 (global-hl-line-mode)
 
+;; (abbrev-mode)
+
+;; (define-abbrev-table 'global-abbrev-table
+;;   '(("8ms" "Microsoft")
+;;     ("8dm" "document")))
+
+;; (define-abbrev-table 'js-mode-abbrev-table
+;;   '(("pi" "prettier-ignore")
+;;     ("ednl" "eslint-disable-next-line")))
+
 (provide 'init-misc)

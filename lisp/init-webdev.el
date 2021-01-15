@@ -8,11 +8,11 @@
     typescript-mode
     prettier))
 
+(add-hook 'css-mode-hook 'emmet-mode)
+
 (with-eval-after-load 'emmet-mode
   (setq emmet-preview-default t)
   (setq emmet-self-closing-tag-style " /")
-
-  (add-hook 'css-mode-hook 'emmet-mode)
 
   (defun creature/emmet-expand ()
     "Expand at right way."
@@ -54,8 +54,6 @@
 
   (defun web-mode-setup ()
     (emmet-mode)
-    (dolist (check '(jsx-tide tsx-tide typescript-tide))
-      (setq-local flycheck-checkers (delete check flycheck-checkers)))
     (make-local-variable 'company-backends)
     (add-to-list 'company-backends '(company-web-html company-css))
     (when (member web-mode-content-type '("typescript" "jsx" "javascript"))
@@ -99,13 +97,8 @@
 (add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
 
 ;; prettier-mode
-(dolist (hook '(typescript-mode-hook
-                js-mode-hook
-                web-mode-hook
-                css-mode-hook
-                scss-mode-hook
-                less-css-mode-hook))
-  (add-hook hook 'prettier-mode))
+(global-prettier-mode)
+
 (with-eval-after-load 'prettier
   (setq prettier-web-mode-content-type-parsers
         '((nil html)
@@ -117,5 +110,8 @@
           ("markdown" markdown)
           ("ruby" ruby)
           ("sql" postgresql))))
+
+(with-eval-after-load 'typescript-mode
+  (setq typescript-indent-level 2))
 
 (provide 'init-webdev)

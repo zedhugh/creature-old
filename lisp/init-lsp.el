@@ -7,22 +7,39 @@
 
 (with-eval-after-load 'lsp-ui
   ;; (require 'lsp-ui)
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-ui-flycheck-list-position 'right)
-  (setq lsp-ui-doc-position 'top)
-  (setq lsp-ui-doc-alignment 'frame)
-  (setq lsp-ui-peek-fontify 'always)
+  (setq lsp-ui-doc-enable nil
+        lsp-ui-flycheck-list-position 'right
+        lsp-ui-doc-position 'top
+        lsp-ui-doc-alignment 'frame
+        ;; lsp-ui-peek-fontify 'always
+        )
+
   (set-face-attribute 'lsp-ui-sideline-code-action nil :foreground "dark cyan")
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
 (with-eval-after-load 'lsp-mode
-  (setq lsp-restart 'auto-restart)
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-restart 'auto-restart
+        lsp-log-io nil
+        lsp-lens-enable t
+        lsp-keep-workspace-alive nil
+        lsp-eldoc-enable-hover t
 
-  (setq lsp-auto-guess-root t)
-  (setq lsp-enable-indentation nil)
+        lsp-auto-guess-root t
+        lsp-enable-indentation nil
+        lsp-enable-folding nil
+        lsp-enable-snippet nil
+        lsp-enable-file-watchers nil
+        lsp-enable-text-document-color nil
+        lsp-enable-symbol-highlighting nil
+        lsp-enable-on-type-formatting nil
+
+        lsp-headerline-breadcrumb-enable nil
+        lsp-modeline-code-actions-enable nil
+        lsp-modeline-diagnostics-enable t
+        lsp-diagnostic-clean-after-change t
+        )
+
   (dolist (lsp-buffer '("::stderr\\*"
                         "\\*lsp-log\\*"
                         "\\*clangd\\*"
@@ -35,28 +52,17 @@
   ;; sort candidates
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
-(defvar creature/lsp-setup-modes
-  '(c-mode
-    c++-mode
-    html-mode
-    css-mode
-    scss-mode
-    js-mode
-    js-jsx-mode
-    web-mode
-    typescript-mode)
-  "Major mode setup with `lsp-mode' enabled.")
-
 (defun lsp-setup ()
   "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
   (when (and
+         (if (fboundp #'so-long-detected-long-line-p)
+             (not (so-long-detected-long-line-p))
+           t)
          (buffer-file-name)
-         (member major-mode creature/lsp-setup-modes)
          (if (featurep 'tramp)
              (not (tramp-tramp-file-p (buffer-file-name)))
            t))
-    (lsp-deferred)
-    (lsp-diagnostics-mode))
+    (lsp-deferred))
   (when (derived-mode-p 'css-mode 'scss-mode 'less-css-mode)
     (setq-local lsp-overlay-document-color-char "")))
 
@@ -67,6 +73,15 @@
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
-(add-hook 'prog-mode-hook #'lsp-setup)
+(dolist (hook '(c-mode-hook
+                c++-mode-hook
+                html-mode-hook
+                css-mode-hook
+                scss-mode-hook
+                js-mode-hook
+                js-jsx-mode-hook
+                web-mode-hook
+                typescript-mode-hook))
+  (add-hook hook #'lsp-setup))
 
 (provide 'init-lsp)

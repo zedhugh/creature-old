@@ -129,7 +129,8 @@ otherwise, install `PACKAGES'."
            (not (region-active-p)))
 
       (progn
-        (prettier-prettify)
+        (save-excursion
+          (prettier-prettify))
         (message "Indented prettier buffer."))
 
     (creature/fallback-indent-func)))

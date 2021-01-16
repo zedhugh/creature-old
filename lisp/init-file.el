@@ -83,4 +83,21 @@
        (push 'company-lua company-backends)))
 (add-hook 'lua-mode-hook #'creature/lua-company-setup)
 
+(when (fboundp 'global-so-long-mode)
+  (global-so-long-mode)
+  (setq so-long-action 'so-long-minor-mode))
+
+(defun creature/long-or-large-file-action ()
+  (let ((size (buffer-size)))
+    (if (so-long-detected-long-line-p)
+
+        (cond
+         ((> size 51200) (fundamental-mode))
+         ((> size 20480) (text-mode)))
+
+      (when (> size 2097152)            ;2MiB
+        (text-mode)))))
+
+(add-hook 'find-file-hook #'creature/long-or-large-file-action)
+
 (provide 'init-file)

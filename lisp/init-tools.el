@@ -34,7 +34,9 @@
   (condition-case nil
       (pinentry-start)
     (error nil)))
-(add-hook 'emacs-startup-hook #'creature/start-pinentry)
+
+(run-with-idle-timer 2 nil #'creature/start-pinentry)
+;; (add-hook 'emacs-startup-hook #'creature/start-pinentry)
 
 (keyfreq-mode)
 (keyfreq-autosave-mode)
@@ -166,8 +168,9 @@
 (define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
 (define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
 
-(projectile-mode)
-(global-set-key (kbd "C-c p") #'projectile-command-map)
+(run-with-idle-timer 1 nil #'projectile-mode)
+(with-eval-after-load 'projectile
+  (global-set-key (kbd "C-c p") #'projectile-command-map))
 
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)

@@ -97,7 +97,7 @@
 (add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
 
 ;; prettier-mode
-(global-prettier-mode)
+(run-with-idle-timer 3 nil #'global-prettier-mode)
 
 (with-eval-after-load 'prettier
   (setq prettier-web-mode-content-type-parsers

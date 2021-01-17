@@ -1,5 +1,9 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defconst creature/start-time
+  (current-time)
+  "Start time of current emacs initialize.")
+
 ;; disable menu, toolbar and scroll bar.
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))

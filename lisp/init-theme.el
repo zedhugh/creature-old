@@ -46,12 +46,13 @@ if FRAME is nil, setup for current frame."
 ;;     (load-theme 'modus-vivendi t)
 ;;   (load-theme 'whiteboard t))
 
-(run-with-idle-timer 2 nil
-                     (lambda ()
-                       (creature/fontset)
-                       (if (member 'modus-vivendi (custom-available-themes))
-                           (load-theme 'modus-vivendi t)
-                         (load-theme 'whiteboard t))))
+(run-with-idle-timer
+ 2 nil
+ (lambda ()
+   (creature/fontset)
+   (if (member 'modus-vivendi (custom-available-themes))
+       (load-theme 'modus-vivendi t)
+     (load-theme 'whiteboard t))))
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))
@@ -64,5 +65,38 @@ if FRAME is nil, setup for current frame."
   (add-to-list 'page-break-lines-modes mode))
 
 (blink-cursor-mode -1)
+
+;; maximized(but follow the rule in awesome-wm) window with alpha
+(add-to-list 'default-frame-alist '(alpha . 90))
+(unless (string= (getenv "DESKTOP_SESSION") "awesome")
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+
+;; turn off startup screen
+(setq inhibit-splash-screen t)
+
+(run-with-idle-timer
+ 2 nil
+ #'(lambda ()
+     ;; disable menu, toolbar and scroll bar.
+     (when (fboundp 'menu-bar-mode)
+       (menu-bar-mode -1))
+     (when (fboundp 'tool-bar-mode)
+       (tool-bar-mode -1))
+     (when (fboundp 'scroll-bar-mode)
+       (scroll-bar-mode -1))
+     ))
+
+;; disable bell
+(setq ring-bell-function 'ignore)
+(setq visible-bell nil)
+
+;; Keep cursor at end of lines when prev
+;; position of cursor is at the end.
+;; Require line-move-visual is nil.
+(setq track-eol t)
+(setq line-move-visual t)
+
+;; disable gtk tooltips
+(setq x-gtk-use-system-tooltips nil)
 
 (provide 'init-theme)

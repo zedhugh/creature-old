@@ -4,11 +4,6 @@
   (when (version< emacs-version min-version)
     (error "Emacs v%s or higher is required." min-version)))
 
-
-(defconst creature/start-time
-  (current-time)
-  "Start time of current emacs initialize.")
-
 (defvar creature/init-time nil)
 
 (let ((benchmark nil)

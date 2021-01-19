@@ -8,10 +8,11 @@
 (setq-default initial-scratch-message creature/scratch-message)
 
 (setq initial-major-mode 'fundamental-mode)
-(run-with-idle-timer 3 nil
-                     (lambda ()
-                       (with-current-buffer "*scratch*"
-                         (lisp-interaction-mode))))
+(run-with-idle-timer
+ 3 nil
+ #'(lambda ()
+     (with-current-buffer "*scratch*"
+       (lisp-interaction-mode))))
 
 (global-display-line-numbers-mode)
 

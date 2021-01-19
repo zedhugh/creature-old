@@ -1,12 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(counsel
-    ivy
-    swiper
-    amx
-    pinyinlib))
-
 (ivy-mode)
 (counsel-mode)
 

@@ -72,9 +72,6 @@
 
   "SPC" 'execute-extended-command)
 
-(with-eval-after-load 'emmet-mode
-  (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))
-
 ;; (when sys/win32p
 ;;   ;; (w32-register-hot-key [s-t])
 ;;   (setq-default w32-apps-modifier 'hyper)

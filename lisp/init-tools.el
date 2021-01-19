@@ -1,23 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(pinentry
-    keyfreq
-    rime
-    forge
-    gitattributes-mode
-    gitconfig-mode
-    gitignore-mode
-    rg
-    symbol-overlay
-    winum
-    projectile
-    counsel-projectile
-    avy
-    undo-tree
-    expand-region
-    youdao-dictionary))
-
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)

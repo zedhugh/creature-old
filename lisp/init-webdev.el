@@ -1,13 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(web-mode
-    emmet-mode
-    company-web
-    json-mode
-    typescript-mode
-    prettier))
-
 (add-hook 'css-mode-hook 'emmet-mode)
 
 (with-eval-after-load 'emmet-mode

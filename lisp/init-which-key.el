@@ -1,7 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages 'which-key)
-
 ;; which key
 (which-key-mode)
 (setq which-key-idle-delay 0.4)

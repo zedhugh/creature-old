@@ -1,7 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages 'hydra)
-
 (defhydra hydra-window (:hint nil)
   "
 ^Jump^       ^Operator^

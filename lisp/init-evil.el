@@ -1,12 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(mwim
-    evil
-    evil-matchit
-    evil-surround
-    evil-nerd-commenter))
-
 (with-eval-after-load 'evil
   (setq evil-undo-system 'undo-redo)
   (setcdr evil-insert-state-map nil)

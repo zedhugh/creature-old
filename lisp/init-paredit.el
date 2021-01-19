@@ -1,7 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages 'smartparens)
-
 (delete-selection-mode)
 
 (electric-pair-mode)

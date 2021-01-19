@@ -1,10 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages '(htmlize
-                             org-pomodoro
-                             org-plus-contrib
-                             ox-hugo))
-
 ;; customize mode for src lang
 (defconst creature/org-src-lang-modes
   '(("js"   . js)

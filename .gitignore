@@ -23,3 +23,5 @@ transient/
 /.lsp-session-v1
 /rime/
 /abbrev_defs
+/package-quickstart.el
+/package-quickstart.elc

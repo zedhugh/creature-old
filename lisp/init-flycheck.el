@@ -1,7 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages 'flycheck)
-
 (defun creature/setup-flycheck ()
   "Do not setup flycheck for every mode."
   (unless (derived-mode-p 'emacs-lisp-mode 'c-mode 'c++-mode)

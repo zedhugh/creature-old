@@ -1,11 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(rainbow-delimiters
-    rainbow-delimiters
-    rainbow-identifiers
-    page-break-lines))
-
 (defconst creature/font-config
   ;; '("Operator Mono Book" . 16)
   (if creature/sys-win32p

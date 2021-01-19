@@ -1,13 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(company
-    yasnippet
-    auto-yasnippet
-    posframe
-    company-posframe
-    yasnippet-snippets))
-
 ;; (global-company-mode)
 
 (add-hook 'prog-mode-hook #'company-mode)

@@ -1,10 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/install-packages
-  '(lsp-mode
-    lsp-ui
-    lsp-treemacs))
-
 (with-eval-after-load 'lsp-ui
   ;; (require 'lsp-ui)
   (setq lsp-ui-doc-enable nil

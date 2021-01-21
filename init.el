@@ -41,13 +41,13 @@ Should't be to big.")
   (garbage-collect))
 
 (creature/turn-off-gc)
-(run-with-idle-timer 2 nil #'creature/turn-on-gc)
 
 (run-with-idle-timer
- 1 nil
+ 3 nil
  #'(lambda ()
      (add-hook 'minibuffer-exit-hook #'creature/turn-on-gc)
-     (add-hook 'minibuffer-setup-hook #'creature/turn-off-gc)))
+     (add-hook 'minibuffer-setup-hook #'creature/turn-off-gc)
+     (creature/turn-on-gc)))
 
 (defconst creature/config-dir
   (file-name-directory

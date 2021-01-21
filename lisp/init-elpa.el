@@ -34,10 +34,11 @@
   "Install packages.
 if `PACKAGES' is a list, install every package in `PACKAGES',
 otherwise, install `PACKAGES'."
-  (if (listp packages)
-      (dolist (pkg packages)
-        (creature/require-package pkg))
-    (creature/require-package packages)))
+  (let ((package-quickstart nil))
+    (if (listp packages)
+        (dolist (pkg packages)
+          (creature/require-package pkg))
+      (creature/require-package packages))))
 
 (unless (file-exists-p (concat creature/config-dir "elpa"))
   (package-initialize)

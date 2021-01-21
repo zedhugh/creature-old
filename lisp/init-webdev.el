@@ -59,8 +59,8 @@
 
   (when (featurep 'smartparens)
     (creature/set-keys web-mode-map
-      "C-M-b" #'sp-backward-sexp
-      "C-M-f" #'sp-forward-sexp)))
+                       "C-M-b" #'sp-backward-sexp
+                       "C-M-f" #'sp-forward-sexp)))
 
 ;;; javascript
 (with-eval-after-load 'js

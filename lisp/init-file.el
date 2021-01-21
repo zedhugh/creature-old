@@ -17,8 +17,6 @@
 (add-to-list 'auto-mode-alist '("package\\.accept_keywords\\'" . conf-mode))
 
 ;;; recentf mode - record recently edit file
-(run-with-idle-timer 2 nil #'recentf-mode)
-
 (with-eval-after-load 'recentf
   (setq recentf-max-saved-items 1000)
   (add-to-list 'recentf-exclude "bookmarks")
@@ -32,18 +30,6 @@
 (setq history-length 1000
       enable-recursive-minibuffers t)
 
-(run-with-idle-timer 2 nil #'savehist-mode)
-(with-eval-after-load 'savehist
-  (setq savehist-autosave-interval 60
-        savehist-additional-variables '(mark-ring
-                                        global-mark-ring
-                                        search-ring
-                                        regexp-search-ring
-                                        extended-command-history)))
-
-;;; save cursor position
-(save-place-mode)
-
 ;;; don't show prompt when call function
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'erase-buffer 'disabled nil)
@@ -51,14 +37,19 @@
 (put 'narrow-to-defun 'disable nil)
 (put 'narrow-to-region 'disabled nil)
 
-;; automatically reload files which modified by external program
-(global-auto-revert-mode)
-
 ;; show trailing whitespace
 (defun creature/show-trailing-whitespace ()
   (set (make-local-variable 'show-trailing-whitespace) t))
 
 (add-hook 'find-file-hook #'creature/show-trailing-whitespace)
+
+(with-eval-after-load 'savehist
+  (setq savehist-autosave-interval 60
+        savehist-additional-variables '(mark-ring
+                                        global-mark-ring
+                                        search-ring
+                                        regexp-search-ring
+                                        extended-command-history)))
 
 ;; delete file directly
 (setq delete-by-moving-to-trash t)
@@ -76,13 +67,10 @@
     (setq create-lockfiles nil)
   (setq create-lockfiles t))
 
-(editorconfig-mode)
-
 (defun creature/lua-company-setup ()
   (set (make-local-variable 'company-backends)
        (push 'company-lua company-backends)))
 (add-hook 'lua-mode-hook #'creature/lua-company-setup)
-
 
 (with-eval-after-load 'so-long
   (setq so-long-action 'so-long-minor-mode)
@@ -112,9 +100,39 @@
               (text-mode)
               (read-only-mode)))))))
 
+  (when buffer-file-name
+    (creature/long-or-large-file-action))
+
   (add-hook 'find-file-hook #'creature/long-or-large-file-action))
 
-(when (fboundp 'global-so-long-mode)
-  (run-with-idle-timer 2 nil #'global-so-long-mode))
+(defvar modes-about-file-not-loaded t)
+(defvar run-timer nil)
+
+(defun creature/load-modes-idle-or-find-file ()
+  "Launch modes with idle timer or when open the first file."
+  (when (bound-and-true-p modes-about-file-not-loaded)
+
+    (editorconfig-mode)
+    (global-so-long-mode)
+    (recentf-mode)
+    (savehist-mode)
+
+    ;; save cursor position
+    (save-place-mode)
+
+    ;; automatically reload files which modified by external program
+    (global-auto-revert-mode)
+
+    (remove-hook 'find-file-hook #'creature/load-modes-idle-or-find-file)
+
+    (makunbound 'modes-about-file-not-loaded)
+    (when (and (bound-and-true-p run-timer)
+               (timerp run-timer))
+      (cancel-timer run-timer)
+      (makunbound 'run-timer))))
+
+;; (creature/load-modes-idle-or-find-file)
+(add-hook 'find-file-hook #'creature/load-modes-idle-or-find-file)
+(setq run-timer (run-with-idle-timer 10 nil #'creature/load-modes-idle-or-find-file))
 
 (provide 'init-file)

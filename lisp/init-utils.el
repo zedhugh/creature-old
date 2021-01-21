@@ -117,6 +117,5 @@
     (define-key map (kbd key) def)
     (setq key (pop bindings)
           def (pop bindings))))
-(put 'creature/set-keys 'lisp-indent-function 'defun)
 
 (provide 'init-utils)

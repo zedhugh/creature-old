@@ -69,6 +69,7 @@ otherwise, install `PACKAGES'."
      emmet-mode
      company-web
      json-mode
+     tide
      typescript-mode
      prettier
 

@@ -115,10 +115,6 @@
     (editorconfig-mode)
     (global-so-long-mode)
     (recentf-mode)
-    (savehist-mode)
-
-    ;; save cursor position
-    (save-place-mode)
 
     ;; automatically reload files which modified by external program
     (global-auto-revert-mode)
@@ -133,6 +129,11 @@
 
 ;; (creature/load-modes-idle-or-find-file)
 (add-hook 'find-file-hook #'creature/load-modes-idle-or-find-file)
-(setq run-timer (run-with-idle-timer 10 nil #'creature/load-modes-idle-or-find-file))
+(setq run-timer (run-with-idle-timer 1 nil #'creature/load-modes-idle-or-find-file))
+
+(savehist-mode)
+
+;; save cursor position
+(save-place-mode)
 
 (provide 'init-file)

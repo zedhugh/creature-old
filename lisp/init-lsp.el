@@ -48,12 +48,12 @@
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
 (defun lsp-setup ()
-  "Setup lsp in which `major-mode' in `creature/lsp-setup-modes'."
   (when (and
+         (buffer-file-name)
+         (not (derived-mode-p 'json-mode))
          (if (fboundp #'so-long-detected-long-line-p)
              (not (so-long-detected-long-line-p))
            t)
-         (buffer-file-name)
          (if (featurep 'tramp)
              (not (tramp-tramp-file-p (buffer-file-name)))
            t))
@@ -75,8 +75,7 @@
                 scss-mode-hook
                 js-mode-hook
                 js-jsx-mode-hook
-                web-mode-hook
-                typescript-mode-hook))
+                web-mode-hook))
   (add-hook hook #'lsp-setup))
 
 (provide 'init-lsp)

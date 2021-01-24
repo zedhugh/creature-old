@@ -89,10 +89,13 @@
 (add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
 
 ;; prettier-mode
-(run-with-idle-timer 3 nil #'global-prettier-mode)
-
 (with-eval-after-load 'prettier
-  (setq prettier-web-mode-content-type-parsers
+  (defun creature/ignore-prettier ()
+    (or (prettier--in-node-modules-p)
+        (not prettier-version)))
+
+  (setq prettier-mode-ignore-buffer-function #'creature/ignore-prettier
+        prettier-web-mode-content-type-parsers
         '((nil html)
           ("javascript" . prettier--guess-js-ish)
           ("jsx" typescript)
@@ -102,6 +105,11 @@
           ("markdown" markdown)
           ("ruby" ruby)
           ("sql" postgresql))))
+
+(global-prettier-mode)
+
+(add-hook 'typescript-mode-hook #'tide-setup)
+(add-hook 'typescript-mode-hook #'tide-hl-identifier-mode)
 
 (with-eval-after-load 'typescript-mode
   (setq typescript-indent-level 2))

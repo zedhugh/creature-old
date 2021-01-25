@@ -64,11 +64,7 @@ Should't be to big.")
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
 (let* ((file-name-handler-alist nil))
-  (require 'server)
-  (if (server-running-p)
-      t
-    (server-start))
-
+  (require 'init-autoloads)
   (require 'init-utils)
   (require 'init-modeline)
   (require 'init-elpa)
@@ -90,8 +86,12 @@ Should't be to big.")
   (require 'init-evil)
   (require 'init-keybindings)
   (require 'init-which-key)
+
   (with-eval-after-load 'gnus
     (require 'init-mail))
+
+  (unless (server-running-p)
+    (server-start))
 
   ;; (org-babel-load-file (expand-file-name "creature.org" user-emacs-directory))
 

@@ -41,7 +41,7 @@
 (add-hook 'text-mode-hook 'creature/enable-ispell)
 
 ;; (yas-global-mode)
-(defvar creature/company-backends-with-yasnippet t
+(defvar creature/company-backends-with-yasnippet nil
   "Make every company backend with `company-yasnippet' when `company-mode' launched.")
 
 (defun creature/show-snippets-in-company (backend)

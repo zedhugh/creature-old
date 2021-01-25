@@ -18,9 +18,11 @@
         lsp-log-io nil
         lsp-lens-enable t
         lsp-keep-workspace-alive nil
-        lsp-eldoc-enable-hover t
+        lsp-eldoc-enable-hover nil
 
+        lsp-auto-configure t
         lsp-auto-guess-root t
+        lsp-enable-completion-at-point nil
         lsp-enable-indentation nil
         lsp-enable-folding nil
         lsp-enable-snippet nil
@@ -35,13 +37,8 @@
         lsp-diagnostic-clean-after-change t
         )
 
-  (dolist (lsp-buffer '("::stderr\\*"
-                        "\\*lsp-log\\*"
-                        "\\*clangd\\*"
-                        "-ls\\*"))
-    (add-to-list 'ivy-ignore-buffers lsp-buffer))
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-hook 'lsp-on-idle-hook #'creature/company-add-yas))
+  (add-hook 'lsp-on-idle-hook #'creature/setup-yasnippet))
 
 (with-eval-after-load 'company
   ;; sort candidates
@@ -68,6 +65,7 @@
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
+
 (dolist (hook '(c-mode-hook
                 c++-mode-hook
                 html-mode-hook

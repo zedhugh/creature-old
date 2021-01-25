@@ -78,7 +78,7 @@
   (defun creature/long-or-large-file-action ()
     (let* ((temp-file-name (buffer-file-name))
            (current-file-name (if temp-file-name temp-file-name ""))
-           (current-major-mode (assoc-default current-file-name auto-mode-alist 'string-match))
+           (current-major-mode (assoc-default current-file-name auto-mode-alist #'string-match))
            (parent-major-mode (get current-major-mode 'derived-mode-parent))
            (mode-enable-so-long (apply `(provided-mode-derived-p ,current-major-mode ,@so-long-target-modes))))
 

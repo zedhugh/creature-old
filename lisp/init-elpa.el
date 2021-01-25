@@ -18,6 +18,11 @@
         ;; ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
         ))
 
+(with-eval-after-load 'package
+  (add-hook 'package-menu-mode-hook
+            (lambda ()
+              (setq-local package-quickstart nil))))
+
 (defun creature/require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
   (cond

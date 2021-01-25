@@ -45,22 +45,23 @@
       (setq web-mode-auto-quote-style 2)))
 
   (defun web-mode-setup ()
-    (emmet-mode)
     (make-local-variable 'company-backends)
-    (add-to-list 'company-backends '(company-web-html company-css))
+    (emmet-mode)
+    (tide-setup)
+    (tide-hl-identifier-mode)
+    (set 'company-backends
+         '((company-dabbrev company-files company-tide company-capf company-web-html company-css)
+           (company-dabbrev-code company-gtags company-etags company-keywords)))
     (when (member web-mode-content-type '("typescript" "jsx" "javascript"))
       (flycheck-add-mode 'javascript-eslint 'web-mode))
     (creature/vue-indent)
-    (creature/tsx-quote)
-    (creature/company-add-yas))
+    (creature/tsx-quote))
 
   (add-hook 'web-mode-hook 'web-mode-setup)
 
-
-  (when (featurep 'smartparens)
-    (creature/set-keys web-mode-map
-                       "C-M-b" #'sp-backward-sexp
-                       "C-M-f" #'sp-forward-sexp)))
+  (creature/set-keys web-mode-map
+                     "C-M-b" #'sp-backward-sexp
+                     "C-M-f" #'sp-forward-sexp))
 
 ;;; javascript
 (with-eval-after-load 'js
@@ -106,7 +107,14 @@
           ("ruby" ruby)
           ("sql" postgresql))))
 
-(global-prettier-mode)
+(defun creature/prettier-setup ()
+  (let* ((file-name (buffer-file-name))
+         (major-mode (assoc-default file-name auto-mode-alist #'string-match)))
+    (when (provided-mode-derived-p major-mode 'web-mode 'css-mode 'js-mode 'typescript-mode)
+      (global-prettier-mode)
+      (remove-hook 'find-file-hook #'creature/prettier-setup))))
+
+(add-hook 'find-file-hook #'creature/prettier-setup)
 
 (add-hook 'typescript-mode-hook #'tide-setup)
 (add-hook 'typescript-mode-hook #'tide-hl-identifier-mode)

@@ -22,8 +22,20 @@
                  (name . "^\\*lsp-log\\*$")
                  (name . "^\\*clangd\\*$")
                  (name . "^\\*clangd::stderr\\*$")
+                 (name . "^\\*prettier (local)\\*$")
+                 (name . "^\\*tide-server\\*$")
+                 (name . "^\\*tide-documentation\\*$")
                  (name . "^\\*.*-ls\\*$")
                  (name . "^\\*.*-ls::stderr\\*$"))))))
+
+(dolist (ignore-buffer '("::stderr\\*"
+                         "\\*lsp-log\\*"
+                         "\\*clangd\\*"
+                         "-ls\\*"
+                         "\\*tide-"
+                         "\\*prettier"))
+  (add-to-list 'ivy-ignore-buffers ignore-buffer))
+
 (add-hook 'ibuffer-mode-hook
           (lambda ()
             (ibuffer-auto-mode)

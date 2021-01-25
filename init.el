@@ -90,8 +90,10 @@ Should't be to big.")
   (with-eval-after-load 'gnus
     (require 'init-mail))
 
-  (unless (server-running-p)
-    (server-start))
+  (run-with-idle-timer 2 nil
+                       (lambda ()
+                         (unless (server-running-p)
+                           (server-start))))
 
   ;; (org-babel-load-file (expand-file-name "creature.org" user-emacs-directory))
 

@@ -1,6 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(global-company-mode)
+(defun creature/setup-company ()
+  (global-company-mode)
+  (remove-hook 'prog-mode-hook #'creature/setup-company))
+
+(add-hook 'prog-mode-hook #'creature/setup-company)
+;; (run-with-idle-timer 2 nil #'creature/setup-company)
 
 (with-eval-after-load 'company
   (setq company-idle-delay 0)

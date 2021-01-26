@@ -1,7 +1,6 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (with-eval-after-load 'lsp-ui
-  ;; (require 'lsp-ui)
   (setq lsp-ui-doc-enable nil
         lsp-ui-flycheck-list-position 'right
         lsp-ui-doc-position 'top
@@ -18,23 +17,27 @@
         lsp-log-io nil
         lsp-lens-enable t
         lsp-keep-workspace-alive nil
-        lsp-eldoc-enable-hover nil
+        lsp-eldoc-enable-hover t
 
         lsp-auto-configure t
         lsp-auto-guess-root t
-        lsp-enable-completion-at-point nil
+        lsp-completion-enable t
+        lsp-completion-provider :capf
         lsp-enable-indentation nil
         lsp-enable-folding nil
         lsp-enable-snippet nil
         lsp-enable-file-watchers nil
         lsp-enable-text-document-color nil
-        lsp-enable-symbol-highlighting nil
         lsp-enable-on-type-formatting nil
+        lsp-enable-symbol-highlighting nil
 
         lsp-headerline-breadcrumb-enable nil
         lsp-modeline-code-actions-enable nil
         lsp-modeline-diagnostics-enable t
+        lsp-modeline-diagnostics-scope :file
+
         lsp-diagnostic-clean-after-change t
+        lsp-diagnostics-provider :auto
         )
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
@@ -73,7 +76,8 @@
                 scss-mode-hook
                 js-mode-hook
                 js-jsx-mode-hook
-                web-mode-hook))
+                web-mode-hook
+                typescript-mode-hook))
   (add-hook hook #'lsp-setup))
 
 (provide 'init-lsp)

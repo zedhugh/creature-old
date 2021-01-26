@@ -16,4 +16,6 @@
 (autoload 'server-running-p "server" "" nil)
 (autoload 'server-start "server" "" nil)
 
+(autoload 'pinyinlib-build-regexp-string "pinyinlib" "" nil)
+
 (provide 'init-autoloads)

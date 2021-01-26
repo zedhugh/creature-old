@@ -47,11 +47,11 @@
   (defun web-mode-setup ()
     (make-local-variable 'company-backends)
     (emmet-mode)
-    (tide-setup)
-    (tide-hl-identifier-mode)
-    (set 'company-backends
-         '((company-dabbrev company-files company-tide company-capf company-web-html company-css)
-           (company-dabbrev-code company-gtags company-etags company-keywords)))
+    ;; (tide-setup)
+    ;; (tide-hl-identifier-mode)
+    ;; (set 'company-backends
+    ;;      '((company-capf company-dabbrev company-files company-web-html company-css)
+    ;;        (company-dabbrev-code company-gtags company-etags company-keywords)))
     (when (member web-mode-content-type '("typescript" "jsx" "javascript"))
       (flycheck-add-mode 'javascript-eslint 'web-mode))
     (creature/vue-indent)
@@ -114,10 +114,23 @@
       (global-prettier-mode)
       (remove-hook 'find-file-hook #'creature/prettier-setup))))
 
-(add-hook 'find-file-hook #'creature/prettier-setup)
+;; (add-hook 'find-file-hook #'creature/prettier-setup)
 
-(add-hook 'typescript-mode-hook #'tide-setup)
-(add-hook 'typescript-mode-hook #'tide-hl-identifier-mode)
+(defun creature/setup-typescript ()
+  (make-local-variable 'company-backends)
+  ;; (tide-setup)
+  ;; (tide-hl-identifier-mode)
+  (set 'company-backends
+       '((company-capf company-dabbrev company-web-html company-css)
+         (company-dabbrev-code company-gtags company-etags company-keywords))))
+
+(add-hook 'tide-mode-hook
+          (lambda ()
+            (make-local-variable 'flycheck-disabled-checkers)
+            (add-to-list 'flycheck-disabled-checkers 'tsx-tide)
+            (add-to-list 'flycheck-disabled-checkers 'typescript-tide)))
+
+;; (add-hook 'typescript-mode-hook #'creature/setup-typescript)
 
 (with-eval-after-load 'typescript-mode
   (setq typescript-indent-level 2))

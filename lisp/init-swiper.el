@@ -83,4 +83,17 @@
 (when (fboundp 'counsel-M-x)
   (define-key global-map [remap execute-extended-command] #'counsel-M-x))
 
+(when (fboundp 'counsel-describe-face)
+  (define-key global-map [remap describe-face] #'counsel-describe-face))
+
+(when (fboundp 'counsel-describe-function)
+  (define-key global-map [remap describe-function] #'counsel-describe-function))
+
+(when (fboundp 'counsel-describe-symbol)
+  (define-key global-map [remap describe-symbol] #'counsel-describe-symbol))
+
+(when (fboundp 'counsel-describe-variable)
+  (define-key global-map [remap describe-variable] #'counsel-describe-variable))
+
+
 (provide 'init-swiper)

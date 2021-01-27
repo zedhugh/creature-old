@@ -50,9 +50,10 @@ if FRAME is nil, setup for current frame."
  2 nil
  (lambda ()
    (creature/fontset)
-   (if (member 'modus-vivendi (custom-available-themes))
-       (load-theme 'modus-vivendi t)
-     (load-theme 'whiteboard t))))
+   ;; (if (member 'modus-vivendi (custom-available-themes))
+   ;;     (load-theme 'modus-vivendi t)
+   ;;   (load-theme 'whiteboard t))
+   ))
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))

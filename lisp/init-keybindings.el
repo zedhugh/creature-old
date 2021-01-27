@@ -52,6 +52,7 @@
                    "hF" 'describe-face
                    "hv" 'describe-variable
                    "hk" 'describe-key
+                   "ho" 'describe-symbol
                    "hp" 'describe-package
                    "qk" 'save-buffers-kill-emacs
                    "qq" 'save-buffers-kill-terminal

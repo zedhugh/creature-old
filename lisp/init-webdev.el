@@ -81,7 +81,7 @@
               (unless (derived-mode-p 'json-mode)
                 (define-key js-mode-map (kbd "M-.") nil))))
 
-(add-to-list 'auto-mode-alist '("\\.js\\'"          . js-mode))
+(add-to-list 'auto-mode-alist '("\\.m?js\\'"        . js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'"         . js-jsx-mode))
 (add-to-list 'auto-mode-alist '("\\.cfg\\'"         . json-mode))
 (add-to-list 'auto-mode-alist '("\\.widget\\'"      . json-mode))
@@ -92,11 +92,12 @@
 ;; prettier-mode
 (with-eval-after-load 'prettier
   (defun creature/ignore-prettier ()
-    (or (prettier--in-node-modules-p)
-        (not prettier-version)))
+    (unless prettier-version
+      (remove-hook 'before-save-hook #'prettier-prettify 'local)))
 
-  (setq prettier-mode-ignore-buffer-function #'creature/ignore-prettier
-        prettier-web-mode-content-type-parsers
+  (add-hook 'prettier-mode-hook #'creature/ignore-prettier)
+
+  (setq prettier-web-mode-content-type-parsers
         '((nil html)
           ("javascript" . prettier--guess-js-ish)
           ("jsx" typescript)
@@ -114,7 +115,12 @@
       (global-prettier-mode)
       (remove-hook 'find-file-hook #'creature/prettier-setup))))
 
-;; (add-hook 'find-file-hook #'creature/prettier-setup)
+(add-hook 'find-file-hook #'creature/prettier-setup)
+(run-with-idle-timer
+ 2 nil
+ (lambda ()
+   (unless global-prettier-mode
+     (global-prettier-mode))))
 
 (defun creature/setup-typescript ()
   (make-local-variable 'company-backends)

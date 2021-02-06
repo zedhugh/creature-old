@@ -95,5 +95,8 @@
 (when (fboundp 'counsel-describe-variable)
   (define-key global-map [remap describe-variable] #'counsel-describe-variable))
 
+(when (fboundp 'counsel-find-file)
+  (define-key global-map [remap find-file] #'counsel-find-file))
+
 
 (provide 'init-swiper)

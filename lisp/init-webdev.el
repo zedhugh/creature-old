@@ -15,7 +15,7 @@
 
   (define-key emmet-mode-keymap (kbd "TAB") 'creature/emmet-expand))
 
-(add-to-list 'auto-mode-alist '("\\.html\\'"    . web-mode))
+;; (add-to-list 'auto-mode-alist '("\\.html\\'"    . web-mode))
 (add-to-list 'auto-mode-alist '("\\.vue\\'"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tsx\\'"     . web-mode))
 
@@ -91,13 +91,25 @@
 
 ;; prettier-mode
 (with-eval-after-load 'prettier
-  (defun creature/ignore-prettier ()
-    (unless prettier-version
-      (remove-hook 'before-save-hook #'prettier-prettify 'local)))
+  (defun creature/prettier-prettify ()
+    (save-excursion (prettier-prettify)))
 
-  (add-hook 'prettier-mode-hook #'creature/ignore-prettier)
+  (defun creature/prettier-hook-fn ()
+    (remove-hook 'before-save-hook #'prettier-prettify 'local)
 
-  (setq prettier-web-mode-content-type-parsers
+    (when prettier-version
+      (add-hook 'before-save-hook #'creature/prettier-prettify nil 'local)))
+
+  (add-hook 'prettier-mode-hook #'creature/prettier-hook-fn)
+
+  (defun creature/prettier-ignore-mode-fn ()
+    (let ((filename (buffer-file-name)))
+      (or (not filename)
+          (string-suffix-p ".html" filename t)
+          (prettier--in-node-modules-p))))
+
+  (setq prettier-mode-ignore-buffer-function #'creature/prettier-ignore-mode-fn
+        prettier-web-mode-content-type-parsers
         '((nil html)
           ("javascript" . prettier--guess-js-ish)
           ("jsx" typescript)

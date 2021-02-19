@@ -8,14 +8,15 @@
 ;; (run-with-idle-timer 2 nil #'creature/setup-company)
 
 (with-eval-after-load 'company
-  (setq company-idle-delay 0)
-  (setq company-show-numbers t)
-  (setq company-require-match nil)
-  (setq company-minimum-prefix-length 2)
-  (setq company-clang-insert-arguments t)
-  (setq company-dabbrev-char-regexp "[\\.0-9a-z-'/]")
-  (setq company-dabbrev-code-other-buffers 'all)
-  (setq company-dabbrev-downcase nil)
+  (setq company-idle-delay 0
+        company-show-numbers t
+        company-require-match nil
+        company-minimum-prefix-length 2
+        company-clang-insert-arguments t
+        company-dabbrev-char-regexp "[\\.0-9a-z-'/]"
+        company-dabbrev-code-other-buffers 'all
+        company-dabbrev-downcase nil
+        company-tooltip-align-annotations t)
 
   (company-posframe-mode)
   (yas-global-mode)
@@ -26,8 +27,7 @@
     (defun creature/company-select-prev ()
       (interactive)
       (company-complete-common-or-cycle -1)))
-  (define-key company-mode-map (kbd "C-'") #'company-files)
-  )
+  (define-key company-mode-map (kbd "C-'") #'company-files))
 
 (with-eval-after-load 'company-posframe
   (setq company-posframe-show-indicator nil)

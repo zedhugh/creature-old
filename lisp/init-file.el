@@ -19,7 +19,7 @@
 ;;; recentf mode - record recently edit file
 (with-eval-after-load 'recentf
   (setq recentf-max-saved-items 1000)
-  (add-to-list 'recentf-exclude "bookmarks")
+  ;; (add-to-list 'recentf-exclude "bookmarks")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "node_modules")
 
@@ -107,6 +107,16 @@
 
 (defvar modes-about-file-not-loaded t)
 (defvar run-timer nil)
+
+(with-eval-after-load 'editorconfig
+  (defun creature/editorconfig-ignore-charset (props)
+    "Ignore `charset' config of `editorconfig-mode'.
+Charset config in editorconfig make buffer be modified
+when create a new buffer, and it's not what I want."
+    (puthash 'charset nil props))
+
+  (add-hook 'editorconfig-hack-properties-functions
+            #'creature/editorconfig-ignore-charset))
 
 (defun creature/load-modes-idle-or-find-file ()
   "Launch modes with idle timer or when open the first file."

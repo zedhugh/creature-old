@@ -19,6 +19,12 @@
         ))
 
 (with-eval-after-load 'package
+  ;; don't save `package-selected-packages' to config file
+  (defun package--save-selected-packages (&optional value)
+    "Only set `package-selected-packages' to VALUE."
+    (when value
+      (setq package-selected-packages value)))
+
   (add-hook 'package-menu-mode-hook
             (lambda ()
               (setq-local package-quickstart nil))))

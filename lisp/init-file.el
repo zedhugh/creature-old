@@ -108,13 +108,16 @@
 (defvar modes-about-file-not-loaded t)
 (defvar run-timer nil)
 
-(with-eval-after-load 'editorconfig
-  (defun creature/editorconfig-ignore-charset (props)
-    "Ignore `charset' config of `editorconfig-mode'.
+(defun creature/editorconfig-ignore-charset (props)
+  "Ignore `charset' config of `editorconfig-mode' in new file buffer.
 Charset config in editorconfig make buffer be modified
 when create a new buffer, and it's not what I want."
-    (puthash 'charset nil props))
+  (let ((filename (buffer-file-name)))
+    (when (and filename
+               (not (file-exists-p filename)))
+      (puthash 'charset nil props))))
 
+(with-eval-after-load 'editorconfig
   (add-hook 'editorconfig-hack-properties-functions
             #'creature/editorconfig-ignore-charset))
 

@@ -29,7 +29,7 @@
         lsp-enable-file-watchers nil
         lsp-enable-text-document-color nil
         lsp-enable-on-type-formatting nil
-        lsp-enable-symbol-highlighting nil
+        lsp-enable-symbol-highlighting t
 
         lsp-headerline-breadcrumb-enable nil
         lsp-modeline-code-actions-enable nil

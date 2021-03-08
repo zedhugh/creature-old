@@ -51,81 +51,84 @@ otherwise, install `PACKAGES'."
           (creature/require-package pkg))
       (creature/require-package packages))))
 
-(unless (file-exists-p (concat creature/config-dir "elpa"))
+(defvar creature/packages
+  '(editorconfig
+    lua-mode
+    company-lua
+    vimrc-mode
+
+    company
+    yasnippet
+    auto-yasnippet
+    posframe
+    company-posframe
+    yasnippet-snippets
+
+    flycheck
+
+    counsel
+    ivy
+    swiper
+    amx
+    pinyinlib
+
+    smartparens
+
+    web-mode
+    emmet-mode
+    company-web
+    json-mode
+    tide
+    typescript-mode
+    prettier
+
+    lsp-mode
+    lsp-ui
+    lsp-treemacs
+
+    rainbow-delimiters
+    rainbow-delimiters
+    rainbow-identifiers
+    page-break-lines
+
+    htmlize
+    org-pomodoro
+    org-plus-contrib
+    ox-hugo
+
+    hydra
+
+    pinentry
+    keyfreq
+    rime
+    forge
+    gitattributes-mode
+    gitconfig-mode
+    gitignore-mode
+    rg
+    symbol-overlay
+    winum
+    projectile
+    counsel-projectile
+    avy
+    undo-tree
+    expand-region
+    youdao-dictionary
+
+    mingus
+
+    mwim
+    evil
+    evil-matchit
+    evil-surround
+    evil-nerd-commenter
+
+    which-key
+    ))
+
+(if (file-exists-p (concat creature/config-dir "elpa"))
+    (setq package-selected-packages creature/packages)
   (package-initialize)
-  (creature/install-packages
-   '(editorconfig
-     lua-mode
-     company-lua
-     vimrc-mode
-
-     company
-     yasnippet
-     auto-yasnippet
-     posframe
-     company-posframe
-     yasnippet-snippets
-
-     flycheck
-
-     counsel
-     ivy
-     swiper
-     amx
-     pinyinlib
-
-     smartparens
-
-     web-mode
-     emmet-mode
-     company-web
-     json-mode
-     tide
-     typescript-mode
-     prettier
-
-     lsp-mode
-     lsp-ui
-     lsp-treemacs
-
-     rainbow-delimiters
-     rainbow-delimiters
-     rainbow-identifiers
-     page-break-lines
-
-     htmlize
-     org-pomodoro
-     org-plus-contrib
-     ox-hugo
-
-     hydra
-
-     pinentry
-     keyfreq
-     rime
-     forge
-     gitattributes-mode
-     gitconfig-mode
-     gitignore-mode
-     rg
-     symbol-overlay
-     winum
-     projectile
-     counsel-projectile
-     avy
-     undo-tree
-     expand-region
-     youdao-dictionary
-
-     mingus
-
-     mwim
-     evil
-     evil-matchit
-     evil-surround
-     evil-nerd-commenter
-
-     which-key
-     )))
+  (creature/install-packages creature/packages))
 
 (provide 'init-elpa)

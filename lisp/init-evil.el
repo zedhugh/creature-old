@@ -1,7 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (with-eval-after-load 'evil
-  (setq evil-undo-system 'undo-redo)
+  ;; (setq evil-undo-system 'undo-redo)
+  (evil-set-undo-system 'undo-tree)
   (setcdr evil-insert-state-map nil)
   (evil-global-set-key 'insert [escape] #'evil-normal-state)
   (evil-global-set-key 'visual [escape] #'evil-normal-state)

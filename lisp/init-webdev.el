@@ -96,8 +96,9 @@
 
   (defun creature/prettier-hook-fn ()
     (remove-hook 'before-save-hook #'prettier-prettify 'local)
+    (remove-hook 'before-save-hook #'creature/prettier-prettify 'local)
 
-    (when prettier-version
+    (when (and prettier-mode prettier-version)
       (add-hook 'before-save-hook #'creature/prettier-prettify nil 'local)))
 
   (add-hook 'prettier-mode-hook #'creature/prettier-hook-fn)

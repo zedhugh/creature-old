@@ -52,30 +52,54 @@ Each font conf looks like (FAMILY . SIZE).")
     '(tango-dark . tango))
   "Theme cons with form (Dark . Light).")
 
-(defvar creature/theme-toggle-time "18:00"
-  "Load dark theme in `creature/theme-cons' after this time.")
+(defvar creature/light-theme-time '("08:00" . "18:00")
+  "Time interval of light theme in `creature/theme-cons")
 
 (defun creature/theme-setup ()
   (let* ((dark (car creature/theme-cons))
          (light (cdr creature/theme-cons))
 
-         (hhmm (diary-entry-time creature/theme-toggle-time))
-         (now (decode-time))
-         (time (encode-time 0 (% hhmm 100) (/ hhmm 100)
-                            (decoded-time-day now)
-                            (decoded-time-month now)
-                            (decoded-time-year now)
-                            (decoded-time-zone now)))
-         (is-after (> (float-time (time-subtract (encode-time now) time)) 0)))
+         (start-time-string (car creature/light-theme-time))
+         (end-time-string (cdr creature/light-theme-time))
 
-    (if is-after
-        (when dark (load-theme dark t))
-      (when light (load-theme light t))
-      (run-at-time creature/theme-toggle-time nil
+         (start-hhmm (diary-entry-time start-time-string))
+         (end-hhmm (diary-entry-time end-time-string))
+
+         (now (decode-time))
+         (encoded-now (encode-time now))
+
+         (day (decoded-time-day now))
+         (month (decoded-time-month now))
+         (year (decoded-time-year now))
+         (zone (decoded-time-zone now))
+
+         (start-time (encode-time 0 (% start-hhmm 100) (/ start-hhmm 100) day month year zone))
+         (end-time (encode-time 0 (% end-hhmm 100) (/ end-hhmm 100) day month year zone))
+
+         (after-start-time (> (float-time (time-subtract encoded-now start-time)) 0))
+         (after-end-time (> (float-time (time-subtract encoded-now end-time)) 0)))
+
+    (when light
+      (when (and after-start-time
+                 (not after-end-time))
+        (load-theme light t))
+
+      (run-at-time start-time-string nil
                    (lambda ()
                      (dolist (theme custom-enabled-themes)
-                       (disable-theme light))
-                     (when dark (load-theme dark t)))))))
+                       (disable-theme theme))
+                     (load-theme light t))))
+
+    (when dark
+      (when (or after-end-time
+                (not after-start-time))
+        (load-theme dark t))
+
+      (run-at-time end-time-string nil
+                   (lambda ()
+                     (dolist (theme custom-enabled-themes)
+                       (disable-theme theme))
+                     (load-theme dark t))))))
 
 (run-with-idle-timer
  2 nil

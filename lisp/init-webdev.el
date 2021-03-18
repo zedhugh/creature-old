@@ -52,7 +52,8 @@
     ;; (set 'company-backends
     ;;      '((company-capf company-dabbrev company-files company-web-html company-css)
     ;;        (company-dabbrev-code company-gtags company-etags company-keywords)))
-    (when (member web-mode-content-type '("typescript" "jsx" "javascript"))
+    (when (and (fboundp 'flycheck-add-mode)
+               (member web-mode-content-type '("typescript" "jsx" "javascript")))
       (flycheck-add-mode 'javascript-eslint 'web-mode))
     (creature/vue-indent)
     (creature/tsx-quote))

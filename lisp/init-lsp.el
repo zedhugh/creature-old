@@ -63,7 +63,8 @@
 
 (defun creature/lsp-eslint-checker-init ()
   (make-local-variable 'flycheck-checkers)
-  (when (and (flycheck-valid-checker-p 'lsp)
+  (when (and flycheck-mode
+             (flycheck-valid-checker-p 'lsp)
              (flycheck-valid-checker-p 'javascript-eslint))
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 

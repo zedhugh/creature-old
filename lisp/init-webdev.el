@@ -47,9 +47,6 @@
   (defun web-mode-setup ()
     (make-local-variable 'company-backends)
     (emmet-mode)
-    (when (and (fboundp 'flycheck-add-mode)
-               (member web-mode-content-type '("typescript" "jsx" "javascript")))
-      (flycheck-add-mode 'javascript-eslint 'web-mode))
     (creature/vue-indent)
     (creature/tsx-quote))
 

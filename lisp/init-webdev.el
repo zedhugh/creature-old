@@ -96,6 +96,8 @@
 
   (add-hook 'prettier-mode-hook #'creature/prettier-hook-fn)
 
+  (remove-hook 'find-file-hook #'creature/prettier-setup)
+
   (defun creature/prettier-ignore-mode-fn ()
     (let ((filename (buffer-file-name)))
       (or (not filename)
@@ -116,8 +118,11 @@
 
 (defun creature/prettier-setup ()
   (let* ((file-name (buffer-file-name))
-         (major-mode (assoc-default file-name auto-mode-alist #'string-match)))
-    (when (provided-mode-derived-p major-mode 'web-mode 'css-mode 'js-mode 'typescript-mode)
+         (current-major-mode (assoc-default file-name auto-mode-alist #'string-match))
+         (major-mode-is-symbol (symbolp current-major-mode))
+         (need-setup-prettier (ignore-errors (provided-mode-derived-p current-major-mode
+                                                                      'web-mode 'css-mode 'js-mode 'typescript-mode))))
+    (when need-setup-prettier
       (global-prettier-mode)
       (remove-hook 'find-file-hook #'creature/prettier-setup))))
 

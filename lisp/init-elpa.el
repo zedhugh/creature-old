@@ -3,6 +3,11 @@
 (setq package-quickstart t
       package-enable-at-startup nil
       package-selected-packages nil
+
+      ;; change this options need call `package-initialize', but `package-initialize' too slow
+      ;; package-user-dir (concat creature/config-dir emacs-version "-elpa")
+      ;; package-quickstart-file (concat creature/config-dir "package-quickstart-" emacs-version ".el")
+
       package-archives
       '(
         ;; ("gnu"   . "https://elpa.gnu.org/packages/")
@@ -125,7 +130,7 @@ otherwise, install `PACKAGES'."
     which-key
     ))
 
-(if (file-exists-p (concat creature/config-dir "elpa"))
+(if (file-exists-p package-user-dir)
     (setq package-selected-packages creature/packages)
   (package-initialize)
   (creature/install-packages creature/packages))

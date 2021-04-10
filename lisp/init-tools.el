@@ -12,13 +12,7 @@
     (start-process "" nil epg-gpgconf-program "--kill" "gpg-agent")))
 (add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
 
-(defun creature/start-pinentry ()
-  (condition-case nil
-      (pinentry-start)
-    (error nil)))
-
-(run-with-idle-timer 2 nil #'creature/start-pinentry)
-;; (add-hook 'emacs-startup-hook #'creature/start-pinentry)
+(setq epg-pinentry-mode 'loopback)
 
 (keyfreq-mode)
 (keyfreq-autosave-mode)
@@ -112,8 +106,14 @@
   (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))
 
 ;;; magit
-;; (with-eval-after-load 'magit
-;;   (require 'forge))
+(with-eval-after-load 'magit
+  ;; (require 'forge)
+
+  ;; pinentry for prompting password of gpg when sign git commit
+  (condition-case nil
+      (pinentry-start)
+    (error nil)))
+
 (setq magit-revision-show-gravatars
       '("^Author:     " . "^Commit:     "))
 

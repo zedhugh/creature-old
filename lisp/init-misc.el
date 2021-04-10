@@ -62,4 +62,23 @@
 ;;   '(("pi" "prettier-ignore")
 ;;     ("ednl" "eslint-disable-next-line")))
 
+(setq
+ erc-server "chat.freenode.net"
+ erc-port 6697
+
+ erc-nick "zedhugh"
+ erc-prompt-for-password nil
+
+ erc-prompt-for-nickserv-password nil
+ erc-use-auth-source-for-nickserv-password t
+
+ erc-kill-buffer-on-part t
+ erc-kill-queries-on-quit t
+ erc-kill-server-buffer-on-quit t
+
+ erc-autojoin-channels-alist '(("freenode.net" "#c_lang_cn" "#gentoo-cn" "#linuxba" "#ubuntu-cn"))
+ )
+
+;; (run-with-idle-timer 2 nil #'erc-tls)
+
 (provide 'init-misc)

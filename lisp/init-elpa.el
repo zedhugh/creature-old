@@ -1,6 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (setq package-quickstart t
+      package-native-compile t
       package-enable-at-startup nil
       package-selected-packages nil
 
@@ -128,6 +129,11 @@ otherwise, install `PACKAGES'."
     evil-nerd-commenter
 
     which-key
+
+    cmake-mode
+
+    nginx-mode
+    company-nginx
     ))
 
 (if (file-exists-p package-user-dir)

@@ -72,6 +72,13 @@
        (push 'company-lua company-backends)))
 (add-hook 'lua-mode-hook #'creature/lua-company-setup)
 
+(defun creature/nginx-company-setup ()
+  (set (make-local-variable 'company-backends)
+       (add-to-list 'company-backends 'company-nginx)))
+
+(with-eval-after-load 'nginx-mode
+  (add-hook 'nginx-mode-hook #'creature/nginx-company-setup))
+
 (with-eval-after-load 'so-long
   (setq so-long-action 'so-long-minor-mode)
 

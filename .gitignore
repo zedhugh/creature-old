@@ -25,3 +25,4 @@ transient/
 /abbrev_defs
 /package-quickstart.el
 /package-quickstart.elc
+/eln-cache/

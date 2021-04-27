@@ -76,7 +76,7 @@
  erc-kill-queries-on-quit t
  erc-kill-server-buffer-on-quit t
 
- erc-autojoin-channels-alist '(("freenode.net" "#c_lang_cn" "#gentoo-cn" "#linuxba" "#ubuntu-cn"))
+ erc-autojoin-channels-alist '(("freenode.net" "#c_lang_cn" "#linuxba"))
  )
 
 ;; (run-with-idle-timer 2 nil #'erc-tls)

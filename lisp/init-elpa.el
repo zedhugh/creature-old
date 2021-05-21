@@ -1,23 +1,25 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(setq package-quickstart t
+(setq package-selected-packages nil
       package-native-compile t
-      package-enable-at-startup nil
-      package-selected-packages nil
+      ;; package-enable-at-startup nil
 
       ;; change this options need call `package-initialize', but `package-initialize' too slow
-      ;; package-user-dir (concat creature/config-dir emacs-version "-elpa")
-      ;; package-quickstart-file (concat creature/config-dir "package-quickstart-" emacs-version ".el")
+      package-user-dir (concat creature/config-dir "elpa-" emacs-version)
+      package-gnupghome-dir (concat creature/config-dir "elpa-" emacs-version "/gnupg")
+
+      package-quickstart t
+      package-quickstart-file (concat creature/config-dir "package-quickstart-" emacs-version ".el")
 
       package-archives
       '(
-        ;; ("gnu"   . "https://elpa.gnu.org/packages/")
-        ;; ("org"   . "https://orgmode.org/elpa/")
-        ;; ("melpa" . "https://melpa.org/packages/")
+        ("gnu"   . "https://elpa.gnu.org/packages/")
+        ("org"   . "https://orgmode.org/elpa/")
+        ("melpa" . "https://melpa.org/packages/")
 
-        ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-        ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ;; ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+        ;; ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
 
         ;; ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
         ;; ("org-cn"   . "https://elpa.emacs-china.org/org/")
@@ -31,9 +33,10 @@
     (when value
       (setq package-selected-packages value)))
 
-  (add-hook 'package-menu-mode-hook
-            (lambda ()
-              (setq-local package-quickstart nil))))
+  ;; (add-hook 'package-menu-mode-hook
+  ;;           (lambda ()
+  ;;             (setq-local package-quickstart nil)))
+  )
 
 (defun creature/require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
@@ -51,11 +54,10 @@
   "Install packages.
 if `PACKAGES' is a list, install every package in `PACKAGES',
 otherwise, install `PACKAGES'."
-  (let ((package-quickstart nil))
-    (if (listp packages)
-        (dolist (pkg packages)
-          (creature/require-package pkg))
-      (creature/require-package packages))))
+  (if (listp packages)
+      (dolist (pkg packages)
+        (creature/require-package pkg))
+    (creature/require-package packages)))
 
 (defvar creature/packages
   '(editorconfig
@@ -91,6 +93,7 @@ otherwise, install `PACKAGES'."
     lsp-ui
     lsp-treemacs
 
+    modus-themes
     rainbow-delimiters
     rainbow-delimiters
     rainbow-identifiers
@@ -134,11 +137,17 @@ otherwise, install `PACKAGES'."
 
     nginx-mode
     company-nginx
+
+    pdf-tools
     ))
 
-(if (file-exists-p package-user-dir)
-    (setq package-selected-packages creature/packages)
-  (package-initialize)
-  (creature/install-packages creature/packages))
+(unless (featurep 'package)
+  (package-initialize))
+(creature/install-packages creature/packages)
+
+;; (if (file-exists-p package-user-dir)
+;;     (setq package-selected-packages creature/packages)
+;;   (package-initialize)
+;;   (creature/install-packages creature/packages))
 
 (provide 'init-elpa)

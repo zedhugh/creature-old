@@ -44,28 +44,28 @@
   (define-key awesome-pair-mode-map (kbd "M-P") 'awesome-pair-jump-left)
   (define-key awesome-pair-mode-map (kbd "M-RET") 'awesome-pair-jump-out-pair-and-newline))
 
+(defun creature/awesome-pair-in-template-string-p ()
+  (and (awesome-pair-in-string-p)
+       (consp (awesome-pair-string-start+end-points))
+
+       (let* ((pos_cons (awesome-pair-string-start+end-points))
+              (start (car pos_cons))
+              (end (cdr pos_cons)))
+         (and (char-equal ?` (char-after start))
+              (char-equal ?` (char-after end))))))
+
+(defun creature/awesome-pair-kill ()
+  (interactive)
+  (cond ((and (derived-mode-p 'js-mode 'typescript-mode 'web-mode)
+              (creature/awesome-pair-in-template-string-p)
+              (awesome-pair-in-curly-p))
+         (call-interactively #'sp-kill-hybrid-sexp))
+        ((derived-mode-p 'web-mode)
+         (call-interactively #'sp-kill-hybrid-sexp))
+        (t
+         (awesome-pair-kill))))
+
 (defun creature/awesome-pair-setup ()
-  (defun creature/awesome-pair-in-template-string-p ()
-    (and (awesome-pair-in-string-p)
-         (consp (awesome-pair-string-start+end-points))
-
-         (let* ((pos_cons (awesome-pair-string-start+end-points))
-                (start (car pos_cons))
-                (end (cdr pos_cons)))
-           (and (char-equal ?` (char-after start))
-                (char-equal ?` (char-after end))))))
-
-  (defun creature/awesome-pair-kill ()
-    (interactive)
-    (cond ((and (derived-mode-p 'js-mode 'typescript-mode 'web-mode)
-                (creature/awesome-pair-in-template-string-p)
-                (awesome-pair-in-curly-p))
-           (call-interactively #'sp-kill-hybrid-sexp))
-          ((derived-mode-p 'web-mode)
-           (call-interactively #'sp-kill-hybrid-sexp))
-          (t
-           (awesome-pair-kill))))
-
   (add-hook 'prog-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-unix-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-windows-mode-hook #'awesome-pair-mode)

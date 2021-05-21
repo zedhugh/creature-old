@@ -41,13 +41,7 @@ Should't be to big.")
   (garbage-collect))
 
 (creature/turn-off-gc)
-
-(run-with-idle-timer
- 3 nil
- #'(lambda ()
-     (add-hook 'minibuffer-exit-hook #'creature/turn-on-gc)
-     (add-hook 'minibuffer-setup-hook #'creature/turn-off-gc)
-     (creature/turn-on-gc)))
+(run-with-idle-timer 3 nil #'creature/turn-on-gc)
 
 (defconst creature/config-dir
   (file-name-directory
@@ -63,32 +57,33 @@ Should't be to big.")
 
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
-(let* ((file-name-handler-alist nil))
-  (require 'init-autoloads)
-  (require 'init-utils)
-  (require 'init-modeline)
-  (require 'init-elpa)
-  (require 'init-file)
-  (require 'init-company)
-  (require 'init-flycheck)
-  (require 'init-swiper)
-  (require 'init-paredit)
-  (require 'init-webdev)
-  (require 'init-lsp)
-  (require 'init-theme)
-  (require 'init-misc)
-  (require 'init-org)
-  (require 'init-dired)
-  (require 'init-ibuffer)
-  (require 'init-hydra)
-  (require 'init-tools)
-  (require 'init-media)
-  (require 'init-evil)
-  (require 'init-keybindings)
-  (require 'init-which-key)
+(require 'init-autoloads)
+(require 'init-utils)
+(require 'init-modeline)
+(require 'init-elpa)
+(require 'init-file)
+(require 'init-company)
+(require 'init-flycheck)
+(require 'init-swiper)
+(require 'init-paredit)
+(require 'init-webdev)
+(require 'init-lsp)
+(require 'init-theme)
+(require 'init-misc)
+(require 'init-org)
+(require 'init-dired)
+(require 'init-ibuffer)
+(require 'init-hydra)
+(require 'init-tools)
+(require 'init-media)
+(require 'init-evil)
+(require 'init-keybindings)
+(require 'init-which-key)
 
-  (with-eval-after-load 'gnus
-    (require 'init-mail))
+(with-eval-after-load 'gnus
+  (require 'init-mail))
+
+(let* ((file-name-handler-alist nil))
 
   (run-with-idle-timer 2 nil
                        (lambda ()
@@ -102,3 +97,4 @@ Should't be to big.")
   (when (file-exists-p custom-file)
     (load custom-file 'noerror))
   )
+(put 'scroll-left 'disabled nil)

@@ -1,22 +1,22 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(defconst creature/font-config
+  ;; '("Operator Mono Book" . 16)
+  (if creature/sys-win32p
+      (if (> (frame-pixel-width) 2560)
+          '(("等距更纱黑体 SC" . 24))
+        '(("等距更纱黑体 SC" . 16)))
+    '(("Sarasa Mono SC" . 16)))
+  ;; '("Source Code Pro" . 16)
+  "Font config.
+It's a list of single-byte and multi-byte font.
+Each font conf looks like (FAMILY . SIZE).")
+
 (defun creature/fontset (&optional frame)
   "Config fonts for FRAME.
 if FRAME is nil, setup for current frame."
   ;; single-byte code
   (setq inhibit-compacting-font-caches t)
-
-  (defconst creature/font-config
-    ;; '("Operator Mono Book" . 16)
-    (if creature/sys-win32p
-        (if (> (frame-pixel-width) 2560)
-            '(("等距更纱黑体 SC" . 24))
-          '(("等距更纱黑体 SC" . 16)))
-      '(("Sarasa Mono SC" . 16)))
-    ;; '("Source Code Pro" . 16)
-    "Font config.
-It's a list of single-byte and multi-byte font.
-Each font conf looks like (FAMILY . SIZE).")
 
   (let ((single (car creature/font-config))
         (multi  (cdr creature/font-config)))
@@ -101,6 +101,14 @@ Each font conf looks like (FAMILY . SIZE).")
                        (disable-theme theme))
                      (load-theme dark t))))))
 
+(defvar creature/pulse-enable t
+  "Whether enable pulse for scroll and switch window.")
+
+(defun creature/pulse-line (&rest _)
+  "Pulse the current line."
+  (when creature/pulse-enable
+    (pulse-momentary-highlight-one-line (point))))
+
 (run-with-idle-timer
  2 nil
  (lambda ()
@@ -119,14 +127,6 @@ Each font conf looks like (FAMILY . SIZE).")
    (with-eval-after-load 'pulse
      (setq pulse-delay 0.04))
 
-   (defvar creature/pulse-enable t
-     "Whether enable pulse for scroll and switch window.")
-
-   (defun creature/pulse-line (&rest _)
-     "Pulse the current line."
-     (when creature/pulse-enable
-       (pulse-momentary-highlight-one-line (point))))
-
    (dolist (command '(scroll-up
                       scroll-down
                       recenter))
@@ -141,7 +141,7 @@ Each font conf looks like (FAMILY . SIZE).")
 ;; page break lines
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?=)
-(dolist (mode '(web-mode css-mode js-mode))
+(dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
   (add-to-list 'page-break-lines-modes mode))
 
 (blink-cursor-mode -1)

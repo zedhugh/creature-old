@@ -159,4 +159,6 @@
 
 (global-undo-tree-mode)
 
+(pdf-loader-install t t t)
+
 (provide 'init-tools)

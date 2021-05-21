@@ -79,35 +79,35 @@
 (with-eval-after-load 'nginx-mode
   (add-hook 'nginx-mode-hook #'creature/nginx-company-setup))
 
+(defun creature/long-or-large-file-action ()
+  (let* ((temp-file-name (buffer-file-name))
+         (current-file-name (if temp-file-name temp-file-name ""))
+         (current-major-mode (assoc-default current-file-name auto-mode-alist #'string-match))
+
+         (major-mode-is-symbol (symbolp current-major-mode))
+
+         (mode-enable-so-long (and major-mode-is-symbol
+                                   (apply `(provided-mode-derived-p ,current-major-mode ,@so-long-target-modes)))))
+    (when (and current-file-name
+               mode-enable-so-long)
+
+      (let ((size (buffer-size)))
+        (if (so-long-detected-long-line-p)
+
+            (cond
+             ((> size 51200)
+              (fundamental-mode)
+              (so-long-minor-mode))
+             ((> size 20480)
+              (text-mode)
+              (so-long-minor-mode)))
+
+          (when (> size 2097152)      ;2MiB
+            (text-mode)
+            (read-only-mode)))))))
+
 (with-eval-after-load 'so-long
   (setq so-long-action 'so-long-minor-mode)
-
-  (defun creature/long-or-large-file-action ()
-    (let* ((temp-file-name (buffer-file-name))
-           (current-file-name (if temp-file-name temp-file-name ""))
-           (current-major-mode (assoc-default current-file-name auto-mode-alist #'string-match))
-
-           (major-mode-is-symbol (symbolp current-major-mode))
-
-           (mode-enable-so-long (and major-mode-is-symbol
-                                     (apply `(provided-mode-derived-p ,current-major-mode ,@so-long-target-modes)))))
-      (when (and current-file-name
-                 mode-enable-so-long)
-
-        (let ((size (buffer-size)))
-          (if (so-long-detected-long-line-p)
-
-              (cond
-               ((> size 51200)
-                (fundamental-mode)
-                (so-long-minor-mode))
-               ((> size 20480)
-                (text-mode)
-                (so-long-minor-mode)))
-
-            (when (> size 2097152)      ;2MiB
-              (text-mode)
-              (read-only-mode)))))))
 
   (when buffer-file-name
     (creature/long-or-large-file-action))
@@ -157,5 +157,7 @@ when create a new buffer, and it's not what I want."
 
 ;; save cursor position
 (save-place-mode)
+
+(pdf-loader-install t t)
 
 (provide 'init-file)

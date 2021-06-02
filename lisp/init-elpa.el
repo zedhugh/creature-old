@@ -13,17 +13,13 @@
 
       package-archives
       '(
-        ("gnu"   . "https://elpa.gnu.org/packages/")
-        ("org"   . "https://orgmode.org/elpa/")
-        ("melpa" . "https://melpa.org/packages/")
+        ("gnu"    . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa"  . "https://melpa.org/packages/")
 
-        ;; ("gnu-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ;; ("org-cn"   . "https://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-        ;; ("melpa-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-
-        ;; ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")
-        ;; ("org-cn"   . "https://elpa.emacs-china.org/org/")
-        ;; ("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
+        ;; ("gnu-cn"    . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; ("nongnu-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+        ;; ("melpa-cn"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ))
 
 (with-eval-after-load 'package
@@ -31,12 +27,7 @@
   (defun package--save-selected-packages (&optional value)
     "Only set `package-selected-packages' to VALUE."
     (when value
-      (setq package-selected-packages value)))
-
-  ;; (add-hook 'package-menu-mode-hook
-  ;;           (lambda ()
-  ;;             (setq-local package-quickstart nil)))
-  )
+      (setq package-selected-packages value))))
 
 (defun creature/require-package (package &optional min-version no-refresh)
   "Ask elpa to install given PACKAGE."
@@ -102,7 +93,7 @@ otherwise, install `PACKAGES'."
 
     htmlize
     org-pomodoro
-    org-plus-contrib
+    org-contrib
     ox-hugo
 
     hydra
@@ -124,7 +115,7 @@ otherwise, install `PACKAGES'."
     expand-region
     youdao-dictionary
 
-    mingus
+    emms
 
     mwim
     evil
@@ -145,10 +136,5 @@ otherwise, install `PACKAGES'."
 (unless (featurep 'package)
   (package-initialize))
 (creature/install-packages creature/packages)
-
-;; (if (file-exists-p package-user-dir)
-;;     (setq package-selected-packages creature/packages)
-;;   (package-initialize)
-;;   (creature/install-packages creature/packages))
 
 (provide 'init-elpa)

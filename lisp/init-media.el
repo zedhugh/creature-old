@@ -1,12 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-;;; mingus/mpd (music)
-(setq mingus-mode-line-separator " - ")
-(global-set-key (kbd "C-c m") #'mingus)
-(with-eval-after-load 'evil-core
-  (dolist (func '(mingus-help-mode
-                  mingus-browse-mode
-                  mingus-playlist-mode))
-    (advice-add func :after #'evil-emacs-state)))
+(with-eval-after-load 'emms-player-mpd
+  (add-to-list 'emms-info-functions #'emms-info-mpd)
+  (add-to-list 'emms-info-functions #'emms-info-mpd-process)
+  (add-to-list 'emms-player-list 'emms-player-mpd)
+
+  (require 'emms-volume)
+  (setq emms-volume-change-function #'emms-volume-mpd-change))
 
 (provide 'init-media)

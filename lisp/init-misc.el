@@ -62,23 +62,18 @@
 ;;   '(("pi" "prettier-ignore")
 ;;     ("ednl" "eslint-disable-next-line")))
 
-(setq
- erc-server "chat.freenode.net"
- erc-port 6697
+(with-eval-after-load 'erc
+  (setq erc-server "irc.libera.chat"
+        erc-nick "zedhugh"
+        erc-prompt-for-password nil
 
- erc-nick "zedhugh"
- erc-prompt-for-password nil
+        erc-prompt-for-nickserv-password nil
+        erc-use-auth-source-for-nickserv-password t
 
- erc-prompt-for-nickserv-password nil
- erc-use-auth-source-for-nickserv-password t
+        erc-kill-buffer-on-part t
+        erc-kill-queries-on-quit t
+        erc-kill-server-buffer-on-quit t
 
- erc-kill-buffer-on-part t
- erc-kill-queries-on-quit t
- erc-kill-server-buffer-on-quit t
-
- erc-autojoin-channels-alist '(("freenode.net" "#c_lang_cn" "#linuxba"))
- )
-
-;; (run-with-idle-timer 2 nil #'erc-tls)
+        erc-autojoin-channels-alist '(("libera.chat" "#linuxba" "#gentoo" "#emacs"))))
 
 (provide 'init-misc)

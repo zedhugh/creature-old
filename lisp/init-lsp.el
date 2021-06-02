@@ -12,6 +12,13 @@
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
 
+(defun creature/tailwindcss-setup ()
+  "Setup tailwindcss."
+  (setq lsp-tailwindcss-add-on-mode t)
+  ;; avoid this issue: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/318
+  (setq lsp-tailwindcss-server-version "0.5.10")
+  (require 'lsp-tailwindcss))
+
 (with-eval-after-load 'lsp-mode
   (setq lsp-restart 'auto-restart
         lsp-log-io nil
@@ -39,6 +46,8 @@
         lsp-diagnostic-clean-after-change t
         lsp-diagnostics-provider :auto
         )
+
+  (creature/tailwindcss-setup)
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
   (add-hook 'lsp-on-idle-hook #'creature/setup-yasnippet))

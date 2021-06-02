@@ -26,7 +26,9 @@
                  (name . "^\\*tide-server\\*$")
                  (name . "^\\*tide-documentation\\*$")
                  (name . "^\\*.*-ls\\*$")
-                 (name . "^\\*.*-ls::stderr\\*$"))))))
+                 (name . "^\\*.*-ls::stderr\\*$")
+                 (name . "^\\*tailwindcss\\*$")
+                 (name . "^\\*tailwindcss::stderr\\*$"))))))
 
 (add-hook 'ibuffer-mode-hook
           (lambda ()

@@ -92,6 +92,7 @@ otherwise, install `PACKAGES'."
     lsp-mode
     lsp-ui
     lsp-treemacs
+    lsp-tailwindcss
 
     modus-themes
     rainbow-delimiters

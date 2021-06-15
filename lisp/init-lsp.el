@@ -16,7 +16,8 @@
   "Setup tailwindcss."
   (setq lsp-tailwindcss-add-on-mode t)
   ;; avoid this issue: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/318
-  (setq lsp-tailwindcss-server-version "0.5.10")
+  ;; issue fixed
+  ;; (setq lsp-tailwindcss-server-version "0.5.10")
   (require 'lsp-tailwindcss))
 
 (with-eval-after-load 'lsp-mode

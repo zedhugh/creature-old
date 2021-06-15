@@ -74,6 +74,6 @@
         erc-kill-queries-on-quit t
         erc-kill-server-buffer-on-quit t
 
-        erc-autojoin-channels-alist '(("libera.chat" "#linuxba" "#gentoo" "#emacs"))))
+        erc-autojoin-channels-alist '(("libera.chat" "#linuxba"))))
 
 (provide 'init-misc)

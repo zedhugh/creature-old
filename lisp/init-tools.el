@@ -87,7 +87,10 @@
         creature/indent-region-or-buffer))
 
 ;; rime
-(setq rime-emacs-module-header-root "/usr/include/emacs-28-vcs")
+(setq rime-emacs-module-header-root
+      (if (= emacs-major-version 27)
+          "/usr/include/emacs-27"
+        "/usr/include/emacs-28-vcs"))
 (setq default-input-method "rime")
 (with-eval-after-load 'rime
   (setq rime-show-candidate 'minibuffer)

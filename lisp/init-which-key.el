@@ -14,7 +14,24 @@
           doc (pop bind))))
 (put 'creature/which-key-declare-prefixes 'lisp-indent-function 'defun)
 
-(creature/which-key-declare-prefixes creature/prefix-key
+;; (creature/which-key-declare-prefixes creature/prefix-key
+;;   "b"  "buffer"
+;;   "c"  "comments"
+;;   "e"  "errors"
+;;   "el" "lines"
+;;   "ex" "error message"
+;;   "f"  "files"
+;;   "g"  "magit"
+;;   "gf" "magit files"
+;;   "h"  "help"
+;;   "q"  "quit option"
+;;   "s"  "evil surround"
+;;   "y"  "youdao"
+;;   "j"  "jump"
+;;   "yp" "pronunciation"
+;;   "ys" "translate")
+
+(which-key-add-keymap-based-replacements creature-map
   "b"  "buffer"
   "c"  "comments"
   "e"  "errors"

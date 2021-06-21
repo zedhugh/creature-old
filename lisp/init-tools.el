@@ -162,6 +162,13 @@
 
 (global-undo-tree-mode)
 
+;; pdf view
+(with-eval-after-load 'pdf-loader
+  (require 'saveplace-pdf-view))
+
+(with-eval-after-load 'pdf-view
+  (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode))
+
 (pdf-loader-install t t t)
 
 (provide 'init-tools)

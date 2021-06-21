@@ -1,13 +1,13 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (defconst creature/font-config
-  ;; '("Operator Mono Book" . 16)
+  ;; '(("Operator Mono Book" . 16))
   (if creature/sys-win32p
       (if (> (frame-pixel-width) 2560)
           '(("等距更纱黑体 SC" . 24))
         '(("等距更纱黑体 SC" . 16)))
     '(("Sarasa Mono SC" . 16)))
-  ;; '("Source Code Pro" . 16)
+  ;; '(("Source Code Pro" . 16))
   "Font config.
 It's a list of single-byte and multi-byte font.
 Each font conf looks like (FAMILY . SIZE).")
@@ -16,7 +16,7 @@ Each font conf looks like (FAMILY . SIZE).")
   "Config fonts for FRAME.
 if FRAME is nil, setup for current frame."
   ;; single-byte code
-  (setq inhibit-compacting-font-caches t)
+  (setq inhibit-compacting-font-caches (if creature/sys-win32p t nil))
 
   (let ((single (car creature/font-config))
         (multi  (cdr creature/font-config)))

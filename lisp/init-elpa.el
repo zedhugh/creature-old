@@ -131,6 +131,7 @@ otherwise, install `PACKAGES'."
     company-nginx
 
     pdf-tools
+    saveplace-pdf-view
     ))
 
 (unless (featurep 'package)

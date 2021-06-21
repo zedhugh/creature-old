@@ -20,6 +20,17 @@
   ;; (setq lsp-tailwindcss-server-version "0.5.10")
   (require 'lsp-tailwindcss))
 
+(with-eval-after-load 'lsp-css
+  (lsp-register-client
+   (make-lsp-client
+    :new-connection (lsp-stdio-connection #'lsp-css--server-command)
+    :activation-fn (lsp-activate-on "scss")
+    :priority -1
+    :action-handlers (lsp-ht ("_css.applyCodeAction" #'lsp-css--apply-code-action))
+    :server-id 'css-ls
+    :download-server-fn (lambda (_client callback error-callback _update?)
+                          (lsp-package-ensure 'css-languageserver callback error-callback)))))
+
 (with-eval-after-load 'lsp-mode
   (setq lsp-restart 'auto-restart
         lsp-log-io nil

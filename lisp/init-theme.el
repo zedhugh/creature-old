@@ -36,7 +36,7 @@ if FRAME is nil, setup for current frame."
                                 (font-spec :family family :size size) frame)
             (error nil)))))))
 
-;; (add-hook 'emacs-startup-hook #'creature/fontset)
+(add-hook 'emacs-startup-hook #'creature/fontset)
 (add-hook 'server-after-make-frame-hook #'creature/fontset)
 
 ;; some beautifule theme built-in
@@ -114,14 +114,6 @@ if FRAME is nil, setup for current frame."
  (lambda ()
    (creature/fontset)
    (creature/theme-setup)
-
-   ;; disable menu, toolbar and scroll bar.
-   (when (fboundp 'menu-bar-mode)
-     (menu-bar-mode -1))
-   (when (fboundp 'tool-bar-mode)
-     (tool-bar-mode -1))
-   (when (fboundp 'scroll-bar-mode)
-     (scroll-bar-mode -1))
 
    ;; pulse setup, like beacon
    (with-eval-after-load 'pulse

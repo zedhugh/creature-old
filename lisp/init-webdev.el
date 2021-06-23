@@ -77,7 +77,7 @@
 (add-to-list 'auto-mode-alist '("\\.eslintrc\\'"    . json-mode))
 (add-to-list 'interpreter-mode-alist '("node"       . js-mode))
 (add-to-list 'interpreter-mode-alist '("nodejs"     . js-mode))
-
+
 ;; prettier-mode
 (defun creature/prettier-prettify ()
   (save-excursion (prettier-prettify)))
@@ -132,7 +132,7 @@
  (lambda ()
    (unless global-prettier-mode
      (global-prettier-mode))))
-
+
 (defun creature/setup-typescript ()
   (make-local-variable 'company-backends)
   (set 'company-backends

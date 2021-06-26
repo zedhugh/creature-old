@@ -161,6 +161,7 @@
     (vc-mode vc-mode)
     ;; (flycheck-mode flycheck-mode-line)
     creature/flycheck-errors
+    (flymake-mode flymake-mode-line-format)
     mode-line-misc-info
     mode-line-end-spaces
     )

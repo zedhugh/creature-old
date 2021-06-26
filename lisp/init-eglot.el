@@ -13,6 +13,9 @@
     (flymake-goto-next-error)))
 
 (with-eval-after-load 'flymake
+  (setq flymake-mode-line-format
+        '(" " flymake-mode-line-exception flymake-mode-line-counters))
+
   (creature/set-keys creature-map
                      "ex" #'flymake-show-diagnostic
                      "el" #'flymake-show-diagnostics-buffer-and-jump)

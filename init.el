@@ -6,15 +6,15 @@
 
 (defvar creature/init-time nil)
 
-(let ((benchmark nil)
-      (start-time (current-time)))
+(let ((benchmark nil))
   (when benchmark (profiler-start 'cpu+mem))
   (add-hook 'emacs-startup-hook
-            #'(lambda ()
-                (when benchmark (profiler-stop))
-                (setq creature/init-time
-                      (float-time
-                       (time-subtract (current-time) start-time))))))
+            (lambda ()
+              (when benchmark (profiler-stop))
+              (setq creature/init-time
+                    (float-time
+                     (time-subtract (current-time) start-time)))
+              (makunbound 'start-time))))
 
 (defconst creature/sys-win32p
   (eq system-type 'windows-nt)
@@ -42,19 +42,18 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
-(require 'init-elpa)
 (require 'init-autoloads)
-(require 'init-utils)
+(require 'init-theme)
 (require 'init-modeline)
+(require 'init-utils)
 (require 'init-file)
 (require 'init-company)
-(require 'init-flycheck)
+;; (require 'init-flycheck)
 (require 'init-swiper)
 (require 'init-paredit)
 (require 'init-webdev)
-(require 'init-lsp)
+;; (require 'init-lsp)
 (require 'init-eglot)
-(require 'init-theme)
 (require 'init-misc)
 (require 'init-org)
 (require 'init-dired)

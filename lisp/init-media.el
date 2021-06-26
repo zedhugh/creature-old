@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'emms)
 
 (with-eval-after-load 'emms-player-mpd

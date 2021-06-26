@@ -1,10 +1,12 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'cmake-mode)
 (creature/require-package 'vimrc-mode)
 
 (prefer-coding-system 'utf-8)
-
+
 ;;; indentation
 ;; indent style
 (setq c-default-style "linux"
@@ -18,10 +20,10 @@
 (add-to-list 'auto-mode-alist '("package\\.license\\'"         . conf-mode))
 (add-to-list 'auto-mode-alist '("package\\.keywords\\'"        . conf-mode))
 (add-to-list 'auto-mode-alist '("package\\.accept_keywords\\'" . conf-mode))
-
+
 ;;; recentf mode - record recently edit file
 (with-eval-after-load 'recentf
-  (setq recentf-max-saved-items 1000)
+  (setq recentf-max-saved-items 100)
   ;; (add-to-list 'recentf-exclude "bookmarks")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "node_modules")
@@ -32,20 +34,20 @@
 ;;; minibuffer history
 (setq history-length 1000
       enable-recursive-minibuffers t)
-
+
 ;;; don't show prompt when call function
 (fset 'yes-or-no-p 'y-or-n-p)
 (put 'erase-buffer 'disabled nil)
 (put 'narrow-to-page 'disabled nil)
 (put 'narrow-to-defun 'disable nil)
 (put 'narrow-to-region 'disabled nil)
-
+
 ;; show trailing whitespace
 (defun creature/show-trailing-whitespace ()
   (set (make-local-variable 'show-trailing-whitespace) t))
 
 (add-hook 'find-file-hook #'creature/show-trailing-whitespace)
-
+
 (with-eval-after-load 'savehist
   (setq savehist-autosave-interval 60
         savehist-additional-variables '(mark-ring
@@ -54,6 +56,8 @@
                                         regexp-search-ring
                                         extended-command-history)))
 
+(savehist-mode)
+
 ;; delete file directly
 (setq delete-by-moving-to-trash t)
 
@@ -175,12 +179,8 @@ when create a new buffer, and it's not what I want."
   (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode))
 
 (pdf-loader-install t t t)
-
-
-(savehist-mode)
-
+
 ;; save cursor position
 (save-place-mode)
-
-
+
 (provide 'init-file)

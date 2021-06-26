@@ -1,3 +1,24 @@
+;; maximized(but follow the rule in awesome-wm) window with alpha
+(add-to-list 'default-frame-alist '(alpha . 90))
+(unless (string= (getenv "DESKTOP_SESSION") "awesome")
+  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
+
+;; turn off startup screen
+(setq inhibit-splash-screen t)
+
+;; disable bell
+(setq ring-bell-function 'ignore)
+(setq visible-bell nil)
+
+;; Keep cursor at end of lines when prev
+;; position of cursor is at the end.
+;; Require line-move-visual is nil.
+(setq track-eol t)
+(setq line-move-visual t)
+
+;; disable gtk tooltips
+(setq x-gtk-use-system-tooltips nil)
+
 ;; disable menu, toolbar and scroll bar.
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))
@@ -7,3 +28,5 @@
   (scroll-bar-mode -1))
 
 (setq package-enable-at-startup nil)
+
+(setq start-time (current-time))

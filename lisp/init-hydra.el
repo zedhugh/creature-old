@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'hydra)
 
 (defhydra hydra-window (:hint nil)
@@ -29,5 +31,7 @@ _n_:next
   ("{" shrink-window)
   ("}" enlarge-window)
   ("q" nil))
+
+(creature/set-keys creature-map "w" 'hydra-window/body)
 
 (provide 'init-hydra)

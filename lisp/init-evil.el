@@ -1,10 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/require-package 'mwim)
+(require 'init-elpa)
+
 (creature/require-package 'evil)
-(creature/require-package 'evil-matchit)
-(creature/require-package 'evil-surround)
-(creature/require-package 'evil-nerd-commenter)
 
 (with-eval-after-load 'evil
   ;; (setq evil-undo-system 'undo-redo)
@@ -38,18 +36,30 @@
   (evil-change-to-initial-state "*Messages*"))
 
 (evil-mode)
+
+(creature/require-package 'evil-matchit)
 
 ;; enable evil matchit mode
 (global-evil-matchit-mode)
+
+(creature/require-package 'evil-surround)
 
-;; ;; evil surround
+;; evil surround
 (global-evil-surround-mode)
 (evil-define-key 'visual evil-surround-mode-map
   "cc" 'evil-surround-change
   "cd" 'evil-surround-delete
   "cs" 'evil-surround-region)
 
-(global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
-(global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
+(creature/set-keys creature-map
+                   "sc" 'evil-surround-change
+                   "sd" 'evil-surround-delete
+                   "ss" 'evil-surround-region)
+
+(creature/require-package 'evil-nerd-commenter)
 
+(creature/set-keys creature-map
+                   "cl" 'evilnc-comment-or-uncomment-lines
+                   "cp" 'evilnc-comment-or-uncomment-paragraphs)
+
 (provide 'init-evil)

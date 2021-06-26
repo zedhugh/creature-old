@@ -1,18 +1,16 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'company)
-(creature/require-package 'yasnippet)
-(creature/require-package 'auto-yasnippet)
 (creature/require-package 'posframe)
 (creature/require-package 'company-posframe)
-(creature/require-package 'yasnippet-snippets)
 
 (defun creature/setup-company ()
   (global-company-mode)
   (remove-hook 'prog-mode-hook #'creature/setup-company))
 
 (add-hook 'prog-mode-hook #'creature/setup-company)
-;; (run-with-idle-timer 2 nil #'creature/setup-company)
 
 (with-eval-after-load 'company
   (setq company-idle-delay 0
@@ -51,8 +49,10 @@
          company-files
          (company-dabbrev company-dabbrev-code company-ispell))))
 (add-hook 'text-mode-hook 'creature/enable-ispell)
+
+(creature/require-package 'yasnippet)
+(creature/require-package 'yasnippet-snippets)
 
-;; (yas-global-mode)
 (defvar creature/company-backends-with-yasnippet nil
   "Make every company backend with `company-yasnippet' when `company-mode' launched.")
 
@@ -71,12 +71,17 @@
   (when (and company-mode
              creature/company-backends-with-yasnippet)
     (with-current-buffer (buffer-name)
-      (run-with-idle-timer 1 nil #'creature/company-add-yas))))
+      (run-with-timer 0.5 nil #'creature/company-add-yas))))
 
-(add-hook 'yas-minor-mode-hook #'creature/setup-yasnippet)
+
+(with-eval-after-load 'yasnippet
+  (add-hook 'yas-minor-mode-hook #'creature/setup-yasnippet)
+  (creature/setup-yasnippet))
+
+(creature/require-package 'auto-yasnippet)
 
 (global-set-key (kbd "s-w") #'aya-create)
 (global-set-key (kbd "s-y") #'aya-expand)
 (global-set-key (kbd "C-o") #'aya-open-line)
-
+
 (provide 'init-company)

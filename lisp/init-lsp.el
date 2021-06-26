@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'lsp-mode)
 (creature/require-package 'lsp-ui)
 (creature/require-package 'lsp-treemacs)

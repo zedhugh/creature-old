@@ -20,4 +20,6 @@
 
 (autoload 'pinyinlib-build-regexp-string "pinyinlib" "" nil)
 
+(autoload 'magit-find-git-config-file "magit-files" "" nil)
+
 (provide 'init-autoloads)

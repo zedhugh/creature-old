@@ -1,11 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/require-package 'modus-themes)
-(creature/require-package 'rainbow-delimiters)
-(creature/require-package 'rainbow-delimiters)
-(creature/require-package 'rainbow-identifiers)
-(creature/require-package 'page-break-lines)
-
+(require 'init-elpa)
+
 (defconst creature/font-config
   ;; '(("Operator Mono Book" . 16))
   (if creature/sys-win32p
@@ -44,6 +40,8 @@ if FRAME is nil, setup for current frame."
 
 (add-hook 'emacs-startup-hook #'creature/fontset)
 (add-hook 'server-after-make-frame-hook #'creature/fontset)
+
+(creature/require-package 'modus-themes)
 
 ;; some beautifule theme built-in
 ;; dark: modus-vivendi/wombat/misterioso/tango-dark/wheatgrass
@@ -107,6 +105,8 @@ if FRAME is nil, setup for current frame."
                        (disable-theme theme))
                      (load-theme dark t))))))
 
+(creature/theme-setup)
+
 (defvar creature/pulse-enable t
   "Whether enable pulse for scroll and switch window.")
 
@@ -115,55 +115,32 @@ if FRAME is nil, setup for current frame."
   (when creature/pulse-enable
     (pulse-momentary-highlight-one-line (point))))
 
-(run-with-idle-timer
- 2 nil
- (lambda ()
-   (creature/fontset)
-   (creature/theme-setup)
+;; pulse setup, like beacon
+(with-eval-after-load 'pulse
+  (setq pulse-delay 0.04))
 
-   ;; pulse setup, like beacon
-   (with-eval-after-load 'pulse
-     (setq pulse-delay 0.04))
-
-   (dolist (command '(scroll-up
-                      scroll-down
-                      recenter))
-     (advice-add command :after #'creature/pulse-line))
-   (add-to-list 'window-selection-change-functions #'creature/pulse-line)
-   ))
+(dolist (command '(scroll-up
+                   scroll-down
+                   recenter))
+  (advice-add command :after #'creature/pulse-line))
+(add-to-list 'window-selection-change-functions #'creature/pulse-line)
+
+(creature/require-package 'rainbow-delimiters)
+(creature/require-package 'rainbow-identifiers)
 
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))
   (add-hook 'prog-mode-hook mode))
-
+
 ;; page break lines
+(creature/require-package 'page-break-lines)
+
 (global-page-break-lines-mode)
-(setq page-break-lines-char ?=)
 (with-eval-after-load 'page-break-lines
+  (setq page-break-lines-char ?=)
   (dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
     (add-to-list 'page-break-lines-modes mode)))
-
+
 (blink-cursor-mode -1)
-
-;; maximized(but follow the rule in awesome-wm) window with alpha
-(add-to-list 'default-frame-alist '(alpha . 90))
-(unless (string= (getenv "DESKTOP_SESSION") "awesome")
-  (add-to-list 'default-frame-alist '(fullscreen . maximized)))
-
-;; turn off startup screen
-(setq inhibit-splash-screen t)
-
-;; disable bell
-(setq ring-bell-function 'ignore)
-(setq visible-bell nil)
-
-;; Keep cursor at end of lines when prev
-;; position of cursor is at the end.
-;; Require line-move-visual is nil.
-(setq track-eol t)
-(setq line-move-visual t)
-
-;; disable gtk tooltips
-(setq x-gtk-use-system-tooltips nil)
-
+
 (provide 'init-theme)

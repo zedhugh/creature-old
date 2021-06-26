@@ -1,25 +1,12 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(creature/require-package 'pinentry)
-(creature/require-package 'keyfreq)
-(creature/require-package 'rime)
-(creature/require-package 'forge)
-(creature/require-package 'gitattributes-mode)
-(creature/require-package 'gitconfig-mode)
-(creature/require-package 'gitignore-mode)
-(creature/require-package 'rg)
-(creature/require-package 'symbol-overlay)
-(creature/require-package 'winum)
-(creature/require-package 'projectile)
-(creature/require-package 'counsel-projectile)
-(creature/require-package 'avy)
-(creature/require-package 'undo-tree)
-(creature/require-package 'expand-region)
-(creature/require-package 'youdao-dictionary)
-
+(require 'init-elpa)
+
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
+
+(creature/require-package 'pinentry)
 
 ;; gpg config
 (defun creature/kill-gpg-agent ()
@@ -30,6 +17,8 @@
 (add-hook 'kill-emacs-hook #'creature/kill-gpg-agent)
 
 (setq epg-pinentry-mode 'loopback)
+
+(creature/require-package 'keyfreq)
 
 (keyfreq-mode)
 (keyfreq-autosave-mode)
@@ -102,8 +91,10 @@
         creature/awesome-pair-kill
         creature/emmet-expand
         creature/indent-region-or-buffer))
+
+;;; rime
+(creature/require-package 'rime)
 
-;; rime
 (setq rime-emacs-module-header-root
       (if (= emacs-major-version 27)
           "/usr/include/emacs-27"
@@ -124,23 +115,37 @@
 
   (define-key rime-mode-map (kbd "M-i") 'rime-force-enable)
   (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))
-
+
 ;;; magit
+(creature/require-package 'forge)
+(creature/require-package 'gitattributes-mode)
+(creature/require-package 'gitconfig-mode)
+(creature/require-package 'gitignore-mode)
+
 (with-eval-after-load 'magit
   ;; (require 'forge)
 
   ;; pinentry for prompting password of gpg when sign git commit
   (condition-case nil
       (pinentry-start)
-    (error nil)))
+    (error nil))
 
-(setq magit-revision-show-gravatars
-      '("^Author:     " . "^Commit:     "))
+  (setq magit-revision-show-gravatars
+        '("^Author:     " . "^Commit:     ")))
 
-
-;; (rg-enable-default-bindings)
-(run-with-idle-timer 2 nil #'rg-enable-default-bindings)
-
+(creature/set-keys creature-map
+                   "gc"  'magit-clone
+                   "gff" 'magit-find-file
+                   "gfc" 'magit-find-git-config-file
+                   "gfs" 'magit-stage-file
+                   "gi"  'magit-init
+                   "gl"  'magit-list-repositories
+                   "gs"  'magit-status)
+
+(creature/require-package 'rg)
+(add-hook 'emacs-startup-hook #'rg-enable-default-bindings)
+
+(creature/require-package 'symbol-overlay)
 ;;; symbol-overlay-map
 ;; "i" -> symbol-overlay-put
 ;; "n" -> symbol-overlay-jump-next
@@ -155,28 +160,36 @@
 (global-set-key (kbd "s-i") 'symbol-overlay-put)
 (global-set-key (kbd "M-p") 'symbol-overlay-jump-prev)
 (global-set-key (kbd "M-n") 'symbol-overlay-jump-next)
-
-;; window number
-(setq winum-auto-setup-mode-line nil)
-(winum-mode)
-(define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
-(define-key winum-keymap (kbd "M-1") 'winum-select-window-1)
-(define-key winum-keymap (kbd "M-2") 'winum-select-window-2)
-(define-key winum-keymap (kbd "M-3") 'winum-select-window-3)
-(define-key winum-keymap (kbd "M-4") 'winum-select-window-4)
-(define-key winum-keymap (kbd "M-5") 'winum-select-window-5)
-(define-key winum-keymap (kbd "M-6") 'winum-select-window-6)
-(define-key winum-keymap (kbd "M-7") 'winum-select-window-7)
-(define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
-(define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
+
+(creature/require-package 'projectile)
+(creature/require-package 'counsel-projectile)
 
 (with-eval-after-load 'projectile
   (global-set-key (kbd "C-c p") #'projectile-command-map))
+
 (projectile-mode)
+
+(creature/require-package 'avy)
 
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
 
-(global-undo-tree-mode)
+(creature/set-keys creature-map
+                   "jl" 'avy-goto-line
+                   "jw" 'avy-goto-word-1)
+
+(creature/require-package 'undo-tree)
 
+(global-undo-tree-mode)
+
+(creature/require-package 'youdao-dictionary)
+
+(creature/set-keys creature-map
+                   "ys" 'youdao-dictionary-search-at-point
+                   "yp" 'youdao-dictionary-play-voice-at-point)
+
+(creature/require-package 'expand-region)
+
+(creature/set-keys creature-map "v" 'er/expand-region)
+
 (provide 'init-tools)

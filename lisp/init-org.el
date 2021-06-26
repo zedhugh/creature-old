@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
 (creature/require-package 'htmlize)
 (creature/require-package 'org-pomodoro)
 (creature/require-package 'org-contrib)
@@ -35,7 +37,9 @@
            "* TODO Review %a\n  %T:initial\n" :immediate-finish t)
           ))
   (setq org-protocol-default-template-key ""))
+
 (run-with-idle-timer 10 nil #'creature/org-capture-setup)
+
 (with-eval-after-load 'org
   ;; show inline image when open org file
   (creature/org-capture-setup)

@@ -1,5 +1,23 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(require 'init-elpa)
+
+(creature/require-package 'winum)
+
+;; window number
+(setq winum-auto-setup-mode-line nil)
+(winum-mode)
+(define-key winum-keymap (kbd "M-0") 'winum-select-window-0-or-10)
+(define-key winum-keymap (kbd "M-1") 'winum-select-window-1)
+(define-key winum-keymap (kbd "M-2") 'winum-select-window-2)
+(define-key winum-keymap (kbd "M-3") 'winum-select-window-3)
+(define-key winum-keymap (kbd "M-4") 'winum-select-window-4)
+(define-key winum-keymap (kbd "M-5") 'winum-select-window-5)
+(define-key winum-keymap (kbd "M-6") 'winum-select-window-6)
+(define-key winum-keymap (kbd "M-7") 'winum-select-window-7)
+(define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
+(define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
+
 (defun creature/set-mode-line-format-for-exist-buffers ()
   "Make customized mode line works in exist buffers."
   (mapc (lambda (buffer)
@@ -7,16 +25,13 @@
             (setq mode-line-format creature/mode-line-format)))
         (buffer-list)))
 
-;; window numbering
-(unless (fboundp #'winum-get-number-string)
-  (require 'winum nil t))
 (defvar creature/mode-line-window-number
   '(:eval (when (and winum-mode
                      (fboundp #'winum-get-number-string))
             (winum-get-number-string)))
   "Get window number by winum.")
 (put 'creature/mode-line-window-number 'risky-local-variable t)
-
+
 ;; flycheck
 (defvar creature/flycheck-errors
   '(:eval
@@ -40,7 +55,7 @@
         ;; (concat " " flycheck-mode-line-prefix text)
         (concat " " text)))))
 (put 'creature/flycheck-errors 'risky-local-variable t)
-
+
 ;; evil state
 (defvar creature/mode-line-evil-state
   '(:eval
@@ -56,7 +71,7 @@
        ((eq evil-state 'operator) " [O]"))))
   "Evil state indicator.")
 (put 'creature/mode-line-evil-state 'risky-local-variable t)
-
+
 ;; buffer name
 (defvar creature/mode-line-buffer-name
   '(:eval (propertize
@@ -65,7 +80,7 @@
   "Buffer name with face.")
 (set-face-attribute 'mode-line-buffer-id nil :weight 'normal)
 (put 'creature/mode-line-buffer-name 'risky-local-variable t)
-
+
 ;; marker region info
 (defvar creature/focus-window nil
   "Current focus window.")
@@ -87,7 +102,7 @@
         (format " [%d|%d]" length line))))
   "Length of marked string.")
 (put 'creature/mode-line-region-info 'risky-local-variable t)
-
+
 (defvar creature/mode-line-company-info
   '(:eval
     (when (and (not buffer-read-only)
@@ -96,7 +111,7 @@
       company-lighter))
   "Customize company lighter.")
 (put 'creature/mode-line-company-info 'risky-local-variable t)
-
+
 (defvar creature/mode-line-mingus-info
   '(:eval
     (when (and (featurep 'mingus)
@@ -115,7 +130,7 @@
                    (mingus-make-mode-line-string)))))))
   "Customize mingus info.")
 (put 'creature/mode-line-mingus-info 'risky-local-variable t)
-
+
 ;; combin mode line fromat
 (defvar creature/mode-line-format
   '("%e"
@@ -160,7 +175,7 @@
 (setq-default mode-line-format creature/mode-line-format)
 
 (creature/set-mode-line-format-for-exist-buffers)
-
+
 (defun creature/toggle-mode-line ()
   "Switch `mode-line-format' between customized and the origin.
 Customized is save in `creature/mode-line-format',
@@ -176,11 +191,11 @@ orgiin is in `creature/origin-mode-line-format'."
           (buffer-list))
     (setq-default mode-line-format tmp-mode-line)
     nil))
-
+
 ;; (setq display-time-interval 1)
 (setq display-time-format " %R %a %F")
 (setq display-time-load-average nil)
 (setq display-time-default-load-average nil)
 (display-time-mode)
-
+
 (provide 'init-modeline)

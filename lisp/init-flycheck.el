@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package    'flycheck)
+
 (defun creature/setup-flycheck ()
   "Do not setup flycheck for every mode."
   (when (and (buffer-file-name)
@@ -25,6 +27,9 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
 (add-hook 'prog-mode-hook 'creature/setup-flycheck)
 (with-eval-after-load 'flycheck
   ;; (setq flycheck-emacs-lisp-load-path load-path)
-  (flycheck-add-mode 'javascript-eslint 'web-mode))
+  (flycheck-add-mode 'javascript-eslint 'web-mode)
+  (creature/set-keys creature-map
+                     "el" 'creature/toggle-flycheck-error-list
+                     "ex" 'flycheck-display-error-at-point))
 
 (provide 'init-flycheck)

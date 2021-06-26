@@ -12,10 +12,6 @@
 (global-set-key (kbd "C-a") 'mwim-beginning-of-code-or-line)
 (global-set-key (kbd "C-e") 'mwim-end-of-code-or-line)
 
-(defconst creature/prefix-key "M-m"
-  "Prefix key for `creature-map'.")
-
-(define-prefix-command 'creature-map)
 (global-set-key (kbd creature/prefix-key) 'creature-map)
 ;; (define-key special-mode-map (kbd creature/prefix-key) 'creature-map)
 
@@ -28,16 +24,12 @@
                    "cl" 'evilnc-comment-or-uncomment-lines
                    "cp" 'evilnc-comment-or-uncomment-paragraphs
 
-                   "el" 'creature/toggle-flycheck-error-list
-                   "ex" 'flycheck-display-error-at-point
-
                    "fi" 'creature/open-init-file
                    "fe" 'creature/open-early-init-org-file
                    "fo" 'creature/open-file-or-directory-in-external-app
                    "fj" 'dired-jump
                    "ff" 'find-file
                    "fp" 'find-file-at-point
-                   "fr" 'counsel-recentf
                    "fs" 'save-buffer
 
                    "gc"  'magit-clone

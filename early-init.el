@@ -5,3 +5,5 @@
   (tool-bar-mode -1))
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
+
+(setq package-enable-at-startup nil)

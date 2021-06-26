@@ -1,5 +1,10 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'lsp-mode)
+(creature/require-package 'lsp-ui)
+(creature/require-package 'lsp-treemacs)
+(creature/require-package 'lsp-tailwindcss)
+
 (with-eval-after-load 'lsp-ui
   (setq lsp-ui-doc-enable nil
         lsp-ui-flycheck-list-position 'right

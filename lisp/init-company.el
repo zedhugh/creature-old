@@ -1,5 +1,12 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'company)
+(creature/require-package 'yasnippet)
+(creature/require-package 'auto-yasnippet)
+(creature/require-package 'posframe)
+(creature/require-package 'company-posframe)
+(creature/require-package 'yasnippet-snippets)
+
 (defun creature/setup-company ()
   (global-company-mode)
   (remove-hook 'prog-mode-hook #'creature/setup-company))

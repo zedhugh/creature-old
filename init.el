@@ -20,28 +20,11 @@
   (eq system-type 'windows-nt)
   "If system is Windows return t, therwise return nil.")
 
-(defconst creature/best-gc-cons-threshold
-  (if creature/sys-win32p
-      536870912                         ; 512MiB
-    67108864)                           ; 64Mib
-  "Best default gc threshold value.
-Make gc threshold to a big value to reduce initialize time,
-and when Emacs session startup, make gc threshold to be a best value.
-Should't be to big.")
-
-(defun creature/turn-off-gc ()
-  "Improve the threshold of garbage collect."
-  (setq gc-cons-percentage 0.6
-        gc-cons-threshold most-positive-fixnum))
-
-(defun creature/turn-on-gc ()
-  "Modify the threshold of garbage collect to a normal value."
-  (setq gc-cons-percentage 0.1
-        gc-cons-threshold creature/best-gc-cons-threshold)
-  (garbage-collect))
-
-(creature/turn-off-gc)
-(run-with-idle-timer 3 nil #'creature/turn-on-gc)
+(let ((normal-gc-cons-threshold (* 20 1024 1024))
+      (init-gc-cons-threshold (* 128 1024 1024)))
+  (setq gc-cons-threshold init-gc-cons-threshold)
+  (add-hook 'emacs-startup-hook
+            (lambda () (setq gc-cons-threshold normal-gc-cons-threshold))))
 
 (defconst creature/config-dir
   (file-name-directory
@@ -55,12 +38,14 @@ Should't be to big.")
 (defconst creature/prefix-key "M-m"
   "Prefix key for `creature-map'.")
 
+(define-prefix-command 'creature-map)
+
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
+(require 'init-elpa)
 (require 'init-autoloads)
 (require 'init-utils)
 (require 'init-modeline)
-(require 'init-elpa)
 (require 'init-file)
 (require 'init-company)
 (require 'init-flycheck)
@@ -68,6 +53,7 @@ Should't be to big.")
 (require 'init-paredit)
 (require 'init-webdev)
 (require 'init-lsp)
+(require 'init-eglot)
 (require 'init-theme)
 (require 'init-misc)
 (require 'init-org)

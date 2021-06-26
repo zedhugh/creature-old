@@ -119,3 +119,7 @@
           def (pop bindings))))
 
 (provide 'init-utils)
+
+(defun flymake-show-diagnostics-buffer-and-jump ()
+  (interactive)
+  (select-window (flymake-show-diagnostics-buffer)))

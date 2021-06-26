@@ -18,6 +18,8 @@
                      (basename . "^.*\\.tsx$")))
          ("Web" (mode . web-mode))
 
+         ("eglot" (name . "^\\*EGLOT.*events\\*$"))
+
          ("Lsp" (or
                  (name . "^\\*lsp-log\\*$")
                  (name . "^\\*clangd\\*$")

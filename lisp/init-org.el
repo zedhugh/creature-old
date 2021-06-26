@@ -1,5 +1,10 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'htmlize)
+(creature/require-package 'org-pomodoro)
+(creature/require-package 'org-contrib)
+(creature/require-package 'ox-hugo)
+
 ;; customize mode for src lang
 (defconst creature/org-src-lang-modes
   '(("js"   . js)

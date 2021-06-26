@@ -1,5 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'modus-themes)
+(creature/require-package 'rainbow-delimiters)
+(creature/require-package 'rainbow-delimiters)
+(creature/require-package 'rainbow-identifiers)
+(creature/require-package 'page-break-lines)
+
 (defconst creature/font-config
   ;; '(("Operator Mono Book" . 16))
   (if creature/sys-win32p
@@ -133,8 +139,9 @@ if FRAME is nil, setup for current frame."
 ;; page break lines
 (global-page-break-lines-mode)
 (setq page-break-lines-char ?=)
-(dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
-  (add-to-list 'page-break-lines-modes mode))
+(with-eval-after-load 'page-break-lines
+  (dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
+    (add-to-list 'page-break-lines-modes mode)))
 
 (blink-cursor-mode -1)
 

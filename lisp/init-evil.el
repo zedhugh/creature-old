@@ -1,5 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'mwim)
+(creature/require-package 'evil)
+(creature/require-package 'evil-matchit)
+(creature/require-package 'evil-surround)
+(creature/require-package 'evil-nerd-commenter)
+
 (with-eval-after-load 'evil
   ;; (setq evil-undo-system 'undo-redo)
   (evil-set-undo-system 'undo-tree)

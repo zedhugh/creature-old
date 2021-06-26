@@ -1,5 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'which-key)
+
 ;; which key
 (which-key-mode)
 (setq which-key-idle-delay 0.4)

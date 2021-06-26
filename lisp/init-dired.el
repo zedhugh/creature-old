@@ -5,7 +5,7 @@
   (setq dired-dwim-target t)
 
   ;; show file size human readable
-  (setq dired-listing-switches "-alh")
+  (setq dired-listing-switches "-aghG")
 
   ;; copy and delete directory recursive
   (setq dired-recursive-copies 'always)

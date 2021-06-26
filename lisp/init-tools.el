@@ -1,5 +1,22 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'pinentry)
+(creature/require-package 'keyfreq)
+(creature/require-package 'rime)
+(creature/require-package 'forge)
+(creature/require-package 'gitattributes-mode)
+(creature/require-package 'gitconfig-mode)
+(creature/require-package 'gitignore-mode)
+(creature/require-package 'rg)
+(creature/require-package 'symbol-overlay)
+(creature/require-package 'winum)
+(creature/require-package 'projectile)
+(creature/require-package 'counsel-projectile)
+(creature/require-package 'avy)
+(creature/require-package 'undo-tree)
+(creature/require-package 'expand-region)
+(creature/require-package 'youdao-dictionary)
+
 ;;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -153,22 +170,13 @@
 (define-key winum-keymap (kbd "M-8") 'winum-select-window-8)
 (define-key winum-keymap (kbd "M-9") 'winum-select-window-9)
 
-(run-with-idle-timer 1 nil #'projectile-mode)
 (with-eval-after-load 'projectile
   (global-set-key (kbd "C-c p") #'projectile-command-map))
+(projectile-mode)
 
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)
 (define-key global-map (kbd "M-g M-w") #'avy-goto-word-1)
 
 (global-undo-tree-mode)
-
-;; pdf view
-(with-eval-after-load 'pdf-loader
-  (require 'saveplace-pdf-view))
-
-(with-eval-after-load 'pdf-view
-  (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode))
-
-(pdf-loader-install t t t)
 
 (provide 'init-tools)

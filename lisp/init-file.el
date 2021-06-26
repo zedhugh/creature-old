@@ -1,5 +1,8 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'cmake-mode)
+(creature/require-package 'vimrc-mode)
+
 (prefer-coding-system 'utf-8)
 
 ;;; indentation
@@ -66,11 +69,17 @@
 (if creature/sys-win32p
     (setq create-lockfiles nil)
   (setq create-lockfiles t))
+
+(creature/require-package 'lua-mode)
+(creature/require-package 'company-lua)
 
 (defun creature/lua-company-setup ()
   (set (make-local-variable 'company-backends)
        (push 'company-lua company-backends)))
 (add-hook 'lua-mode-hook #'creature/lua-company-setup)
+
+(creature/require-package 'nginx-mode)
+(creature/require-package 'company-nginx)
 
 (defun creature/nginx-company-setup ()
   (set (make-local-variable 'company-backends)
@@ -78,7 +87,7 @@
 
 (with-eval-after-load 'nginx-mode
   (add-hook 'nginx-mode-hook #'creature/nginx-company-setup))
-
+
 (defun creature/long-or-large-file-action ()
   (let* ((temp-file-name (buffer-file-name))
          (current-file-name (if temp-file-name temp-file-name ""))
@@ -113,9 +122,11 @@
     (creature/long-or-large-file-action))
 
   (add-hook 'find-file-hook #'creature/long-or-large-file-action))
-
+
 (defvar modes-about-file-not-loaded t)
 (defvar run-timer nil)
+
+(creature/require-package 'editorconfig)
 
 (defun creature/editorconfig-ignore-charset (props)
   "Ignore `charset' config of `editorconfig-mode' in new file buffer.
@@ -152,12 +163,24 @@ when create a new buffer, and it's not what I want."
 ;; (creature/load-modes-idle-or-find-file)
 (add-hook 'find-file-hook #'creature/load-modes-idle-or-find-file)
 (setq run-timer (run-with-idle-timer 1 nil #'creature/load-modes-idle-or-find-file))
+
+;; pdf view
+(creature/require-package 'saveplace-pdf-view)
+(creature/require-package 'pdf-tools)
+
+(with-eval-after-load 'pdf-loader
+  (require 'saveplace-pdf-view))
+
+(with-eval-after-load 'pdf-view
+  (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode))
+
+(pdf-loader-install t t t)
+
 
 (savehist-mode)
 
 ;; save cursor position
 (save-place-mode)
 
-(pdf-loader-install t t)
 
 (provide 'init-file)

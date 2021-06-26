@@ -1,5 +1,11 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'counsel)
+(creature/require-package 'ivy)
+(creature/require-package 'swiper)
+(creature/require-package 'amx)
+(creature/require-package 'pinyinlib)
+
 (setq enable-recursive-minibuffers t)
 
 ;; ivy pinyin search
@@ -45,6 +51,7 @@
                            "\\*clangd\\*"
                            "-ls\\*"
                            "\\*tide-"
+                           "^\\*EGLOT.*events\\*$"
                            "\\*prettier"))
     (add-to-list 'ivy-ignore-buffers ignore-buffer))
 
@@ -63,11 +70,6 @@
 
   (setq amx-save-file (expand-file-name ".amx-items" creature/cache-dir)))
 
-(with-eval-after-load 'counsel
-  (amx-mode)
-  (ivy-mode)
-  (counsel-mode))
-
 (defun creature/counsel-grep-or-swiper ()
   (interactive)
   (if (region-active-p)
@@ -78,25 +80,12 @@
         (counsel-grep-or-swiper string))
     (counsel-grep-or-swiper)))
 
-(global-set-key (kbd "C-s") #'creature/counsel-grep-or-swiper)
+(with-eval-after-load 'counsel
+  (amx-mode)
+  (ivy-mode)
+  (define-key counsel-mode-map (kbd "C-s") #'creature/counsel-grep-or-swiper)
+  (creature/set-keys creature-map "fr" 'counsel-recentf))
 
-(when (fboundp 'counsel-M-x)
-  (define-key global-map [remap execute-extended-command] #'counsel-M-x))
-
-(when (fboundp 'counsel-describe-face)
-  (define-key global-map [remap describe-face] #'counsel-describe-face))
-
-(when (fboundp 'counsel-describe-function)
-  (define-key global-map [remap describe-function] #'counsel-describe-function))
-
-(when (fboundp 'counsel-describe-symbol)
-  (define-key global-map [remap describe-symbol] #'counsel-describe-symbol))
-
-(when (fboundp 'counsel-describe-variable)
-  (define-key global-map [remap describe-variable] #'counsel-describe-variable))
-
-(when (fboundp 'counsel-find-file)
-  (define-key global-map [remap find-file] #'counsel-find-file))
-
+(counsel-mode)
 
 (provide 'init-swiper)

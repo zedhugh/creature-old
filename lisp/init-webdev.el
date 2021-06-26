@@ -1,5 +1,12 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
+(creature/require-package 'web-mode)
+(creature/require-package 'emmet-mode)
+(creature/require-package 'company-web)
+(creature/require-package 'json-mode)
+(creature/require-package 'typescript-mode)
+(creature/require-package 'prettier)
+
 (add-hook 'css-mode-hook 'emmet-mode)
 
 (defun creature/emmet-expand ()

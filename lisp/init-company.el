@@ -2,6 +2,34 @@
 
 (require 'init-elpa)
 
+(creature/require-package 'yasnippet)
+(creature/require-package 'yasnippet-snippets)
+
+(defvar creature/company-backends-with-yasnippet nil
+  "Make every company backend with `company-yasnippet' when `company-mode' launched.")
+
+(defun creature/show-snippets-in-company (backend)
+  (if (and (listp backend) (member 'company-yasnippet backend))
+      backend
+    (append (if (consp backend) backend (list backend))
+            '(:with company-yasnippet))))
+
+(defun creature/company-add-yas ()
+  "Add yasnippet to company popup menu."
+  (set (make-local-variable 'company-backends)
+       (mapcar #'creature/show-snippets-in-company company-backends)))
+
+(defun creature/setup-yasnippet ()
+  (when (and company-mode
+             creature/company-backends-with-yasnippet)
+    (with-current-buffer (buffer-name)
+      (run-with-timer 0.5 nil #'creature/company-add-yas))))
+
+
+(with-eval-after-load 'yasnippet
+  (add-hook 'yas-minor-mode-hook #'creature/setup-yasnippet)
+  (creature/setup-yasnippet))
+
 (creature/require-package 'company)
 (creature/require-package 'posframe)
 (creature/require-package 'company-posframe)
@@ -49,34 +77,6 @@
          company-files
          (company-dabbrev company-dabbrev-code company-ispell))))
 (add-hook 'text-mode-hook 'creature/enable-ispell)
-
-(creature/require-package 'yasnippet)
-(creature/require-package 'yasnippet-snippets)
-
-(defvar creature/company-backends-with-yasnippet nil
-  "Make every company backend with `company-yasnippet' when `company-mode' launched.")
-
-(defun creature/show-snippets-in-company (backend)
-  (if (and (listp backend) (member 'company-yasnippet backend))
-      backend
-    (append (if (consp backend) backend (list backend))
-            '(:with company-yasnippet))))
-
-(defun creature/company-add-yas ()
-  "Add yasnippet to company popup menu."
-  (set (make-local-variable 'company-backends)
-       (mapcar #'creature/show-snippets-in-company company-backends)))
-
-(defun creature/setup-yasnippet ()
-  (when (and company-mode
-             creature/company-backends-with-yasnippet)
-    (with-current-buffer (buffer-name)
-      (run-with-timer 0.5 nil #'creature/company-add-yas))))
-
-
-(with-eval-after-load 'yasnippet
-  (add-hook 'yas-minor-mode-hook #'creature/setup-yasnippet)
-  (creature/setup-yasnippet))
 
 (creature/require-package 'auto-yasnippet)
 

@@ -41,7 +41,7 @@ if FRAME is nil, setup for current frame."
 (add-hook 'emacs-startup-hook #'creature/fontset)
 (add-hook 'server-after-make-frame-hook #'creature/fontset)
 
-(creature/require-package 'modus-themes)
+(creature/maybe-require-package 'modus-themes)
 
 ;; some beautifule theme built-in
 ;; dark: modus-vivendi/wombat/misterioso/tango-dark/wheatgrass
@@ -131,6 +131,20 @@ if FRAME is nil, setup for current frame."
 (dolist (mode '(rainbow-delimiters-mode
                 rainbow-identifiers-mode))
   (add-hook 'prog-mode-hook mode))
+
+(creature/maybe-require-package 'highlight-indentation)
+
+(defvar creature/hl-indentation t)
+
+(defun highlight-indentation-enable ()
+  (condition-case nil
+      (when creature/hl-indentation
+        (highlight-indentation-mode)
+        (highlight-indentation-current-column-mode)
+        (setq highlight-indentation-blank-lines t))
+    (error nil)))
+
+(add-hook 'prog-mode-hook #'highlight-indentation-enable)
 
 ;; page break lines
 (creature/require-package 'page-break-lines)

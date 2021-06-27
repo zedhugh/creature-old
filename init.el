@@ -42,35 +42,34 @@
 
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
-(require 'init-autoloads)
-(require 'init-theme)
-(require 'init-modeline)
-(require 'init-utils)
-(require 'init-file)
-(require 'init-company)
-;; (require 'init-flycheck)
-(require 'init-swiper)
-(require 'init-paredit)
-(require 'init-webdev)
-;; (require 'init-lsp)
-(require 'init-eglot)
-(require 'init-misc)
-(require 'init-org)
-(require 'init-dired)
-(require 'init-ibuffer)
-(require 'init-hydra)
-(require 'init-tools)
-(require 'init-media)
-(require 'init-evil)
-(require 'init-keybindings)
-(require 'init-which-key)
-
-(with-eval-after-load 'gnus
-  (require 'init-mail))
-
 (let* ((file-name-handler-alist nil))
+  (require 'init-autoloads)
+  (require 'init-theme)
+  (require 'init-modeline)
+  (require 'init-utils)
+  (require 'init-file)
+  (require 'init-company)
+  ;; (require 'init-flycheck)
+  (require 'init-swiper)
+  (require 'init-paredit)
+  (require 'init-webdev)
+  ;; (require 'init-lsp)
+  (require 'init-eglot)
+  (require 'init-misc)
+  (require 'init-org)
+  (require 'init-dired)
+  (require 'init-ibuffer)
+  (require 'init-hydra)
+  (require 'init-tools)
+  (require 'init-media)
+  (require 'init-evil)
+  (require 'init-keybindings)
+  (require 'init-which-key)
 
-  (run-with-idle-timer 2 nil
+  (with-eval-after-load 'gnus
+    (require 'init-mail))
+
+  (run-with-idle-timer 1 nil
                        (lambda ()
                          (unless (server-running-p)
                            (server-start))))
@@ -80,5 +79,4 @@
   ;; load custom file
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
-    (load custom-file 'noerror))
-  )
+    (load custom-file 'noerror)))

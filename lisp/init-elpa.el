@@ -4,9 +4,7 @@
 
 (setq package-selected-packages nil
       package-native-compile t
-      ;; package-enable-at-startup nil
 
-      ;; change this options need call `package-initialize', but `package-initialize' too slow
       package-user-dir (concat creature/config-dir "elpa-" emacs-version)
       package-gnupghome-dir (concat creature/config-dir "elpa-" emacs-version "/gnupg")
 
@@ -15,13 +13,13 @@
 
       package-archives
       '(
-        ;; ("gnu"    . "https://elpa.gnu.org/packages/")
-        ;; ("nongnu" . "https://elpa.nongnu.org/nongnu/")
-        ;; ("melpa"  . "https://melpa.org/packages/")
+        ("gnu"    . "https://elpa.gnu.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")
+        ("melpa"  . "https://melpa.org/packages/")
 
-        ("gnu-cn"    . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-        ("nongnu-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
-        ("melpa-cn"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+        ;; ("gnu-cn"    . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+        ;; ("nongnu-cn" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
+        ;; ("melpa-cn"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ))
 
 (package-initialize)
@@ -37,5 +35,12 @@
    (t
     (package-refresh-contents)
     (creature/require-package package min-version))))
+
+(defun creature/maybe-require-package (package &optional min-versioin)
+  (condition-case err
+      (creature/require-package package min-versioin)
+    (error
+     (message "Couldn't install optional package `': %S" package err)
+     nil)))
 
 (provide 'init-elpa)

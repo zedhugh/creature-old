@@ -1,7 +1,10 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (require 'init-elpa)
-
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                  lsp-mode                                 ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'lsp-mode)
 (creature/require-package 'lsp-ui)
 (creature/require-package 'lsp-treemacs)
@@ -63,50 +66,92 @@
         lsp-modeline-diagnostics-scope :file
 
         lsp-diagnostic-clean-after-change t
-        lsp-diagnostics-provider :auto
         )
 
   (creature/tailwindcss-setup)
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-hook 'lsp-on-idle-hook #'creature/setup-yasnippet))
+  (add-hook 'lsp-on-idle-hook #'creature/setup-yasnippet)
+
+  (define-key lsp-mode-map (kbd "C-c r") #'lsp-rename)
+  (define-key lsp-mode-map (kbd "C-c o") #'lsp-execute-code-action))
 
 (with-eval-after-load 'company
   ;; sort candidates
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
-(defun lsp-setup ()
+(defun lsp-setup (&optional enable-flymake)
   (when (and
          (buffer-file-name)
-         (not (derived-mode-p 'json-mode))
          (if (fboundp #'so-long-detected-long-line-p)
              (not (so-long-detected-long-line-p))
            t)
          (if (featurep 'tramp)
              (not (tramp-tramp-file-p (buffer-file-name)))
            t))
-    (lsp-deferred))
-  (when (derived-mode-p 'css-mode 'scss-mode 'less-css-mode)
-    (setq-local lsp-overlay-document-color-char "")))
+    (set (make-local-variable 'lsp-diagnostics-provider)
+         (if enable-flymake :flymake :auto))
+    (lsp-deferred)))
 
 (defun creature/lsp-eslint-checker-init ()
-  (make-local-variable 'flycheck-checkers)
   (when (and flycheck-mode
              (flycheck-valid-checker-p 'lsp)
              (flycheck-valid-checker-p 'javascript-eslint))
+    (make-local-variable 'flycheck-checkers)
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
 
-(dolist (hook '(c-mode-hook
-                c++-mode-hook
-                html-mode-hook
-                css-mode-hook
-                scss-mode-hook
-                js-mode-hook
-                js-jsx-mode-hook
-                web-mode-hook
-                typescript-mode-hook))
-  (add-hook hook #'lsp-setup))
+;; (dolist (hook '(c-mode-hook
+;;                 c++-mode-hook
+;;                 html-mode-hook
+;;                 css-mode-hook
+;;                 scss-mode-hook
+;;                 js-mode-hook
+;;                 js-jsx-mode-hook
+;;                 web-mode-hook
+;;                 typescript-mode-hook))
+;;   (add-hook hook #'lsp-setup))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                   eglot                                   ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(creature/require-package 'eglot)
 
+(defun eglot-disabled-mode-line ()
+  (dolist (mode-line mode-line-misc-info)
+    (let ((mode (car mode-line)))
+      (when (eq mode 'eglot--managed-mode)
+        (setq mode-line-misc-info (delete mode-line mode-line-misc-info))))))
+
+(defun eglot-enable-mode-line ()
+  (add-to-list 'mode-line-misc-info
+               `(eglot--managed-mode (" [" eglot--mode-line-format "] "))))
+
+(with-eval-after-load 'eglot
+  (add-hook 'eglot-managed-mode-hook #'flymake-eslint-setup)
+  (add-hook 'eglot-managed-mode-hook #'eglot-disabled-mode-line)
+
+  (setq eglot-confirm-server-initiated-edits nil
+        eglot-autoshutdown t)
+
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) . ("clangd")))
+  (add-to-list 'eglot-server-programs
+               '((css-mode scss-mode less-css-mode) . ("css-languageserver" "--stdio")))
+
+  (add-to-list 'eglot-server-programs
+               '((js-mode typescript-mode web-mode) . ("typescript-language-server" "--stdio")))
+
+  (define-key eglot-mode-map (kbd "M-.") #'xref-find-definitions)
+  (define-key eglot-mode-map (kbd "M-?") #'xref-find-references)
+  (define-key eglot-mode-map (kbd "C-c r") #'eglot-rename)
+  (define-key eglot-mode-map (kbd "C-c o") #'eglot-code-actions))
+
+;; (dolist (hook '(c-mode-common-hook
+;;                 ;; css-mode-hook
+;;                 js-mode-hook
+;;                 typescript-mode-hook
+;;                 web-mode-hook))
+;;   (add-hook hook #'eglot-ensure))
+
 (provide 'init-lsp)

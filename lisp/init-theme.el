@@ -140,8 +140,7 @@ if FRAME is nil, setup for current frame."
   (condition-case nil
       (when creature/hl-indentation
         (highlight-indentation-mode)
-        (highlight-indentation-current-column-mode)
-        (setq highlight-indentation-blank-lines t))
+        (highlight-indentation-current-column-mode))
     (error nil)))
 
 (add-hook 'prog-mode-hook #'highlight-indentation-enable)

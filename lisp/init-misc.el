@@ -76,4 +76,20 @@
 
         erc-autojoin-channels-alist '(("libera.chat" "#linuxba"))))
 
+;; turn off startup screen
+(setq inhibit-splash-screen t)
+
+;; disable bell
+(setq ring-bell-function 'ignore)
+(setq visible-bell nil)
+
+;; Keep cursor at end of lines when prev
+;; position of cursor is at the end.
+;; Require line-move-visual is nil.
+(setq track-eol t)
+(setq line-move-visual t)
+
+;; disable gtk tooltips
+(setq x-gtk-use-system-tooltips nil)
+
 (provide 'init-misc)

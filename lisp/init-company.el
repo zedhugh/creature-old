@@ -27,6 +27,7 @@
 
 
 (with-eval-after-load 'yasnippet
+  (setq yas-indent-line 'nothing)       ;comment block
   (add-hook 'yas-minor-mode-hook #'creature/setup-yasnippet)
   (creature/setup-yasnippet))
 

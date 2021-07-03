@@ -13,8 +13,7 @@
               (when benchmark (profiler-stop))
               (setq creature/init-time
                     (float-time
-                     (time-subtract (current-time) start-time)))
-              (makunbound 'start-time))))
+                     (time-subtract (current-time) before-init-time))))))
 
 (defconst creature/sys-win32p
   (eq system-type 'windows-nt)

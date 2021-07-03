@@ -1,32 +1,24 @@
-;; maximized(but follow the rule in awesome-wm) window with alpha
+;; Package initialize automatically before `user-init-file' is
+;; loaded but after `early-init-file'. We handle package manually,
+;; so must prevent Emacs from doing it early.
+(setq package-enable-at-startup nil)
+
+;; initialize frame with alpha
 (add-to-list 'default-frame-alist '(alpha . 90))
+
+;; Fullscreen Emacs frame. But awesome-wm configure its own rules for Emacs,
+;; so frame size configuration not need in awesome-wm.
 (unless (string= (getenv "DESKTOP_SESSION") "awesome")
   (add-to-list 'default-frame-alist '(fullscreen . maximized)))
 
-;; turn off startup screen
-(setq inhibit-splash-screen t)
-
-;; disable bell
-(setq ring-bell-function 'ignore)
-(setq visible-bell nil)
-
-;; Keep cursor at end of lines when prev
-;; position of cursor is at the end.
-;; Require line-move-visual is nil.
-(setq track-eol t)
-(setq line-move-visual t)
-
-;; disable gtk tooltips
-(setq x-gtk-use-system-tooltips nil)
-
-;; disable menu, toolbar and scroll bar.
+;; disable menu bar
 (when (fboundp 'menu-bar-mode)
   (menu-bar-mode -1))
+
+;; disable tool bar
 (when (fboundp 'tool-bar-mode)
   (tool-bar-mode -1))
+
+;; disable scroll bar
 (when (fboundp 'scroll-bar-mode)
   (scroll-bar-mode -1))
-
-(setq package-enable-at-startup nil)
-
-(setq start-time (current-time))

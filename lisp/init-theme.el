@@ -42,108 +42,12 @@ if FRAME is nil, setup for current frame."
 (add-hook 'server-after-make-frame-hook #'creature/fontset)
 
 (creature/maybe-require-package 'modus-themes)
+(creature/require-package 'circadian)
 
-;; some beautifule theme built-in
-;; dark: modus-vivendi/wombat/misterioso/tango-dark/wheatgrass
-;; light: whiteboard
-;; (if (member 'modus-vivendi (custom-available-themes))
-;;     (load-theme 'modus-vivendi t)
-;;   (load-theme 'whiteboard t))
-
-(defvar creature/theme-cons
-  (if (member 'modus-vivendi (custom-available-themes))
-      '(modus-vivendi . modus-operandi)
-    '(tango-dark . tango))
-  "Theme cons with form (Dark . Light).")
-
-(defvar creature/light-theme-time '("08:00" . "18:00")
-  "Time interval of light theme in `creature/theme-cons")
-
-(defun creature/theme-setup ()
-  (let* ((dark (car creature/theme-cons))
-         (light (cdr creature/theme-cons))
-
-         (start-time-string (car creature/light-theme-time))
-         (end-time-string (cdr creature/light-theme-time))
-
-         (start-hhmm (diary-entry-time start-time-string))
-         (end-hhmm (diary-entry-time end-time-string))
-
-         (now (decode-time))
-         (encoded-now (encode-time now))
-
-         (day (decoded-time-day now))
-         (month (decoded-time-month now))
-         (year (decoded-time-year now))
-         (zone (decoded-time-zone now))
-
-         (start-time (encode-time 0 (% start-hhmm 100) (/ start-hhmm 100) day month year zone))
-         (end-time (encode-time 0 (% end-hhmm 100) (/ end-hhmm 100) day month year zone))
-
-         (after-start-time (> (float-time (time-subtract encoded-now start-time)) 0))
-         (after-end-time (> (float-time (time-subtract encoded-now end-time)) 0)))
-
-    (when light
-      (when (and after-start-time
-                 (not after-end-time))
-        (load-theme light t))
-
-      (run-at-time start-time-string nil
-                   (lambda ()
-                     (dolist (theme custom-enabled-themes)
-                       (disable-theme theme))
-                     (load-theme light t))))
-
-    (when dark
-      (when (or after-end-time
-                (not after-start-time))
-        (load-theme dark t))
-
-      (run-at-time end-time-string nil
-                   (lambda ()
-                     (dolist (theme custom-enabled-themes)
-                       (disable-theme theme))
-                     (load-theme dark t))))))
-
-(creature/theme-setup)
-
-(defvar creature/pulse-enable t
-  "Whether enable pulse for scroll and switch window.")
-
-(defun creature/pulse-line (&rest _)
-  "Pulse the current line."
-  (when creature/pulse-enable
-    (pulse-momentary-highlight-one-line (point))))
-
-;; pulse setup, like beacon
-(with-eval-after-load 'pulse
-  (setq pulse-delay 0.04))
-
-(dolist (command '(scroll-up
-                   scroll-down
-                   recenter))
-  (advice-add command :after #'creature/pulse-line))
-(add-to-list 'window-selection-change-functions #'creature/pulse-line)
-
-(creature/require-package 'rainbow-delimiters)
-(creature/require-package 'rainbow-identifiers)
-
-(dolist (mode '(rainbow-delimiters-mode
-                rainbow-identifiers-mode))
-  (add-hook 'prog-mode-hook mode))
-
-(creature/maybe-require-package 'highlight-indentation)
-
-(defvar creature/hl-indentation t)
-
-(defun highlight-indentation-enable ()
-  (condition-case nil
-      (when creature/hl-indentation
-        (highlight-indentation-mode)
-        (highlight-indentation-current-column-mode))
-    (error nil)))
-
-(add-hook 'prog-mode-hook #'highlight-indentation-enable)
+(when (fboundp 'circadian-setup)
+  (setq circadian-themes '(("22:01" . modus-operandi)
+                           ("22:20" . modus-vivendi)))
+  (circadian-setup))
 
 ;; page break lines
 (creature/require-package 'page-break-lines)

@@ -12,7 +12,7 @@
 
 (with-eval-after-load 'lsp-ui
   (setq lsp-ui-doc-enable nil
-        lsp-ui-flycheck-list-position 'right
+        lsp-ui-flycheck-list-position 'bottom
         lsp-ui-doc-position 'top
         lsp-ui-doc-alignment 'frame
         ;; lsp-ui-peek-fontify 'always
@@ -102,16 +102,16 @@
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
 
-;; (dolist (hook '(c-mode-hook
-;;                 c++-mode-hook
-;;                 html-mode-hook
-;;                 css-mode-hook
-;;                 scss-mode-hook
-;;                 js-mode-hook
-;;                 js-jsx-mode-hook
-;;                 web-mode-hook
-;;                 typescript-mode-hook))
-;;   (add-hook hook #'lsp-setup))
+(dolist (hook '(c-mode-hook
+                c++-mode-hook
+                html-mode-hook
+                css-mode-hook
+                scss-mode-hook
+                js-mode-hook
+                js-jsx-mode-hook
+                web-mode-hook
+                typescript-mode-hook))
+  (add-hook hook #'lsp-setup))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                   eglot                                   ;;

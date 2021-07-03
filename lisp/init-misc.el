@@ -50,8 +50,6 @@
           1 font-lock-warning-face prepend))))
 (add-hook 'prog-mode-hook #'creature/addition-hl-keyword)
 
-(global-hl-line-mode)
-
 ;; (abbrev-mode)
 
 ;; (define-abbrev-table 'global-abbrev-table

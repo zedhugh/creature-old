@@ -8,20 +8,6 @@
 
 (electric-pair-mode)
 
-(show-paren-mode)
-(setq show-paren-when-point-in-periphery t)
-(setq show-paren-when-point-inside-paren t)
-(define-advice show-paren-function (:around (fn) fix-show-paren-function)
-  "Highlight enclosing parens."
-  (advice-remove 'show-paren-function 'ad-Advice-show-paren-function)
-  (cond ((or
-          (derived-mode-p 'python-mode)
-          (looking-at-p "\\s("))
-         (funcall fn))
-        (t (save-excursion
-             (ignore-errors (backward-up-list))
-             (funcall fn)))))
-
 (with-eval-after-load 'awesome-pair
   ;; (define-key awesome-pair-mode-map (kbd "(") 'awesome-pair-open-round)
   ;; (define-key awesome-pair-mode-map (kbd "[") 'awesome-pair-open-bracket)

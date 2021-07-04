@@ -41,12 +41,13 @@ if FRAME is nil, setup for current frame."
 (add-hook 'emacs-startup-hook #'creature/fontset)
 (add-hook 'server-after-make-frame-hook #'creature/fontset)
 
-(creature/maybe-require-package 'modus-themes)
 (creature/require-package 'circadian)
+(creature/maybe-require-package 'modus-themes)
 
-(when (fboundp 'circadian-setup)
-  (setq circadian-themes '(("22:01" . modus-operandi)
-                           ("22:20" . modus-vivendi)))
+(when (and (fboundp 'circadian-setup)
+           (custom-theme-name-valid-p 'modus-vivendi))
+  (setq circadian-themes '(("08:00" . modus-operandi)
+                           ("18:00" . modus-vivendi)))
   (circadian-setup))
 
 ;; page break lines
@@ -57,7 +58,5 @@ if FRAME is nil, setup for current frame."
   (setq page-break-lines-char ?=)
   (dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
     (add-to-list 'page-break-lines-modes mode)))
-
-(blink-cursor-mode -1)
 
 (provide 'init-theme)

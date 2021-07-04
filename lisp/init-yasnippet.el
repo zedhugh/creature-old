@@ -6,6 +6,8 @@
 (creature/require-package 'yasnippet)
 (creature/require-package 'yasnippet-snippets)
 
+(yas-global-mode)
+
 (defvar creature-company-with-yasnippet nil
   "Make every `company-backend' with `company-yasnippet'.")
 

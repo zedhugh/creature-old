@@ -71,7 +71,6 @@
   (creature/tailwindcss-setup)
 
   (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-  (add-hook 'lsp-on-idle-hook #'creature/setup-yasnippet)
 
   (define-key lsp-mode-map (kbd "C-c r") #'lsp-rename)
   (define-key lsp-mode-map (kbd "C-c o") #'lsp-execute-code-action))

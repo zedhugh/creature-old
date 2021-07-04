@@ -22,6 +22,13 @@
         ;; ("melpa-cn"  . "https://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
         ))
 
+(defun creature-save-selected-packages (&optional value)
+  "Set `package-selected-packages' to VALUE but do not save to `custom-file'."
+  (when value
+    (setq package-selected-packages value)))
+
+(advice-add 'package--save-selected-packages :override #'creature-save-selected-packages)
+
 (package-initialize)
 
 (defun creature/require-package (package &optional min-version)

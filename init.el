@@ -100,7 +100,9 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 (require 'init-theme)
 (require 'init-highlight)
 (require 'init-modeline)
+(require 'init-basic)
 (require 'init-utils)
+(require 'init-program)
 (require 'init-file)
 (require 'init-company)
 (require 'init-yasnippet)
@@ -122,11 +124,6 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 
 (with-eval-after-load 'gnus
   (require 'init-mail))
-
-(run-with-idle-timer 1 nil
-                     (lambda ()
-                       (unless (server-running-p)
-                         (server-start))))
 
 ;; (org-babel-load-file (expand-file-name "creature.org" user-emacs-directory))
 

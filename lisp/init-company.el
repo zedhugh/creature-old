@@ -3,11 +3,16 @@
 (require 'init-elpa)
 
 (creature/require-package 'company)
-(creature/require-package 'company-quickhelp)
+(creature/require-package 'company-posframe)
 
 (global-company-mode)
-(company-quickhelp-mode)
-(yas-global-mode)
+(company-posframe-mode)
+
+(with-eval-after-load 'company-posframe
+  (setq company-posframe-show-metadata nil
+        company-posframe-show-indicator nil
+        company-posframe-quickhelp-delay 0.4
+        company-posframe-quickhelp-show-header nil))
 
 (defun creature-company-hide-then-show-snippet ()
   "Hide current completions and show snippets."

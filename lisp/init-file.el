@@ -4,15 +4,11 @@
 
 (creature/require-package 'cmake-mode)
 (creature/require-package 'vimrc-mode)
-
-(prefer-coding-system 'utf-8)
 
 ;;; indentation
 ;; indent style
 (setq c-default-style "linux"
       c-basic-offset 4)
-(setq-default tab-width 4
-              indent-tabs-mode nil)
 
 (add-to-list 'auto-mode-alist '("package\\.env\\'"             . conf-mode))
 (add-to-list 'auto-mode-alist '("package\\.use\\'"             . conf-mode))
@@ -31,48 +27,6 @@
   (with-eval-after-load 'package
     (add-to-list 'recentf-exclude (expand-file-name package-user-dir))))
 
-;;; minibuffer history
-(setq history-length 1000
-      enable-recursive-minibuffers t)
-
-;;; don't show prompt when call function
-(fset 'yes-or-no-p 'y-or-n-p)
-(put 'erase-buffer 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-(put 'narrow-to-defun 'disable nil)
-(put 'narrow-to-region 'disabled nil)
-
-;; show trailing whitespace
-(defun creature/show-trailing-whitespace ()
-  (set (make-local-variable 'show-trailing-whitespace) t))
-
-(add-hook 'find-file-hook #'creature/show-trailing-whitespace)
-
-(with-eval-after-load 'savehist
-  (setq savehist-autosave-interval 60
-        savehist-additional-variables '(mark-ring
-                                        global-mark-ring
-                                        search-ring
-                                        regexp-search-ring
-                                        extended-command-history)))
-
-(savehist-mode)
-
-;; delete file directly
-(setq delete-by-moving-to-trash t)
-
-;; don't backup file
-(setq make-backup-files nil)
-
-;; auto save file
-(setq auto-save-default t)
-(setq auto-save-file-name-transforms
-      `((".*" ,temporary-file-directory t)))
-
-;; don't create lockfiles named ".#file-name" in Windows OS
-(if creature/sys-win32p
-    (setq create-lockfiles nil)
-  (setq create-lockfiles t))
 
 (creature/require-package 'lua-mode)
 (creature/require-package 'company-lua)
@@ -179,8 +133,5 @@ when create a new buffer, and it's not what I want."
   (add-hook 'pdf-view-mode-hook #'pdf-view-themed-minor-mode))
 
 (pdf-loader-install t t t)
-
-;; save cursor position
-(save-place-mode)
 
 (provide 'init-file)

@@ -1,24 +1,5 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(defconst creature/scratch-message
-  (concat ";; Happy hacking "
-          (or (user-login-name) "user")
-          " - Emacs loves you.\n\n")
-  "Customized initial scratch buffer message.")
-(setq-default initial-scratch-message creature/scratch-message)
-
-;; (setq initial-major-mode 'fundamental-mode)
-;; (run-with-idle-timer
-;;  1 nil
-;;  #'(lambda ()
-;;      (with-current-buffer "*scratch*"
-;;        (lisp-interaction-mode))))
-
-(global-display-line-numbers-mode)
-
-;;; folding
-(add-hook 'prog-mode-hook 'hs-minor-mode)
-
 ;; address style
 (add-hook 'erc-mode-hook 'goto-address-mode)
 (add-hook 'text-mode-hook 'goto-address-mode)
@@ -43,22 +24,8 @@
                 conf-windows-mode-hook))
   (add-hook hook #'creature/cursor-style))
 
-(defun creature/addition-hl-keyword ()
-  "Add serveral keywords in program comment."
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIXME\\|DEBUG\\|TODO\\):"
-          1 font-lock-warning-face prepend))))
-(add-hook 'prog-mode-hook #'creature/addition-hl-keyword)
-
-;; (abbrev-mode)
-
-;; (define-abbrev-table 'global-abbrev-table
-;;   '(("8ms" "Microsoft")
-;;     ("8dm" "document")))
-
-;; (define-abbrev-table 'js-mode-abbrev-table
-;;   '(("pi" "prettier-ignore")
-;;     ("ednl" "eslint-disable-next-line")))
+;; Do not blink cursor
+(blink-cursor-mode -1)
 
 (with-eval-after-load 'erc
   (setq erc-server "irc.libera.chat"
@@ -74,20 +41,5 @@
 
         erc-autojoin-channels-alist '(("libera.chat" "#linuxba"))))
 
-;; turn off startup screen
-(setq inhibit-splash-screen t)
-
-;; disable bell
-(setq ring-bell-function 'ignore)
-(setq visible-bell nil)
-
-;; Keep cursor at end of lines when prev
-;; position of cursor is at the end.
-;; Require line-move-visual is nil.
-(setq track-eol t)
-(setq line-move-visual t)
-
-;; disable gtk tooltips
-(setq x-gtk-use-system-tooltips nil)
 
 (provide 'init-misc)

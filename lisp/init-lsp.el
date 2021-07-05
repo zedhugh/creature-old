@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (require 'init-elpa)
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  lsp-mode                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -79,19 +79,6 @@
   ;; sort candidates
   (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
 
-(defun lsp-setup (&optional enable-flymake)
-  (when (and
-         (buffer-file-name)
-         (if (fboundp #'so-long-detected-long-line-p)
-             (not (so-long-detected-long-line-p))
-           t)
-         (if (featurep 'tramp)
-             (not (tramp-tramp-file-p (buffer-file-name)))
-           t))
-    (set (make-local-variable 'lsp-diagnostics-provider)
-         (if enable-flymake :flymake :auto))
-    (lsp-deferred)))
-
 (defun creature/lsp-eslint-checker-init ()
   (when (and flycheck-mode
              (flycheck-valid-checker-p 'lsp)
@@ -100,18 +87,6 @@
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
 (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
-
-(dolist (hook '(c-mode-hook
-                c++-mode-hook
-                html-mode-hook
-                css-mode-hook
-                scss-mode-hook
-                js-mode-hook
-                js-jsx-mode-hook
-                web-mode-hook
-                typescript-mode-hook))
-  (add-hook hook #'lsp-setup))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                   eglot                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -146,11 +121,5 @@
   (define-key eglot-mode-map (kbd "C-c r") #'eglot-rename)
   (define-key eglot-mode-map (kbd "C-c o") #'eglot-code-actions))
 
-;; (dolist (hook '(c-mode-common-hook
-;;                 ;; css-mode-hook
-;;                 js-mode-hook
-;;                 typescript-mode-hook
-;;                 web-mode-hook))
-;;   (add-hook hook #'eglot-ensure))
-
+
 (provide 'init-lsp)

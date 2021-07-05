@@ -123,3 +123,13 @@
 (defun flymake-show-diagnostics-buffer-and-jump ()
   (interactive)
   (select-window (flymake-show-diagnostics-buffer)))
+
+(defun creature-so-long-p ()
+  "Detect current buffer have long lines."
+  (when (fboundp #'so-long-detected-long-line-p)
+    (so-long-detected-long-line-p)))
+
+(defun creature-remote-file-p ()
+  "Detect current file is a remote file."
+  (when (featurep 'tramp)
+    (tramp-tramp-file-p buffer-file-name)))

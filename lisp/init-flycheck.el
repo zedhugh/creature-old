@@ -1,12 +1,24 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
-(require 'init-elpa)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                 flycheck                                  ;;
+;;                            Flycheck and Flymake                           ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(require 'init-elpa)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;                                   Packages                                  ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'flycheck)
 (creature/require-package 'flycheck-posframe)
+
+(creature/require-package 'flymake)
+(creature/require-package 'flymake-eslint)
+(creature/require-package 'flymake-diagnostic-at-point)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;                                 flycheck                                  ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun flycheck-posframe-setup ()
   (unless (bound-and-true-p lsp-ui-mode)
@@ -31,29 +43,9 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
   (creature/set-keys creature-map
                      "el" 'creature/toggle-flycheck-error-list
                      "ex" 'flycheck-display-error-at-point))
-
-(defun creature/setup-flycheck ()
-  "Do not setup flycheck for every mode."
-  (when (and (buffer-file-name)
-             (not (derived-mode-p
-                   'emacs-lisp-mode
-                   'c-mode
-                   'c++-mode
-                   'js-mode
-                   'typescript-mode
-                   'web-mode)))
-
-    (flycheck-mode)))
-
-(add-hook 'prog-mode-hook 'creature/setup-flycheck)
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  flymake                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(creature/require-package 'flymake)
-(creature/require-package 'flymake-eslint)
-(creature/require-package 'flymake-diagnostic-at-point)
-
 (with-eval-after-load 'flymake
   (setq flymake-mode-line-format
         '(" " flymake-mode-line-exception flymake-mode-line-counters))
@@ -79,5 +71,6 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
 
 ;; (dolist (hook '(web-mode-hook typescript-mode-hook js-mode-hook))
 ;;   (add-hook hook #'flymake-eslint-setup 90))
-
+
+
 (provide 'init-flycheck)

@@ -48,7 +48,8 @@ if FRAME is nil, setup for current frame."
            (custom-theme-name-valid-p 'modus-vivendi))
   (setq circadian-themes '(("08:00" . modus-operandi)
                            ("18:00" . modus-vivendi)))
-  (circadian-setup))
+  (when (display-graphic-p)
+    (circadian-setup)))
 
 ;; page break lines
 (creature/require-package 'page-break-lines)

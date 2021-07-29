@@ -31,7 +31,9 @@
   "Quote configuration for TSX file."
   (when (string-suffix-p ".tsx" buffer-file-name t)
     (setq-local web-mode-auto-quote-style       2
-                web-mode-enable-auto-quoting    nil)))
+                web-mode-enable-auto-quoting    nil
+                js-indent-level                 2
+                emmet-expand-jsx-className?     t)))
 
 (defun creature-web-mode-setup ()
   "Configuration collections for `web-mode'."

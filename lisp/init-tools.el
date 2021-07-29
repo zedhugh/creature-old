@@ -100,6 +100,19 @@
           "/usr/include/emacs-27"
         "/usr/include/emacs-28-vcs"))
 (setq default-input-method "rime")
+
+(setq default-cursor-color "#ffffff")
+(setq input-method-cursor-color "#ff0000")
+
+(defun change-cursor-color-on-input-method ()
+  "Set cursor color depending on whether an input method is used or not."
+  (when (featurep 'rime)
+    (set-cursor-color (if (and (rime--should-enable-p)
+                               (not (rime--should-inline-ascii-p))
+                               current-input-method)
+                          input-method-cursor-color
+                        default-cursor-color))))
+
 (with-eval-after-load 'rime
   (setq rime-show-candidate 'minibuffer)
   (setq rime-show-candidate 'posframe)
@@ -112,6 +125,8 @@
               rime-predicate-hydra-p)
           '(rime-predicate-prog-in-code-p
             rime-predicate-hydra-p)))
+
+  (add-hook 'post-command-hook #'change-cursor-color-on-input-method)
 
   (define-key rime-mode-map (kbd "M-i") 'rime-force-enable)
   (define-key rime-active-mode-map (kbd "M-i") 'rime-inline-ascii))

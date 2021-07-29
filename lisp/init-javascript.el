@@ -45,7 +45,9 @@
   (remove-hook 'before-save-hook #'creature-prettier-prettify 'local)
 
   (when (and prettier-mode prettier-version)
-    (add-hook 'before-save-hook #'creature-prettier-prettify nil 'local)))
+    (add-hook 'before-save-hook #'creature-prettier-prettify nil 'local))
+  (when (string-suffix-p ".tsx" buffer-file-name t)
+    (setq-local prettier-parsers '(typescript))))
 
 (defun creature-prettier-setup ()
   "Enable `prettier-mode' selectively."

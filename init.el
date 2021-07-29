@@ -45,6 +45,8 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
             (creature-normalize-gc-cons-threshold)
             (setq file-name-handler-alist default-file-name-handler-alist)
 
+            (setq read-process-output-max (* 1024 1024))
+
             ;; GC automatically when unfocused
             (if (boundp 'after-focus-change-function)
                 (add-function :after after-focus-change-function

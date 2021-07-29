@@ -11,13 +11,6 @@
 (creature/require-package 'lsp-tailwindcss)
 
 (with-eval-after-load 'lsp-ui
-  (setq lsp-ui-doc-enable nil
-        lsp-ui-flycheck-list-position 'bottom
-        lsp-ui-doc-position 'top
-        lsp-ui-doc-alignment 'frame
-        ;; lsp-ui-peek-fontify 'always
-        )
-
   (set-face-attribute 'lsp-ui-sideline-code-action nil :foreground "dark cyan")
   (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
   (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
@@ -42,31 +35,7 @@
                           (lsp-package-ensure 'css-languageserver callback error-callback)))))
 
 (with-eval-after-load 'lsp-mode
-  (setq lsp-restart 'auto-restart
-        lsp-log-io nil
-        lsp-lens-enable t
-        lsp-keep-workspace-alive nil
-        lsp-eldoc-enable-hover t
-
-        lsp-auto-configure t
-        lsp-auto-guess-root t
-        lsp-completion-enable t
-        lsp-completion-provider :capf
-        lsp-enable-indentation nil
-        lsp-enable-folding nil
-        lsp-enable-snippet nil
-        lsp-enable-file-watchers nil
-        lsp-enable-text-document-color nil
-        lsp-enable-on-type-formatting nil
-        lsp-enable-symbol-highlighting t
-
-        lsp-headerline-breadcrumb-enable nil
-        lsp-modeline-code-actions-enable nil
-        lsp-modeline-diagnostics-enable t
-        lsp-modeline-diagnostics-scope :file
-
-        lsp-diagnostic-clean-after-change t
-        )
+  (setq lsp-headerline-breadcrumb-enable nil)
 
   (creature/tailwindcss-setup)
 
@@ -86,7 +55,8 @@
     (make-local-variable 'flycheck-checkers)
     (flycheck-add-next-checker 'lsp 'javascript-eslint)))
 
-(add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init)
+(with-eval-after-load 'lsp-diagnostics
+  (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                   eglot                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

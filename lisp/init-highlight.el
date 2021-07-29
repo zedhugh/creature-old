@@ -10,7 +10,7 @@
 (defvar creature-highlight-indentation t)
 
 (defun highlight-indentation-enable ()
-  (when creature-highlight-indentation
+  (when (and (display-graphic-p) creature-highlight-indentation)
     (condition-case nil
         (progn
           (highlight-indent-guides-mode)

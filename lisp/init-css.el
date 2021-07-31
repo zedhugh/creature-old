@@ -24,9 +24,11 @@
                         (emmet-mode)
                         (creature-prettier-setup))
                       (unless (or so-long-p remote-p)
-                        (lsp-deferred)
-                        (flycheck-mode))))))
-
+                        ;; (lsp-deferred)
+                        ;; (flycheck-mode)
+                        (eglot-ensure)
+                        (flymake-mode-on)
+                        )))))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               Configurations                              ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -5,8 +5,9 @@
 (creature/require-package 'evil)
 
 (with-eval-after-load 'evil
-  ;; (setq evil-undo-system 'undo-redo)
+  (setq evil-undo-system 'undo-tree)
   (evil-set-undo-system 'undo-tree)
+  ;; (evil-set-undo-system 'undo-tree)
   (setcdr evil-insert-state-map nil)
   (evil-global-set-key 'insert [escape] #'evil-normal-state)
   (evil-global-set-key 'visual [escape] #'evil-normal-state)

@@ -4,6 +4,7 @@
 
 (creature/require-package 'cmake-mode)
 (creature/require-package 'vimrc-mode)
+(creature/require-package 'yaml-mode)
 
 ;;; indentation
 ;; indent style

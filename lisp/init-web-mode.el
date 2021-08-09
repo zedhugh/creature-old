@@ -61,6 +61,9 @@
 (add-to-list 'auto-mode-alist '("\\.tsx\\'"  . web-mode))
 
 (with-eval-after-load 'web-mode
+  ;; disable indentation when yanking
+  (setq web-mode-enable-auto-indentation nil)
+
   ;; Indentation
   (setq web-mode-comment-style  1
         web-mode-block-padding  standard-indent

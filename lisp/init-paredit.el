@@ -60,6 +60,7 @@
   (add-hook 'conf-unix-mode-hook #'awesome-pair-mode)
   (add-hook 'conf-windows-mode-hook #'awesome-pair-mode)
   (add-hook 'web-mode-hook #'turn-on-smartparens-mode)
+  (add-hook 'yaml-mode-hook #'awesome-pair-mode)
   nil)
 
 (defun creature/smartparens-setup ()

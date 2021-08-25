@@ -12,6 +12,7 @@
 (autoload 'turn-on-smartparens-mode "smartparens" "" t)
 
 (autoload 'awesome-pair-mode "../site-lisp/awesome-pair/awesome-pair" "" t)
+(autoload 'flymake-posframe-mode "../site-lisp/flymake-posframe" "" t)
 
 (autoload 'server-running-p "server" "" nil)
 (autoload 'server-start "server" "" nil)

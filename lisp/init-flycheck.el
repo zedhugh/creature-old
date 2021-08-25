@@ -54,8 +54,9 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
                      "ex" #'flymake-show-diagnostic
                      "el" #'flymake-show-diagnostics-buffer-and-jump)
 
-  (require 'flymake-diagnostic-at-point)
-  (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode)
+  ;; (require 'flymake-diagnostic-at-point)
+  ;; (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode)
+  (add-hook 'flymake-mode-hook #'flymake-posframe-mode)
 
   (define-key flymake-mode-map (kbd "C-c C-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "C-c C-p") #'flymake-goto-prev-error)

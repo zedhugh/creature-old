@@ -32,8 +32,13 @@
   (when (string-suffix-p ".tsx" buffer-file-name t)
     (setq-local web-mode-auto-quote-style       2
                 web-mode-enable-auto-quoting    nil
-                js-indent-level                 2
-                emmet-expand-jsx-className?     t)))
+                js-indent-level                 2)))
+
+(defun creature-tsx-emmet ()
+  "Deal .tsx file as jsx."
+  (when (string-suffix-p ".tsx" buffer-file-name t)
+    (make-local-variable 'emmet-jsx-major-modes)
+    (push major-mode emmet-jsx-major-modes)))
 
 (defun creature-web-mode-setup ()
   "Configuration collections for `web-mode'."
@@ -77,6 +82,7 @@
   (add-to-list 'web-mode-indentation-params '("lineup-ternary" . nil)))
 
 (add-hook 'web-mode-hook #'creature-web-mode-setup)
+(add-hook 'emmet-mode-hook #'creature-tsx-emmet)
 
 
 (provide 'init-web-mode)

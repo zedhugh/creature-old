@@ -86,7 +86,7 @@
 (setq-default tab-width         4
               indent-tabs-mode  nil)
 
-(mouse-avoidance-mode)
+;; (mouse-avoidance-mode)
 
 ;; Abbrev
 ;; (abbrev-mode)

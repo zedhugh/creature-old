@@ -25,7 +25,7 @@
 
 (defun creature-yasnippet-setup ()
   "Setup yasnippet."
-  (when (and company-mode creature-company-with-yasnippet)
+  (when (and (bound-and-true-p company-mode) creature-company-with-yasnippet)
     (with-current-buffer (buffer-name)
       (run-with-timer 0.5 nil #'creature-handle-company-backends))))
 

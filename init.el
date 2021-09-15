@@ -11,16 +11,6 @@
               (lambda ()
                 (when benchmark (profiler-stop))))))
 
-(defvar creature/dump-load-path nil
-  "Not nil when dumped.")
-
-(when creature/dump-load-path
-  (setq load-path creature/dump-load-path)
-  (global-font-lock-mode)
-  (transient-mark-mode)
-  (rainbow-delimiters-mode)
-  (rainbow-identifiers-mode))
-
 (defvar creature-gc-cons-threshold
   (if (display-graphic-p) (* 64 1024 1024) (* 16 1024 1024))
   "The default value to use for `gc-cons-threshold'.
@@ -52,7 +42,6 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (when creature/dump-load-path (circadian-setup))
             (creature-normalize-gc-cons-threshold)
             (setq file-name-handler-alist default-file-name-handler-alist)
 
@@ -98,8 +87,7 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 (defconst creature/prefix-key "M-m"
   "Prefix key for `creature-map'.")
 
-(unless creature/dump-load-path
-  (define-prefix-command 'creature-map))
+(define-prefix-command 'creature-map)
 
 (add-to-list 'load-path (expand-file-name "lisp" creature/config-dir))
 
@@ -110,30 +98,30 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
   (eq system-type 'windows-nt)
   "If system is Windows return t, therwise return nil.")
 
-(unless creature/dump-load-path
-  (require 'init-autoloads)
-  (require 'init-theme)
-  (require 'init-highlight)
-  (require 'init-modeline)
-  (require 'init-basic)
-  (require 'init-utils)
-  (require 'init-program)
-  (require 'init-file)
-  (require 'init-yasnippet)
-  (require 'init-swiper)
-  (require 'init-misc)
-  (require 'init-org)
-  (require 'init-dired)
-  (require 'init-ibuffer)
-  (require 'init-hydra)
-  (require 'init-tools)
-  (require 'init-media)
-  (require 'init-evil)
-  (require 'init-keybindings)
-  (require 'init-which-key))
 
-(require 'init-company)
+(require 'init-autoloads)
 (require 'init-paredit)
+(require 'init-modeline)
+(require 'init-basic)
+(require 'init-misc)
+(require 'init-utils)
+(require 'init-dired)
+(require 'init-program)
+(require 'init-ibuffer)
+(require 'init-keybindings)
+(require 'init-which-key)
+
+(require 'init-highlight)
+(require 'init-theme)
+(require 'init-file)
+(require 'init-yasnippet)
+(require 'init-swiper)
+(require 'init-org)
+(require 'init-hydra)
+(require 'init-tools)
+(require 'init-media)
+(require 'init-evil)
+(require 'init-company)
 (require 'init-javascript)
 (require 'init-web-mode)
 (require 'init-css)

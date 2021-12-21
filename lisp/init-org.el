@@ -63,15 +63,17 @@
   (setq org-export-with-sub-superscripts '{})
 
   ;; make options configged before work
-  (org-babel-do-load-languages
-   'org-babel-load-languages
-   creature/org-src-enable-lang)
-  (dolist (src2mode creature/org-src-lang-modes)
-    (add-to-list 'org-src-lang-modes src2mode))
+  ;; (org-babel-do-load-languages
+  ;;  'org-babel-load-languages
+  ;;  creature/org-src-enable-lang)
+  ;; (dolist (src2mode creature/org-src-lang-modes)
+  ;;   (add-to-list 'org-src-lang-modes src2mode))
 
-  (define-key org-mode-map (kbd "RET") 'org-return-indent))
+  ;; (define-key org-mode-map (kbd "RET") 'org-return-indent)
+  )
 
 (with-eval-after-load 'ox
+  (setq org-export-preserve-breaks t)
   (require 'ox-hugo))
 
 (provide 'init-org)

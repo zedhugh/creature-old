@@ -13,9 +13,10 @@
   (when (and (display-graphic-p) creature-highlight-indentation)
     (condition-case nil
         (progn
-          (highlight-indent-guides-mode)
           (setq highlight-indent-guides-method      'column
-                highlight-indent-guides-responsive  'top))
+                highlight-indent-guides-responsive  'top)
+          (highlight-indent-guides-mode)
+          (highlight-indent-guides-auto-set-faces))
       (error nil))))
 
 (add-hook 'prog-mode-hook #'highlight-indentation-enable)

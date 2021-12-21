@@ -133,9 +133,7 @@
 
 ;;; magit
 (creature/require-package 'forge)
-(creature/require-package 'gitattributes-mode)
-(creature/require-package 'gitconfig-mode)
-(creature/require-package 'gitignore-mode)
+(creature/require-package 'git-modes)
 
 (with-eval-after-load 'magit
   ;; (require 'forge)

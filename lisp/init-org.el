@@ -41,6 +41,8 @@
 (run-with-idle-timer 10 nil #'creature/org-capture-setup)
 
 (with-eval-after-load 'org
+  ;; (setq org-adapt-indentation t)
+
   ;; show inline image when open org file
   (creature/org-capture-setup)
   (add-hook 'org-mode-hook 'org-display-inline-images)
@@ -63,11 +65,11 @@
   (setq org-export-with-sub-superscripts '{})
 
   ;; make options configged before work
-  ;; (org-babel-do-load-languages
-  ;;  'org-babel-load-languages
-  ;;  creature/org-src-enable-lang)
-  ;; (dolist (src2mode creature/org-src-lang-modes)
-  ;;   (add-to-list 'org-src-lang-modes src2mode))
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   creature/org-src-enable-lang)
+  (dolist (src2mode creature/org-src-lang-modes)
+    (add-to-list 'org-src-lang-modes src2mode))
 
   ;; (define-key org-mode-map (kbd "RET") 'org-return-indent)
   )

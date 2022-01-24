@@ -189,4 +189,9 @@
 
 (creature/set-keys creature-map "v" 'er/expand-region)
 
+(when (eq system-type 'darwin)
+  (creature/require-package 'exec-path-from-shell)
+  (exec-path-from-shell-initialize))
+
+
 (provide 'init-tools)

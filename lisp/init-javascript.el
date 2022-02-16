@@ -74,6 +74,10 @@
                         (eglot-ensure)
                         (flymake-mode-on)
                         )))))
+
+(defun auto-switch-to-text-mode ()
+  (when (> (line-number-at-pos (point-max)) 2000)
+    (text-mode)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                              Connfigurations                              ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -84,6 +88,8 @@
 (add-to-list 'auto-mode-alist '("\\.eslintrc\\'" . json-mode))
 (add-to-list 'interpreter-mode-alist '("node"    . js-mode))
 (add-to-list 'interpreter-mode-alist '("nodejs"  . js-mode))
+
+(add-hook 'json-mode-hook #'auto-switch-to-text-mode)
 
 (with-eval-after-load 'emmet-mode
   (setq emmet-preview-default           nil

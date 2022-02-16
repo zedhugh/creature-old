@@ -7,13 +7,12 @@
 (require 'init-elpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;                                   Packages                                  ;
+;;                                  Packages                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'flycheck)
 (creature/require-package 'flycheck-posframe)
 
 (creature/require-package 'flymake)
-(creature/require-package 'flymake-eslint)
 (creature/require-package 'flymake-diagnostic-at-point)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,14 +60,33 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
   (define-key flymake-mode-map (kbd "C-c C-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "C-c C-p") #'flymake-goto-prev-error)
   (define-key flymake-diagnostics-buffer-mode-map
-    [remap quit-window]
-    (lambda () (interactive) (quit-window t))))
+              [remap quit-window]
+              (lambda () (interactive) (quit-window t))))
+
+(defun flymake-eslint-find-work-dir ()
+  (let ((max-len 0)
+        (curr-len 0)
+        (temp-dir nil)
+        (work-dir nil))
+    (dolist (filename '(".eslintrc"
+                        ".eslintrc.js"
+                        ".eslintrc.cjs"
+                        ".eslintrc.yaml"
+                        ".eslintrc.yml"
+                        ".eslintrc.json"
+                        "package.json"))
+      (setq temp-dir (locate-dominating-file buffer-file-name filename))
+      (when (stringp temp-dir)
+        (setq curr-len (string-bytes (file-truename temp-dir)))
+
+        (when (> curr-len max-len)
+          (setq max-len curr-len
+                work-dir temp-dir))))
+    work-dir))
 
 (defun flymake-eslint-setup ()
   (flymake-eslint-enable)
-  (flymake-mode-on)
-  (setq-local flymake-eslint-project-root
-              (locate-dominating-file buffer-file-name ".eslintrc.js")))
+  (setq-local flymake-eslint-project-root (flymake-eslint-find-work-dir)))
 
 ;; (dolist (hook '(web-mode-hook typescript-mode-hook js-mode-hook))
 ;;   (add-hook hook #'flymake-eslint-setup 90))

@@ -13,6 +13,7 @@
 
 (autoload 'awesome-pair-mode "../site-lisp/awesome-pair/awesome-pair" "" t)
 (autoload 'flymake-posframe-mode "../site-lisp/flymake-posframe" "" t)
+(autoload 'flymake-eslint-enable "../site-lisp/flymake-eslint" "" t)
 
 (autoload 'server-running-p "server" "" nil)
 (autoload 'server-start "server" "" nil)

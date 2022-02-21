@@ -37,21 +37,19 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
   (flycheck-add-mode 'javascript-eslint 'web-mode)
   (add-hook 'flycheck-mode-hook #'flycheck-posframe-setup)
   (define-key flycheck-mode-map (kbd "C-c C-n") #'flycheck-next-error)
-  (define-key flycheck-mode-map (kbd "C-c C-p") #'flycheck-previous-error)
+  (define-key flycheck-mode-map (kbd "C-c C-p") #'flycheck-previous-error))
 
-  (creature/set-keys creature-map
-                     "el" 'creature/toggle-flycheck-error-list
-                     "ex" 'flycheck-display-error-at-point))
+(add-hook 'flycheck-mode-hook
+          (lambda ()
+            (creature/set-keys creature-map
+                               "el" 'creature/toggle-flycheck-error-list
+                               "ex" 'flycheck-display-error-at-point)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  flymake                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (with-eval-after-load 'flymake
   (setq flymake-mode-line-format
         '(" " flymake-mode-line-exception flymake-mode-line-counters))
-
-  (creature/set-keys creature-map
-                     "ex" #'flymake-show-diagnostic
-                     "el" #'flymake-show-diagnostics-buffer-and-jump)
 
   ;; (require 'flymake-diagnostic-at-point)
   ;; (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode)
@@ -62,6 +60,12 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
   (define-key flymake-diagnostics-buffer-mode-map
               [remap quit-window]
               (lambda () (interactive) (quit-window t))))
+
+(add-hook 'flymake-mode-hook
+          (lambda ()
+            (creature/set-keys creature-map
+                               "ex" #'flymake-show-diagnostic
+                               "el" #'flymake-show-diagnostics-buffer-and-jump)))
 
 (defun flymake-eslint-find-work-dir ()
   (let ((max-len 0)

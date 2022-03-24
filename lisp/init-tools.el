@@ -178,6 +178,8 @@
 (creature/require-package 'undo-tree)
 
 (global-undo-tree-mode)
+(setq undo-tree-history-directory-alist
+      `((".*\\'" . ,(file-name-concat creature/cache-dir "undo-tree"))))
 
 (creature/require-package 'youdao-dictionary)
 

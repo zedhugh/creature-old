@@ -20,7 +20,7 @@
 
 ;;; recentf mode - record recently edit file
 (with-eval-after-load 'recentf
-  (setq recentf-max-saved-items 100)
+  (setq recentf-max-saved-items 1000)
   ;; (add-to-list 'recentf-exclude "bookmarks")
   (add-to-list 'recentf-exclude "COMMIT_EDITMSG\\'")
   (add-to-list 'recentf-exclude "node_modules")

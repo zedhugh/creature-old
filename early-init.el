@@ -13,7 +13,7 @@
 (setq frame-inhibit-implied-resize t)
 
 ;; Initialize frame with alpha
-(add-to-list 'default-frame-alist '(alpha . 90))
+(add-to-list 'default-frame-alist '(alpha-background . 85))
 
 ;; Fullscreen Emacs frame. But awesome-wm configure its own rules for Emacs,
 ;; so frame size configuration not need in awesome-wm.

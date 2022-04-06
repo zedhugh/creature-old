@@ -35,7 +35,7 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
 (with-eval-after-load 'flycheck
   ;; (setq flycheck-emacs-lisp-load-path load-path)
   (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (add-hook 'flycheck-mode-hook #'flycheck-posframe-setup)
+  ;; (add-hook 'flycheck-mode-hook #'flycheck-posframe-setup)
   (define-key flycheck-mode-map (kbd "C-c C-n") #'flycheck-next-error)
   (define-key flycheck-mode-map (kbd "C-c C-p") #'flycheck-previous-error))
 
@@ -53,7 +53,7 @@ If the error list is visible, hide it.  Otherwise, show and focus on it."
 
   ;; (require 'flymake-diagnostic-at-point)
   ;; (add-hook 'flymake-mode-hook #'flymake-diagnostic-at-point-mode)
-  (add-hook 'flymake-mode-hook #'flymake-posframe-mode)
+  ;; (add-hook 'flymake-mode-hook #'flymake-posframe-mode)
 
   (define-key flymake-mode-map (kbd "C-c C-n") #'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "C-c C-p") #'flymake-goto-prev-error)

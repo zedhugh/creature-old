@@ -6,7 +6,7 @@
 (creature/require-package 'company-posframe)
 
 (global-company-mode)
-(company-posframe-mode)
+;; (company-posframe-mode)
 
 (with-eval-after-load 'company-posframe
   (setq company-posframe-show-metadata nil

@@ -3,16 +3,8 @@
 (require 'init-elpa)
 
 (creature/require-package 'company)
-(creature/require-package 'company-posframe)
 
 (global-company-mode)
-;; (company-posframe-mode)
-
-(with-eval-after-load 'company-posframe
-  (setq company-posframe-show-metadata nil
-        company-posframe-show-indicator nil
-        company-posframe-quickhelp-delay 0.4
-        company-posframe-quickhelp-show-header nil))
 
 (defun creature-company-hide-then-show-snippet ()
   "Hide current completions and show snippets."
@@ -32,13 +24,13 @@
         company-tooltip-align-annotations t)
 
   (define-key company-active-map (kbd "C-c c")
-    #'creature-company-hide-then-show-snippet)
+              #'creature-company-hide-then-show-snippet)
   (define-key company-active-map (kbd "C-n")
-    #'company-complete-common-or-cycle)
+              #'company-complete-common-or-cycle)
   (define-key company-active-map (kbd "C-p")
-    (defun creature/company-select-prev ()
-      (interactive)
-      (company-complete-common-or-cycle -1)))
+              (defun creature/company-select-prev ()
+                (interactive)
+                (company-complete-common-or-cycle -1)))
   (define-key company-mode-map (kbd "C-;") #'company-yasnippet)
   (define-key company-mode-map (kbd "C-'") #'company-files))
 

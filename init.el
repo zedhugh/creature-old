@@ -123,8 +123,8 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 (require 'init-evil)
 (require 'init-company)
 (require 'init-javascript)
-(require 'init-tree-sitter)
 (require 'init-web-mode)
+(require 'init-tsx)
 (require 'init-css)
 
 (with-eval-after-load 'gnus

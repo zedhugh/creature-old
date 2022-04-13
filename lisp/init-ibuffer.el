@@ -14,7 +14,7 @@
          ("JavaScript" (or
                         (mode . js-mode)
                         (mode . js-jsx-mode)))
-         ("TSX" (and (mode . web-mode)
+         ("TSX" (or (mode . typescript-tsx-mode)
                      (basename . "^.*\\.tsx$")))
          ("Web" (mode . web-mode))
 

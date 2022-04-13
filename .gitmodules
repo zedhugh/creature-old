@@ -1,3 +1,6 @@
 [submodule "awesome-pair"]
 	path = site-lisp/awesome-pair
 	url = https://github.com/manateelazycat/awesome-pair.git
+[submodule "tsi"]
+	path = site-lisp/tsi
+	url = https://github.com/orzechowskid/tsi.el.git

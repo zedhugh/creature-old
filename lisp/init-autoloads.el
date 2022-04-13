@@ -12,6 +12,7 @@
 (autoload 'turn-on-smartparens-mode "smartparens" "" t)
 
 (autoload 'awesome-pair-mode "../site-lisp/awesome-pair/awesome-pair" "" t)
+(autoload 'tsi-typescript-mode "../site-lisp/tsi/tsi-typescript" "" t)
 
 (autoload 'server-running-p "server" "" nil)
 (autoload 'server-start "server" "" nil)

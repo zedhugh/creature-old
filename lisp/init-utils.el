@@ -118,7 +118,6 @@
     (setq key (pop bindings)
           def (pop bindings))))
 
-(provide 'init-utils)
 
 (defun flymake-show-diagnostics-buffer-and-jump ()
   (interactive)
@@ -133,3 +132,6 @@
   "Detect current file is a remote file."
   (when (featurep 'tramp)
     (tramp-tramp-file-p buffer-file-name)))
+
+
+(provide 'init-utils)

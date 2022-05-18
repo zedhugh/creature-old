@@ -24,9 +24,8 @@
     (emacs-lisp . t))
   "Enabled lang in org src code block.")
 
-(when creature/sys-win32p
-  (with-eval-after-load 'org-pomodoro
-    (setq org-pomodoro-audio-player "mplayer")))
+(with-eval-after-load 'org-pomodoro
+  (setq org-pomodoro-audio-player "mpv"))
 
 ;; 保存链接
 (defun creature/org-capture-setup ()

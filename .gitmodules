@@ -4,3 +4,6 @@
 [submodule "tsi"]
 	path = site-lisp/tsi
 	url = https://github.com/orzechowskid/tsi.el.git
+[submodule "lsp-bridge"]
+	path = site-lisp/lsp-bridge
+	url = https://github.com/manateelazycat/lsp-bridge.git

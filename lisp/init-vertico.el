@@ -19,7 +19,8 @@
 (with-eval-after-load 'corfu
   (setq corfu-auto t
         corfu-auto-delay 0.05
-        corfu-auto-prefix 2)
+        corfu-auto-prefix 2
+        corfu-quit-no-match t)
   (define-key corfu-map (kbd "SPC") #'corfu-insert-separator)
   (global-set-key (kbd "C-'") #'cape-file))
 

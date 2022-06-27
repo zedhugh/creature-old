@@ -158,14 +158,6 @@
 (creature/require-package 'rg)
 (add-hook 'emacs-startup-hook #'rg-enable-default-bindings)
 
-(creature/require-package 'projectile)
-(creature/require-package 'counsel-projectile)
-
-(with-eval-after-load 'projectile
-  (global-set-key (kbd "C-c p") #'projectile-command-map))
-
-(projectile-mode)
-
 (creature/require-package 'avy)
 
 (define-key global-map (kbd "M-g w") #'avy-goto-word-1)

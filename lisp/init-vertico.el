@@ -21,7 +21,9 @@
         corfu-auto-delay 0.05
         corfu-auto-prefix 2
         corfu-quit-no-match t)
-  (define-key corfu-map (kbd "SPC") #'corfu-insert-separator)
+  (creature/set-keys corfu-map
+                     "SPC" #'corfu-insert-separator
+                     "M-SPC" #'corfu-quick-complete)
   (global-set-key (kbd "C-'") #'cape-file))
 
 (setq completion-styles '(orderless basic partial-completion flex)

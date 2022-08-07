@@ -153,11 +153,8 @@
 (setq undo-tree-history-directory-alist
       `((".*\\'" . ,(expand-file-name "undo-tree" creature/cache-dir))))
 
-(creature/require-package 'youdao-dictionary)
-
-(creature/set-keys creature-map
-                   "ys" 'youdao-dictionary-search-at-point
-                   "yp" 'youdao-dictionary-play-voice-at-point)
+(creature/require-package 'sdcv)
+(creature/set-keys creature-map "s" 'sdcv-search-pointer)
 
 (creature/require-package 'expand-region)
 

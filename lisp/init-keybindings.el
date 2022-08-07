@@ -20,7 +20,6 @@
 ;; (define-key special-mode-map (kbd creature/prefix-key) 'creature-map)
 
 (creature/set-keys creature-map
-                   ;; evil-leader/set-key
                    "bb" 'switch-to-buffer
                    "bd" 'kill-current-buffer
                    "be" 'eval-buffer

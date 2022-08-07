@@ -18,11 +18,11 @@
                                             t
                                           'bar))))))
 
-(dolist (hook '(prog-mode-hook
-                text-mode-hook
-                conf-unix-mode-hook
-                conf-windows-mode-hook))
-  (add-hook hook #'creature/cursor-style))
+;; (dolist (hook '(prog-mode-hook
+;;                 text-mode-hook
+;;                 conf-unix-mode-hook
+;;                 conf-windows-mode-hook))
+;;   (add-hook hook #'creature/cursor-style))
 
 ;; Do not blink cursor
 (blink-cursor-mode -1)

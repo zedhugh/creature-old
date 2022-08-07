@@ -51,22 +51,6 @@
         toggle-input-method
         yank
 
-        evil-append
-        evil-backward-char
-        evil-backward-word-begin
-        evil-delete
-        evil-forward-char
-        evil-forward-word-begin
-        evil-forward-word-end
-        evil-insert
-        evil-next-line
-        evil-normal-state
-        evil-open-below
-        evil-previous-line
-        evil-replace
-        evil-scroll-down
-        evil-scroll-page-down
-        evil-visual-line
         mwim-beginning-of-code-or-line
         mwim-end-of-code-or-line
 
@@ -119,12 +103,8 @@
   (setq rime-posframe-style 'simple)
   (setq rime-posframe-fixed-position t)
   (setq rime-disable-predicates
-        (if (featurep 'evil)
-            '(rime-predicate-prog-in-code-p
-              rime-predicate-evil-mode-p
-              rime-predicate-hydra-p)
-          '(rime-predicate-prog-in-code-p
-            rime-predicate-hydra-p)))
+        '(rime-predicate-prog-in-code-p
+          rime-predicate-hydra-p))
 
   (add-hook 'post-command-hook #'change-cursor-color-on-input-method)
 

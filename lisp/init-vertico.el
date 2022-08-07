@@ -9,6 +9,7 @@
 (creature/require-package 'embark)
 (creature/require-package 'corfu)
 (creature/require-package 'cape)
+(creature/require-package 'corfu-doc)
 
 (marginalia-mode 1)
 
@@ -16,6 +17,7 @@
 (vertico-indexed-mode 1)
 
 (global-corfu-mode 1)
+(add-hook 'corfu-mode-hook #'corfu-doc-mode)
 (with-eval-after-load 'corfu
   (setq corfu-auto t
         corfu-auto-delay 0.05

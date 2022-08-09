@@ -3,25 +3,6 @@
 (require 'init-elpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                          Highlight iindent guides                         ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(creature/maybe-require-package 'highlight-indent-guides)
-
-(defvar creature-highlight-indentation t)
-
-(defun highlight-indentation-enable ()
-  (when (and (display-graphic-p) creature-highlight-indentation)
-    (condition-case nil
-        (progn
-          (setq highlight-indent-guides-method      'column
-                highlight-indent-guides-responsive  'top)
-          (highlight-indent-guides-mode)
-          (highlight-indent-guides-auto-set-faces))
-      (error nil))))
-
-(add-hook 'prog-mode-hook #'highlight-indentation-enable)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                               Symbol-overlay                              ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'symbol-overlay)

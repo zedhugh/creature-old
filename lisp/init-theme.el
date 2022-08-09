@@ -51,13 +51,5 @@ if FRAME is nil, setup for current frame."
   (circadian-setup))
 ;; (add-hook 'server-after-make-frame-hook #'circadian-setup)
 
-;; page break lines
-(creature/require-package 'page-break-lines)
 
-(global-page-break-lines-mode)
-(with-eval-after-load 'page-break-lines
-  (setq page-break-lines-char ?=)
-  (dolist (mode '(web-mode css-mode js-mode typescript-mode c-mode c++-mode))
-    (add-to-list 'page-break-lines-modes mode)))
-
 (provide 'init-theme)

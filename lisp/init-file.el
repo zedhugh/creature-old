@@ -30,7 +30,6 @@
 
 
 (creature/require-package 'lua-mode)
-(creature/require-package 'company-lua)
 
 (defun creature/lua-company-setup ()
   (set (make-local-variable 'company-backends)
@@ -38,7 +37,6 @@
 (add-hook 'lua-mode-hook #'creature/lua-company-setup)
 
 (creature/require-package 'nginx-mode)
-(creature/require-package 'company-nginx)
 
 (defun creature/nginx-company-setup ()
   (set (make-local-variable 'company-backends)

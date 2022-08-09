@@ -2,8 +2,6 @@
 
 (require 'init-elpa)
 
-(creature/require-package 'smartparens)
-
 (delete-selection-mode)
 
 (electric-pair-mode)
@@ -63,22 +61,6 @@
   (add-hook 'yaml-mode-hook #'awesome-pair-mode)
   nil)
 
-(defun creature/smartparens-setup ()
-  (with-eval-after-load 'smartparens
-    (define-key smartparens-mode-map (kbd "C-k") 'sp-kill-hybrid-sexp)
-    (define-key smartparens-mode-map (kbd "C-d") 'sp-delete-char)
-    (define-key smartparens-mode-map (kbd "M-D") 'sp-delete-word)
-    (define-key smartparens-mode-map (kbd "M-{") 'sp-wrap-curly)
-    (define-key smartparens-mode-map (kbd "M-[") 'sp-wrap-square)
-    (define-key smartparens-mode-map (kbd "M-(") 'sp-wrap-round)
-    (define-key smartparens-mode-map (kbd "M-)") 'sp-unwrap-sexp))
-
-  (smartparens-global-mode))
-
-(with-eval-after-load 'smartparens
-  (require 'smartparens-config))
-
-;; (creature/smartparens-setup)
 (creature/awesome-pair-setup)
 
 (provide 'init-paredit)

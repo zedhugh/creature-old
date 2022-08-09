@@ -8,7 +8,7 @@
       package-user-dir (concat creature/config-dir "elpa-" emacs-version)
       package-gnupghome-dir (concat creature/config-dir "elpa-" emacs-version "/gnupg")
 
-      package-quickstart nil
+      package-quickstart t
       package-quickstart-file (concat creature/config-dir "package-quickstart-" emacs-version ".el")
 
       package-archives

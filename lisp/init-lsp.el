@@ -3,61 +3,6 @@
 (require 'init-elpa)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                  lsp-mode                                 ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(creature/require-package 'lsp-mode)
-(creature/require-package 'lsp-ui)
-(creature/require-package 'lsp-treemacs)
-(creature/require-package 'lsp-tailwindcss)
-
-(with-eval-after-load 'lsp-ui
-  (set-face-attribute 'lsp-ui-sideline-code-action nil :foreground "dark cyan")
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peek-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references))
-
-(defun creature/tailwindcss-setup ()
-  "Setup tailwindcss."
-  (setq lsp-tailwindcss-add-on-mode t)
-  ;; avoid this issue: https://github.com/tailwindlabs/tailwindcss-intellisense/issues/318
-  ;; issue fixed
-  ;; (setq lsp-tailwindcss-server-version "0.5.10")
-  (require 'lsp-tailwindcss))
-
-(with-eval-after-load 'lsp-css
-  (lsp-register-client
-   (make-lsp-client
-    :new-connection (lsp-stdio-connection #'lsp-css--server-command)
-    :activation-fn (lsp-activate-on "scss")
-    :priority -1
-    :action-handlers (lsp-ht ("_css.applyCodeAction" #'lsp-css--apply-code-action))
-    :server-id 'css-ls
-    :download-server-fn (lambda (_client callback error-callback _update?)
-                          (lsp-package-ensure 'css-languageserver callback error-callback)))))
-
-(with-eval-after-load 'lsp-mode
-  (setq lsp-headerline-breadcrumb-enable nil)
-
-  (creature/tailwindcss-setup)
-
-  (add-to-list 'lsp-language-id-configuration '(js-jsx-mode . "javascriptreact"))
-
-  (define-key lsp-mode-map (kbd "C-c r") #'lsp-rename)
-  (define-key lsp-mode-map (kbd "C-c o") #'lsp-execute-code-action))
-
-(with-eval-after-load 'company
-  ;; sort candidates
-  (add-to-list 'company-transformers #'company-sort-prefer-same-case-prefix))
-
-(defun creature/lsp-eslint-checker-init ()
-  (when (and flycheck-mode
-             (flycheck-valid-checker-p 'lsp)
-             (flycheck-valid-checker-p 'javascript-eslint))
-    (make-local-variable 'flycheck-checkers)
-    (flycheck-add-next-checker 'lsp 'javascript-eslint)))
-
-(with-eval-after-load 'lsp-diagnostics
-  (add-hook 'lsp-diagnostics-mode-hook #'creature/lsp-eslint-checker-init))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                   eglot                                   ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'eglot)

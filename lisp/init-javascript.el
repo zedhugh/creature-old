@@ -69,8 +69,6 @@
                       (unless so-long-p
                         (creature-prettier-setup))
                       (unless (or so-long-p remote-p json-p)
-                        ;; (lsp-deferred)
-                        ;; (flycheck-mode)
                         (eglot-ensure)
                         (flymake-mode-on)
                         )))))

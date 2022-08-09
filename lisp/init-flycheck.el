@@ -9,35 +9,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  Packages                                 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(creature/require-package 'flycheck)
-
 (creature/require-package 'flymake)
 (creature/require-package 'flymake-eslint)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                                 flycheck                                  ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defun creature/toggle-flycheck-error-list ()
-  "Toggle flycheck's error list window.
-If the error list is visible, hide it.  Otherwise, show and focus on it."
-  (interactive)
-  (-if-let (window (flycheck-get-error-list-window))
-      (quit-window nil window)
-    (flycheck-list-errors)
-    (switch-to-buffer-other-window flycheck-error-list-buffer)))
-
-(with-eval-after-load 'flycheck
-  ;; (setq flycheck-emacs-lisp-load-path load-path)
-  (flycheck-add-mode 'javascript-eslint 'web-mode)
-  (define-key flycheck-mode-map (kbd "C-c C-n") #'flycheck-next-error)
-  (define-key flycheck-mode-map (kbd "C-c C-p") #'flycheck-previous-error))
-
-(add-hook 'flycheck-mode-hook
-          (lambda ()
-            (creature/set-keys creature-map
-                               "el" 'creature/toggle-flycheck-error-list
-                               "ex" 'flycheck-display-error-at-point)))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  flymake                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

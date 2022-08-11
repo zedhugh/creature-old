@@ -53,8 +53,12 @@
     work-dir))
 
 (defun flymake-eslint-setup ()
-  (flymake-eslint-enable)
-  (setq-local flymake-eslint-project-root (flymake-eslint-find-work-dir)))
+  (when (or (string-suffix-p ".tsx" buffer-file-name t)
+            (string-suffix-p ".ts" buffer-file-name t)
+            (string-suffix-p ".jsx" buffer-file-name t)
+            (string-suffix-p ".js" buffer-file-name t))
+    (flymake-eslint-enable)
+    (setq-local flymake-eslint-project-root (flymake-eslint-find-work-dir))))
 
 ;; (dolist (hook '(web-mode-hook typescript-mode-hook js-mode-hook))
 ;;   (add-hook hook #'flymake-eslint-setup 90))

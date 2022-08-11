@@ -26,13 +26,6 @@
   (setq eglot-confirm-server-initiated-edits nil
         eglot-autoshutdown t)
 
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) . ("clangd")))
-  (add-to-list 'eglot-server-programs
-               '((css-mode scss-mode less-css-mode) . ("css-languageserver" "--stdio")))
-
-  (add-to-list 'eglot-server-programs
-               '((js-mode typescript-mode web-mode) . ("typescript-language-server" "--stdio")))
-
   (define-key eglot-mode-map (kbd "M-.") #'xref-find-definitions)
   (define-key eglot-mode-map (kbd "M-?") #'xref-find-references)
   (define-key eglot-mode-map (kbd "C-c r") #'eglot-rename)

@@ -15,6 +15,8 @@
 
 (setq backward-delete-char-untabify-method 'hungry)
 (global-set-key (kbd "DEL") 'backward-delete-char-untabify)
+(global-set-key (kbd "C-x k") #'kill-this-buffer)
+(global-set-key (kbd "C-x K") #'kill-buffer)
 
 (global-set-key (kbd creature/prefix-key) 'creature-map)
 ;; (define-key special-mode-map (kbd creature/prefix-key) 'creature-map)

@@ -15,10 +15,10 @@
       smtpmail-smtp-service 587
       gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
-(setq send-mail-function 'smtpmail-send-it        ;设置邮件发送方法
+(setq send-mail-function 'smtpmail-send-it         ;设置邮件发送方法
       message-send-mail-function 'smtpmail-send-it ;设置消息发送方法
-      mail-specify-envelope-from t     ;发送邮件时指定信封来源
-      mail-envelope-from 'header)      ;信封来源于 header
+      mail-specify-envelope-from t      ;发送邮件时指定信封来源
+      mail-envelope-from 'header)       ;信封来源于 header
 
 (setq gnus-expert-user t)
 (setq gnus-asynchronous t)

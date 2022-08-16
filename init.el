@@ -125,8 +125,7 @@ If freezing sometimes, decrease it. If stuttering, increase it.")
 (require 'init-tsx)
 (require 'init-css)
 
-(with-eval-after-load 'gnus
-  (require 'init-mail))
+(require 'init-mail)
 
 ;; (org-babel-load-file (expand-file-name "creature.org" user-emacs-directory))
 

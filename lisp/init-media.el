@@ -17,7 +17,7 @@
   (setq emms-lyrics-dir "/home/zedhugh/.lyrics"))
 
 (with-eval-after-load 'emms-source-file
-  (setq emms-source-file-default-directory "/var/lib/mpd/music"))
+  (setq emms-source-file-default-directory "/home/zedhugh/music"))
 
 (with-eval-after-load 'emms-playlist-mode
   (define-key emms-playlist-mode-map (kbd "=") #'emms-volume-raise))

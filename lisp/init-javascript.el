@@ -7,7 +7,7 @@
 (require 'init-elpa)
 (require 'init-utils)
 (require 'init-lsp)
-(require 'init-flycheck)
+(require 'init-flymake)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  Packages                                 ;;

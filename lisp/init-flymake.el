@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;                            Flycheck and Flymake                           ;;
+;;                                  Flymake                                  ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'init-elpa)
@@ -11,6 +11,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (creature/require-package 'flymake)
 (creature/require-package 'flymake-eslint)
+(creature/require-package 'eslint-disable-rule)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;                                  flymake                                  ;;
@@ -53,10 +54,7 @@
     work-dir))
 
 (defun flymake-eslint-setup ()
-  (when (or (string-suffix-p ".tsx" buffer-file-name t)
-            (string-suffix-p ".ts" buffer-file-name t)
-            (string-suffix-p ".jsx" buffer-file-name t)
-            (string-suffix-p ".js" buffer-file-name t))
+  (when (derived-mode-p 'js-mode 'typescript-mode)
     (flymake-eslint-enable)
     (setq-local flymake-eslint-project-root (flymake-eslint-find-work-dir))))
 
@@ -64,4 +62,4 @@
 ;;   (add-hook hook #'flymake-eslint-setup 90))
 
 
-(provide 'init-flycheck)
+(provide 'init-flymake)

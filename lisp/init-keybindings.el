@@ -44,7 +44,41 @@
                    "qq" 'save-buffers-kill-terminal
 
                    "SPC" 'execute-extended-command)
+
+;;; window operations
+(creature/require-package 'transient)
 
+(transient-define-prefix creature/transient-window ()
+  "Show menu buffer for window operations."
+  :transient-suffix 'transient--do-stay
+  :transient-non-suffix 'transient--do-warn
+  [["Jump"
+    ("d" "Window down" windmove-down)
+    ("u" "Window up" windmove-up)
+    ("l" "Window left" windmove-left)
+    ("r" "Window right" windmove-right)
+    ("p" "Window Previous" (lambda ()
+                             (interactive)
+                             (other-window -1))
+     )
+    ("n" "Window next" other-window)]
+
+   ["Size reset"
+    ("{" "Height shrink" shrink-window)
+    ("}" "Height enlarge" enlarge-window)
+    ("[" "Width shrink" shrink-window-horizontally)
+    ("]" "Width enlarge" enlarge-window-horizontally)
+    ("=" "Banlance" balance-windows :transient nil)]
+
+   ["Operation"
+    ("-" "Split below" split-window-below)
+    ("/" "Split right" split-window-right)
+    ("m" "Delete Others" delete-other-windows :transient nil)
+    ("k" "Delete window" delete-window)
+    ]])
+
+(creature/set-keys creature-map "w" 'creature/transient-window)
+
 ;; (when sys/win32p
 ;;   ;; (w32-register-hot-key [s-t])
 ;;   (setq-default w32-apps-modifier 'hyper)

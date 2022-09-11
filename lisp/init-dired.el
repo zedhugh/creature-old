@@ -1,7 +1,7 @@
 ;; -*- coding: utf-8; lexical-binding: t; -*-
 
 (with-eval-after-load 'dired
-  (require 'dired-x)
+  ;; (require 'dired-x)
   (setq dired-dwim-target t)
 
   ;; show file size human readable

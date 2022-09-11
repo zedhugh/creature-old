@@ -51,7 +51,7 @@
 (transient-define-prefix creature/transient-window ()
   "Show menu buffer for window operations."
   :transient-suffix 'transient--do-stay
-  :transient-non-suffix 'transient--do-warn
+  :transient-non-suffix 'transient--do-exit
   [["Jump"
     ("d" "Window down" windmove-down)
     ("u" "Window up" windmove-up)
